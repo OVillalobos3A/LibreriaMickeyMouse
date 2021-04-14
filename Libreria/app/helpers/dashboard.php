@@ -8,8 +8,6 @@ class Public_Page {
         <html lang="es">
           <head>
             <meta charset="utf-8">
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-            <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <!--Importar Google Icon Font-->
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">            
             <!--Importar css propio-->   
