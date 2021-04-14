@@ -10,27 +10,27 @@ Public_Page::headerTemplate('libreria');
         <h5 class="white-text Texto">Gestión de Productos</h5><br><br>
       </div>       
       <div class="col s8 m8 l8">
-          <div class="row">
-              <form class="col s12">
-                <div class="row">
-                  <div class="input-field col s12">
-                    <i class="material-icons prefix white-text">search</i>
-                    <!--TextBox Producto-->
-                    <textarea id="icon_prefix2" class="materialize-textarea white-text"></textarea>
-                    <label for="icon_prefix2">Buscar Producto</label>
-                  </div>
-                </div>
-              </form>
-          </div>           
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix white-text">search</i>
+                <!--TextBox Producto-->
+                <textarea id="icon_prefix2" class="materialize-textarea white-text"></textarea>
+                <label for="icon_prefix2">Buscar Producto</label>
+              </div>
+            </div>
+          </form>
+        </div>           
       </div>
       <div class="col s4 m4 l4">
-          <!--Combobox Tipo del producto-->
-          <label class="Texto">Tipo del Producto</label>
-          <select class="browser-default Texto">                
-            <option class="Texto" value="" disabled selected>Todos</option>
-            <!--Tipos de Productos-->
-            <option id="tipoi" class="black-text" value="1">tipo[i]</option>
-          </select>
+        <!--Combobox Tipo del producto-->
+        <label class="Texto">Tipo del Producto</label>
+        <select class="browser-default Texto">                
+          <option class="Texto" value="" disabled selected>Todos</option>
+          <!--Tipos de Productos-->
+          <option id="tipoi" class="black-text" value="1">tipo[i]</option>
+        </select>
       </div>
 </section>
 <section>
