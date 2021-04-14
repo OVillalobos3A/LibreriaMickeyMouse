@@ -15,6 +15,7 @@ class Public_Page {
           <!--Importar css propio-->   
           <link type="text/css" rel="stylesheet" href="../resources/css/libreria.css"/>
           <!--Css Extras-->
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
           <link type="text/css" rel="stylesheet"  href="../resources/extras/noUiSlider-14.6.3/distribute/nouislider.css">
           <!--Para que sea resposivo-->
           <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -176,7 +177,8 @@ class Public_Page {
               
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="../resources/js/materialize.js"></script> 
-        <script type="text/javascript" src="../app/controllers/libreria.js"></script>                
+        <script type="text/javascript" src="../app/controllers/libreria.js"></script>  
+        <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>                 
       </body>
     </html>
    ');
