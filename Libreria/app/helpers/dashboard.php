@@ -1,6 +1,6 @@
 <?php
-//Clase para definir las plantillas de las páginas web del sitio público
-class Public_Page {
+//Clase para definir la plantilla  del dasboard
+class Dashboard_Page {
   //Método para imprimir el encabezado y establecer el titulo del documento
   public static function headerTemplate($title) {
     print('
@@ -177,8 +177,49 @@ class Public_Page {
               
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="../resources/js/materialize.js"></script> 
-        <script type="text/javascript" src="../app/controllers/libreria.js"></script>  
-        <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>                 
+        <script type="text/javascript" src="../app/controllers/libreria.js"></script> 
+        <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>   
+        <script src="../app/controllers/'.$controller.'"></script>
+        <script type="text/javascript">
+            function GuardarRegistro(){
+              swal({
+                  text: "¡Se ha realizado correctamente el registro!",
+                  icon: "success",
+                })
+                .then((willDelete) => {
+                });
+            }            
+        </script> 
+        <script type="text/javascript">
+          function ActualizarRegistro(){
+              swal({
+                  text: "¡Su registro ha sido actualizado con exito!",
+                  icon: "success",
+                })
+                .then((willDelete) => {
+                });
+          }            
+        </script>
+        <script type="text/javascript">
+          function EliminarRegistro(){
+            swal({
+                title: "¿Estas seguro de realizar esta acción?",
+                text: "Una vez eliminado, no podrá recuperar este registro!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+              })
+              .then((willDelete) => {
+                if (willDelete) {
+                  swal("¡Su registro ha sido eliminado con exito!", {
+                    icon: "success",
+                  });
+                } else {
+                  swal("La operacion ha sido cancelada!");
+                }
+              });
+          }            
+      </script>
       </body>
     </html>
    ');

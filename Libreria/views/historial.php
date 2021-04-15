@@ -1,6 +1,6 @@
 <?php
 include("../app/helpers/dashboard.php");
-Public_Page::headerTemplate('Gestión de entradas');
+Dashboard_Page::headerTemplate('Gestión de entradas');
 ?>
 <br>
 <br>
@@ -144,5 +144,5 @@ Public_Page::headerTemplate('Gestión de entradas');
 
 <?php
 //Se imprime la plantilla del pie y se envía el nombre del controlador para la página web
-Public_Page::footerTemplate();
+Dashboard_Page::footerTemplate();
 ?>
