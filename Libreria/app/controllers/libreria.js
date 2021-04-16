@@ -95,5 +95,6 @@
     
     window.addEventListener('scroll',AnimatedScrollUp);
 
-    
-    
+
+
+
