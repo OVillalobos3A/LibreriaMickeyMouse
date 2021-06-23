@@ -35,51 +35,24 @@ Dashboard_Page::headerTemplate('Proveedores');
                         <form class="col-md-4">
                             <div class="row">
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <select>
-                                        <optgroup label="Empleados">
-                                            <option value="1">Oscar Villanueva</option>
-                                            <option value="2">Carlos Adonay</option>
-                                        </optgroup>
-                                    </select>
-                                    <label>Empleado</label>
+                                <div class="input-field col s12 m6">
+                                    <input id="nombres" type="text" class="validate">
+                                    <label for="nombres">Nombre del proveedor</label>
                                 </div>
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <select>
-                                        <optgroup label="Tipo de Usuario">
-                                            <option value="1">Administrador</option>
-                                            <option value="2">Root</option>
-                                            <option value="3">Gerente</option>
-                                        </optgroup>
-                                    </select>
-                                    <label>Tipo de usuarios</label>
+                                <div class="input-field col s12 m6">
+                                    <input id="apellidos" type="text" class="validate">
+                                    <label for="apellidos">Dirección</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <input id="nombre" type="text" class="validate">
-                                    <label for="nombre">Nombre</label>
+                                <div class="input-field col s12 m6">
+                                    <input id="correo" type="text" class="validate">
+                                    <label for="correo">Correo</label>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <input id="Correo" type="text" class="validate">
-                                    <label for="Correo">Correo</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <input id="direcc" type="text" class="validate">
-                                    <label for="direcc">Dirección</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s12 m6">
                                     <input id="telefono" type="text" class="validate">
                                     <label for="telefono">Teléfono</label>
                                 </div>
@@ -105,51 +78,24 @@ Dashboard_Page::headerTemplate('Proveedores');
                         <form class="col-md-4">
                             <div class="row">
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <select>
-                                        <optgroup label="Empleados">
-                                            <option value="1">Oscar Villanueva</option>
-                                            <option value="2">Carlos Adonay</option>
-                                        </optgroup>
-                                    </select>
-                                    <label>Empleado</label>
+                                <div class="input-field col s12 m6">
+                                    <input id="nombres" type="text" class="validate">
+                                    <label for="nombres">Nombre del proveedor</label>
                                 </div>
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <select>
-                                        <optgroup label="Tipo de Usuario">
-                                            <option value="1">Administrador</option>
-                                            <option value="2">Root</option>
-                                            <option value="3">Gerente</option>
-                                        </optgroup>
-                                    </select>
-                                    <label>Tipo de usuarios</label>
+                                <div class="input-field col s12 m6">
+                                    <input id="apellidos" type="text" class="validate">
+                                    <label for="apellidos">Dirección</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <input id="nombre" type="text" class="validate">
-                                    <label for="nombre">Nombre</label>
+                                <div class="input-field col s12 m6">
+                                    <input id="correo" type="text" class="validate">
+                                    <label for="correo">Correo</label>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <input id="Correo" type="text" class="validate">
-                                    <label for="Correo">Correo</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
-                                    <input id="direcc" type="text" class="validate">
-                                    <label for="direcc">Dirección</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s12 m6">
                                     <input id="telefono" type="text" class="validate">
                                     <label for="telefono">Teléfono</label>
                                 </div>
