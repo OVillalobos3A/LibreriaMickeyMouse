@@ -50,6 +50,15 @@ class Validator
         return $fields;
     }
 
+    public function validateGen($value)
+    {
+        if ($value == "M" || $value == "F") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Método para validar un numero natural como por ejemplo llave primaria, llave foránea, entre otros.
     *
