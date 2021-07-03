@@ -177,7 +177,7 @@ class Usuarios extends Validator
     */
     public function checkUser($alias)
     {
-        $sql = 'SELECT id_usuario FROM public."tbUsuarios" WHERE nick_usuario = ?';
+        $sql = 'SELECT id_usuario FROM public.usuarios WHERE usuario = ?';
         $params = array($alias);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
@@ -190,10 +190,10 @@ class Usuarios extends Validator
 
     public function checkPassword($password)
     {
-        $sql = 'SELECT clave_usuario FROM public."tbUsuarios" WHERE id_usuario = ?';
+        $sql = 'SELECT "contraseña" FROM public.usuarios WHERE id_usuario = ?';
         $params = array($this->id);
         $data = Database::getRow($sql, $params);
-        if (password_verify($password, $data['clave_usuario'])) {
+        if (password_verify($password, $data['contraseña'])) {
             return true;
         } else {
             return false;

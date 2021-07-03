@@ -11,6 +11,7 @@ class Usuarios_crud extends Validator
     private $id = null;
     public $usuario = null;
     private $clave = null;
+    private $correo = null;
     private $empleado = null;
     private $tipo_usuario = null;
     private $estado = null;    
@@ -45,6 +46,16 @@ class Usuarios_crud extends Validator
     {
         if ($this->validatePassword($value)) {
             $this->clave = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setCorreo($value)
+    {
+        if ($this->validateEmail($value)) {
+            $this->correo = $value;
             return true;
         } else {
             return false;
@@ -105,6 +116,11 @@ class Usuarios_crud extends Validator
     public function getClave()
     {
         return $this->clave;
+    }
+
+    public function getCorreo()
+    {
+        return $this->correo;
     }
 
     public function getEmpleado()

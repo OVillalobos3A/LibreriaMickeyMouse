@@ -1,5 +1,5 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_USUARIOS = '../app/api/usuarios.php?action=';
+const API_USUARIOS = '../app/api/registro.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-/*// Método manejador de eventos que se ejecuta cuando se envía el formulario de iniciar sesión.
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de iniciar sesión.
 document.getElementById('session-form').addEventListener('submit', function (event) {
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
@@ -42,7 +42,7 @@ document.getElementById('session-form').addEventListener('submit', function (eve
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    sweetAlert(1, response.message, 'dashboard.php');
+                    sweetAlert(1, response.message, 'graficas.php');
                 } else {
                     sweetAlert(2, response.exception, null);
                 }
@@ -53,4 +53,4 @@ document.getElementById('session-form').addEventListener('submit', function (eve
     }).catch(function (error) {
         console.log(error);
     });
-});*/
+});

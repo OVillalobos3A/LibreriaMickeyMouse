@@ -15,23 +15,27 @@ Dashboard_Page::headerTemplate('Log In');
 						<span>Ingresa tus credenciales</span>
 						<br><br>
 						<div class="row">
-							<form class="col s12">
-								<div class="row">
-									<!--Texbox Email-->
-									<div class="input-field col s12 m12 l12">
-										<input id="correo" type="email" class="validate">
-										<label for="correo">Correo</label>										
+							<form method="post" id="session-form" action="#">
+								<div class="col s12">
+									<div class="row">
+										<!--Texbox Email-->
+										<div class="input-field col s12 m12 l12">
+											<input id="user" name="user" type="text" class="validate">
+											<label for="user">Usuario</label>										
+										</div>
+										<!--Texbox Password-->
+										<div class="input-field col s12 m12 l12">
+											<input id="pass" name="pass" type="password" class="validate">
+											<label for="pass">Contraseña</label>										
+										</div>
 									</div>
-									<!--Texbox Password-->
-									<div class="input-field col s12 m12 l12">
-										<input id="pass" type="password" class="validate">
-										<label for="pass">Contraseña</label>										
+									<div class="row">
+										<button type="submit" class="btn black waves-effect waves-light hoverable col s12">Iniciar Sesión</button><br><br>
+										<a href="recu_contra.php">Olvide mi Contraseña</a>
 									</div>
-								</div>								  
+								</div>																  
 							</form>
 						</div>
-						<a class="btn black waves-effect waves-light hoverable col s12" href="graficas.php">Iniciar Sesión</a><br><br>
-						<a href="recu_contra.php">Olvide mi Contraseña</a>
 					</div>       
 				</div>
 			</div>

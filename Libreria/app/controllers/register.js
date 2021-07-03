@@ -1,10 +1,8 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_USUARIOS = '../app/api/usuarios.php?action=';
+const API_USUARIOS = '../app/api/registro.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
-    // Se inicializa el componente Tooltip asignado al botón del formulario para que funcione la sugerencia textual.
-    M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 
     // Petición para verificar si existen usuarios.
     fetch(API_USUARIOS + 'readAll', {
@@ -26,10 +24,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }).catch(function (error) {
         console.log(error);
     });
+
+        // Se declara e inicializa un objeto para obtener la fecha y hora actual.
+    let today = new Date();
+    // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
+    let day = ('0' + today.getDate()).slice(-2);
+    // Se declara e inicializa una variable para guardar el mes en formato de 2 dígitos.
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    // Se declara e inicializa una variable para guardar el año con la mayoría de edad.
+    let year = today.getFullYear() - 18;
+    // Se declara e inicializa una variable para establecer el formato de la fecha.
+    let date = `${year}-${month}-${day}`;
+    // Se asigna la fecha como valor máximo en el campo del formulario.
+    document.getElementById('fecha').setAttribute('max', date);
+    
+    var elems = document.getElementById('fecha');
+    var instances = M.Datepicker.init(elems, {maxDate: date});
 });
 
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de registrar.
 document.getElementById('register-form').addEventListener('submit', function (event) {
+    document.getElementById('tipo').removeAttribute('disabled');
     // Se evita recargar la página web después de enviar el formulario.
     event.preventDefault();
 
