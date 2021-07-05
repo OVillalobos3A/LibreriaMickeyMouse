@@ -5,17 +5,19 @@ Dashboard_Page::headerTemplate('Venta');
 <br>
 <br>
 <div class="container">
-    <div class="card whithe">
+    <div class="card white rad">
         <div class="card-content Black-text">
             <!--Colocamos el titulo de la card-->
             <span class="card-title center-align"><b>Gestión de venta</b></span>
             <br>
             <!--Agregamos un botón cuya función es que nos mueste el formulario para agregar-->
             <!--un registro-->
-            <div class="col s6">
-                <a class="waves-effect yellow darken-3 btn modal-trigger" href="#modal_registro">
+            <div class="col s6 pad-nav">                
+                <a class="waves-effect amber accent-4 btn modal-trigger" href="#modal_registro">
                     <i class="material-icons left">add</i>Agregar productos
-                </a>
+                </a>          
+                <p class="right">N° de Factura: 0</p><br>
+                <p class="right">Fecha: fecha[i]</p><br> 
             </div>
             <br>
             <!-- Modal Structure -->
@@ -43,7 +45,7 @@ Dashboard_Page::headerTemplate('Venta');
                             <th>Precio</th>
                             <th>Imagen</th>
                             <th>Cantidad</th>
-                            <th>Accion</th>
+                            <th>Acción</th>
                         </tr>
                         </thead>
 
@@ -54,11 +56,11 @@ Dashboard_Page::headerTemplate('Venta');
                             <th><img class="responsive-img" src="../resources/img/tabla/ccaja.jpg"></th>
                             <th>
                                 <div class="input-field col s12">
-                                    <input type="number" min="0" max="100" stpe="1" VALUE="0" SIZE="6" class="center-align">
+                                    <input type="number" min="1" max="5" stpe="1" VALUE="1" SIZE="6" class="center-align">
                                 </div>
                             </th>
                             <th>
-                                <a class="btn-floating btn waves-effect waves yellow darken-3 modal-close" href="#"><i class="material-icons" title="Añadir producto">add</i></a>
+                                <a class="btn-floating btn waves-effect waves amber accent-4 modal-close" href="#"><i class="material-icons" title="Añadir producto">add</i></a>
                             </th>
                         </tr>
                         <tr>
@@ -67,11 +69,11 @@ Dashboard_Page::headerTemplate('Venta');
                             <th><img class="responsive-img" src="../resources/img/tabla/ccaja.jpg"></th>
                             <th>
                                 <div class="input-field col s12">
-                                    <input type="number" min="0" max="100" stpe="1" VALUE="0" SIZE="6" class="center-align">
+                                    <input type="number" min="1" max="20" stpe="1" VALUE="1" SIZE="6" class="center-align">
                                 </div>
                             </th>
                             <th>
-                                <a class="btn-floating btn waves-effect waves yellow darken-3 modal-close" href="#"><i class="material-icons" title="Añadir producto">add</i></a>
+                                <a class="btn-floating btn waves-effect waves amber accent-4 modal-close" href="#"><i class="material-icons" title="Añadir producto">add</i></a>
                             </th>
                         </tr>
                         <tr>
@@ -80,11 +82,11 @@ Dashboard_Page::headerTemplate('Venta');
                             <th><img class="responsive-img" src="../resources/img/tabla/ccaja.jpg"></th>
                             <th>
                                 <div class="input-field col s12">
-                                    <input type="number" min="0" max="100" stpe="1" VALUE="0" SIZE="6" class="center-align">
+                                    <input type="number" min="1" max="2" stpe="1" VALUE="1" SIZE="6" class="center-align">
                                 </div>
                             </th>
                             <th>
-                                <a class="btn-floating btn waves-effect waves yellow darken-3 modal-close" href="#"><i class="material-icons" title="Añadir producto">add</i></a>
+                                <a class="btn-floating btn waves-effect waves amber accent-4 modal-close" href="#"><i class="material-icons" title="Añadir producto">add</i></a>
                             </th>
                         </tr>
                         </tbody>
@@ -97,7 +99,7 @@ Dashboard_Page::headerTemplate('Venta');
             </div>
             <div class="row">
                 <div class="col s12">
-                  <div class="card white">
+                  <div class="card white rad">
                     <div class="card-content black-text">
                       <span class="card-title">Listado de productos</span>
                       <br>
@@ -119,7 +121,7 @@ Dashboard_Page::headerTemplate('Venta');
                                 <td>5</td>
                                 <td>$17.50</td>
                                 <th>
-                                    <a class="btn-floating btn waves-effect waves yellow darken-3" href="#"><i class="material-icons" title="Remover producto">remove</i></a>
+                                    <a class="btn-floating btn waves-effect waves red accent-4" href="#"><i class="material-icons" title="Remover producto">delete</i></a>
                                 </th>
                             </tr>
                             <tr>
@@ -128,7 +130,7 @@ Dashboard_Page::headerTemplate('Venta');
                                 <td>1</td>
                                 <td>$5.99</td>
                                 <th>
-                                    <a class="btn-floating btn waves-effect waves yellow darken-3" href="#"><i class="material-icons" title="Remover producto">remove</i></a>
+                                    <a class="btn-floating btn waves-effect waves red accent-4" href="#"><i class="material-icons" title="Remover producto">delete</i></a>
                                 </th>
                             </tr>
                             
@@ -140,19 +142,24 @@ Dashboard_Page::headerTemplate('Venta');
             </div>
             <div class="row">
                 <div class="col s12 center-align">
-                    <a class="waves-effect red btn-large"><i class="material-icons right">calculate</i>Calcular total</a>
+                    <a class="waves-effect red accent-4 btn-large"><i class="material-icons left">calculate</i>Calcular total</a>
                 </div>
             </div>
             <div class="row" id="ocultable1">
-                <div class="col s12 m6">
-                  <div class="card yellow darken-3">
-                    <div class="card-content white-text">
+                <div class="col s12 m12 l12">
+                  <div class="card white rad">
+                    <div class="card-content black-text">
                       <h6>Subtotal: $17.50 </h6>
                       <h6>Impuestos(iva): $2.01</h5>
                       <h6>Total: $19.51</h6>
                       <br>
                     </div>
                   </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 right-align">
+                    <a class="waves-effect amber accent-4 btn-large"><i class="material-icons left">sd_storage</i>Guardar</a>
                 </div>
             </div>
             <!--Se construye la tabla de datos correspondiente a entradas-->
