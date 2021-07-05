@@ -164,7 +164,6 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = 'Usuario inexistente';
                     }
-                
                 break;
             case 'delete':
                 if ($_POST['id_usuario'] != $_SESSION['id_usuario']) {

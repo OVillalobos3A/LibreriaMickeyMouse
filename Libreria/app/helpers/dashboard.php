@@ -93,7 +93,7 @@ class Dashboard_Page {
                   viewBox="0 0 172 172"
                   style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path><g><path d="M37.26667,84.56667c0,26.94667 21.78667,48.73333 48.73333,48.73333c26.94667,0 48.73333,-21.78667 48.73333,-48.73333c0,-26.94667 -21.78667,-48.73333 -48.73333,-48.73333c-26.94667,0 -48.73333,21.78667 -48.73333,48.73333" fill="#ffffff"></path><path d="M86,141.9c-31.53333,0 -57.33333,-25.8 -57.33333,-57.33333c0,-31.53333 25.8,-57.33333 57.33333,-57.33333c13.47333,0 26.66,4.87333 36.98,13.76l-7.45333,8.6c-8.02667,-7.16667 -18.63333,-10.89333 -29.52667,-10.89333c-25.22667,0 -45.86667,20.64 -45.86667,45.86667c0,25.22667 20.64,45.86667 45.86667,45.86667z" fill="#cccccc"></path><path d="M86,141.9c-31.53333,0 -57.33333,-25.8 -57.33333,-57.33333c0,-13.47333 4.87333,-26.66 13.76,-36.98l8.6,7.45333c-7.16667,8.02667 -10.89333,18.63333 -10.89333,29.52667c0,25.22667 20.64,45.86667 45.86667,45.86667c25.22667,0 45.86667,-20.64 45.86667,-45.86667c0,-25.22667 -20.64,-45.86667 -45.86667,-45.86667v-11.46667c31.53333,0 57.33333,25.8 57.33333,57.33333c0,31.53333 -25.8,57.33333 -57.33333,57.33333z" fill="#000000"></path><path d="M94.6,50.16667l-22.93333,-17.2l22.93333,-17.2z" fill="#000000"></path><path d="M68.8,58.76667l5.16,-2.58l14.62,27.23333l-5.16,2.58z" fill="#000000"></path><path d="M83.70667,82.27333l4.87333,4.87333l-14.90667,14.62l-4.87333,-4.87333z" fill="#000000"></path><path d="M80.26667,84.56667c0,3.15333 2.58,5.73333 5.73333,5.73333c3.15333,0 5.73333,-2.58 5.73333,-5.73333c0,-3.15333 -2.58,-5.73333 -5.73333,-5.73333c-3.15333,0 -5.73333,2.58 -5.73333,5.73333" fill="#000000"></path><path d="M83.13333,84.56667c0,1.72 1.14667,2.86667 2.86667,2.86667c1.72,0 2.86667,-1.14667 2.86667,-2.86667c0,-1.72 -1.14667,-2.86667 -2.86667,-2.86667c-1.72,0 -2.86667,1.14667 -2.86667,2.86667" fill="#000000"></path></g></g></svg></i></a></li>
 
-                  <li><a href="index.php" class="Subtitulos white-text">Cerrar Sesión<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                  <li><a  onclick="logOut()" class="Subtitulos white-text">Cerrar Sesión<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                   width="30" height="30"
                   viewBox="0 0 172 172"
                   style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g><path d="M86,14.33333c-39.58041,0 -71.66667,32.08626 -71.66667,71.66667c0,39.58041 32.08626,71.66667 71.66667,71.66667c39.58041,0 71.66667,-32.08626 71.66667,-71.66667c0,-39.58041 -32.08626,-71.66667 -71.66667,-71.66667z" fill="#ffffff"></path><path d="M86,157.66667c16.125,0 30.81667,-5.375 42.64167,-14.33333c-2.15,-27.23333 -29.38333,-32.25 -29.38333,-32.25l-13.25833,2.86667l-13.25833,-2.86667c0,0 -27.23333,5.01667 -29.38333,32.25c11.825,8.95833 26.51667,14.33333 42.64167,14.33333z" fill="#000000"></path><path d="M86,132.58333c11.10833,0 20.06667,-8.24167 21.14167,-18.99167c-3.225,-1.43333 -5.73333,-2.15 -7.16667,-2.50833c0,7.88333 -6.45,13.975 -14.33333,13.975c-7.88333,0 -14.33333,-6.45 -14.33333,-13.975c-1.43333,0.35833 -3.94167,1.075 -7.16667,2.50833c1.79167,10.75 10.75,18.99167 21.85833,18.99167z" fill="#000000"></path><path d="M114.66667,80.625c0,2.86667 -2.50833,5.375 -5.375,5.375c-2.86667,0 -5.375,-2.50833 -5.375,-5.375c0,-2.86667 2.50833,-5.375 5.375,-5.375c2.86667,0 5.375,2.50833 5.375,5.375M68.08333,80.625c0,-2.86667 -2.50833,-5.375 -5.375,-5.375c-2.86667,0 -5.375,2.50833 -5.375,5.375c0,2.86667 2.50833,5.375 5.375,5.375c2.86667,0 5.375,-2.50833 5.375,-5.375" fill="#000000"></path><path d="M86,125.41667c-14.33333,0 -14.33333,-14.33333 -14.33333,-14.33333v-14.33333h28.66667v14.33333c0,0 0,14.33333 -14.33333,14.33333z" fill="#000000"></path><path d="M111.08333,67.00833c0,-21.14167 -50.16667,-13.61667 -50.16667,0v15.76667c0,13.61667 11.10833,24.725 25.08333,24.725c13.975,0 25.08333,-11.10833 25.08333,-24.725z" fill="#000000"></path><path d="M86,39.41667c-17.55833,0 -28.66667,15.40833 -28.66667,29.38333v6.45l7.16667,7.16667v-14.33333l32.96667,-10.75l10.03333,10.75v14.33333l7.16667,-7.16667v-2.86667c0,-11.46667 -2.86667,-24.36667 -17.2,-27.23333l-2.86667,-5.73333z" fill="#000000"></path><path d="M93.16667,78.83333c0,-2.15 1.43333,-3.58333 3.58333,-3.58333c2.15,0 3.58333,1.43333 3.58333,3.58333c0,2.15 -1.43333,3.58333 -3.58333,3.58333c-2.15,0 -3.58333,-1.43333 -3.58333,-3.58333M71.66667,78.83333c0,2.15 1.43333,3.58333 3.58333,3.58333c2.15,0 3.58333,-1.43333 3.58333,-3.58333c0,-2.15 -1.43333,-3.58333 -3.58333,-3.58333c-2.15,0 -3.58333,1.43333 -3.58333,3.58333" fill="#000000"></path></g></g></svg></i></a></li>
@@ -162,16 +162,14 @@ class Dashboard_Page {
     */
     public static function footerTemplate($controller)
     {   
-        // Se obtiene el nombre del archivo de la página web actual.
-        $filename = basename($_SERVER['PHP_SELF']);
         // Se comprueba si existe una sesión de administrador para imprimir el pie respectivo del documento.
         if (isset($_SESSION['id_usuario'])) {          
             $scripts = '
                 <!--JavaScript at end of body for optimized loading-->
-                <script type="text/javascript" src="../app/controller/libreria.js"></script>
                 <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
                 <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>                
                 <script type="text/javascript" src="../app/controllers/account.js"></script>
+                <script type="text/javascript" src="../app/controllers/initialization.js"></script>
                 <script type="text/javascript" src="../app/controllers/' . $controller . '"></script>
                 <script type="text/javascript" src="../app/helpers/components.js"></script>
             ';
@@ -247,15 +245,21 @@ class Dashboard_Page {
             ';
         } else {
             $scripts = '
+                <script type="text/javascript" src="../app/controllers/account.js"></script>
                 <script type="text/javascript" src="../resources/js/materialize.js"></script>
                 <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
                 <script type="text/javascript" src="../app/helpers/components.js"></script>
                 <script type="text/javascript" src="../app/controllers/' . $controller . '"></script>
-                <script type="text/javascript" src="../app/controllers/libreria.js"></script> 
             ';
             $links = '';
             $content='
                     </main>
+                    <footer class="page-footer black">
+                        <ul id="DropdownAdmin" class="dropdown-content">
+                            <li><a href="proveedor.php" class="Texto grey-text text-darken-4">Proveedores</a></li>
+                            <li><a href="marca.php" class="Texto grey-text text-darken-4">Marcas</a></li>
+                        </ul>
+                    </footer>
                     ' . $scripts . '
                 </body>
             </html>

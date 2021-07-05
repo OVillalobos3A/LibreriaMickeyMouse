@@ -101,6 +101,82 @@ function saveRow(api, action, form, modal) {
     });
 }
 
+function saveRowUser(api, action, form, modal) {
+    fetch(api + action, {
+        method: 'post',
+        body: new FormData(document.getElementById(form))
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    // Se cierra la caja de dialogo (modal) del formulario.
+                    let instance = M.Modal.getInstance(document.getElementById(modal));
+                    instance.close();
+                    readRows2(api);
+                    sweetAlert(1, response.message, null);
+                } else {
+                    sweetAlert(2, response.exception, null);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function readRows2(api) {
+    fetch(api + 'openName', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    let content = '';
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se crean y concatenan las tarjetas con los datos de cada categoría.
+                        content += `
+                        <div class="center-align">
+                        <img class="circle" height="100" src="../resources/img/empleados/${row.imagen}">
+                        </div>
+                        <div class="center-align">
+                            <a class="waves-effect yellow darken-3 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil" onclick="openUpdateProfile(${row.empleado})">account_circle</i>Perfil</a>
+                            <a class="waves-effect yellow darken-3 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales" onclick="openUpdateCredentials(${row.id_usuario})">pin</i>Credenciales</a>
+                        </div>
+                        <div class="card white">
+                            <!--Defiendo el contenido de la card que contendrá las gráficas-->
+                            <div class="card-content black-text">
+                                <!--Definiendo el nombre del encabezado-->
+                                <h3 class="center-align Titulos yellow-text text-darken-3">${row.usuario}</h3>
+                                <h5 class="center-align Text">Estas son las novedades:</h5>
+                                <!--Definiendo el panel número 1 para almacenar las gráficas-->
+                                <!--En este caso solo son imagenes-->
+                            </div>
+                        </div>
+                        `;
+                    });
+                    // Se agregan las tarjetas a la etiqueta div mediante su id para mostrar las categorías.
+                    document.getElementById('datos').innerHTML = content;
+                    // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
+                    M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+                } else {
+                    
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
 /*
 *   Función para eliminar un registro seleccionado en los mantenimientos de tablas (operación delete). Requiere el archivo sweetalert.min.js para funcionar.
 *
