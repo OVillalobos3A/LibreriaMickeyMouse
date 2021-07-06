@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function fillTable(dataset) {
     let content = '';
     // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-    dataset.map(function (row) {        
+    dataset.map(function (row) {
         // Se crean y concatenan las filas de la tabla con los datos de cada registro.
         content += `
             <tr>                
@@ -29,7 +29,19 @@ function fillTable(dataset) {
         `;
     });
     // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
-    document.getElementById('tbody-rows').innerHTML = content;    
+    document.getElementById('tbody-rows').innerHTML = content;
+
+    if ($.fn.dataTable.isDataTable('#myTable')) {
+        table = $('#myTable').DataTable();
+    }
+    else {
+        table = $('#myTable').DataTable({
+            searching: false,
+            ordering: false,
+            "lengthChange": false,
+            "pageLength": 5
+        });
+    }
     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }
@@ -63,7 +75,7 @@ function openUpdateDialog(id) {
     let instance = M.Modal.getInstance(document.getElementById('save-modal'));
     instance.open();
     // Se asigna el título para la caja de dialogo (modal).
-    document.getElementById('modal-title').textContent = 'Actualizar usuario';   
+    document.getElementById('modal-title').textContent = 'Actualizar usuario';
 
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
@@ -79,7 +91,7 @@ function openUpdateDialog(id) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-                    document.getElementById('id_usuario').value = response.dataset.id_usuario;                    
+                    document.getElementById('id_usuario').value = response.dataset.id_usuario;
                     document.getElementById('usuario').value = response.dataset.usuario;
                     document.getElementById('estado').value = response.dataset.estado;
                     fillSelect(ENDPOINT_EMPLEADOS, 'empleado', response.dataset.id_empleado);

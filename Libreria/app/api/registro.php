@@ -175,29 +175,64 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Nombres incorrectos';
                 }
                 break;
-            case 'logIn':
-                $_POST = $usuario->validateForm($_POST);
-                if ($usuario->checkUser($_POST['user'])) {
-                    if ($usuario->checkPassword($_POST['pass'])) {
-                        $result['status'] = 1;
-                        $result['message'] = 'Autenticación correcta';
-                        $_SESSION['id_usuario'] = $usuario->getId();
-                        $_SESSION['alias_usuario'] = $usuario->getAlias();
+                case 'logIn':
+                    $_POST = $usuario->validateForm($_POST);
+                    if ($usuario->checkUser($_POST['user'])) {                        
+                        if ($usuario->checkPassword($_POST['pass'])) {
+                            $usuario->checkPrimerUso($_POST['user']);
+                            if ($usuario->getPrimer_uso() == 2) {
+                            $result['status'] = 1;
+                            $result['message'] = 'Autenticación correcta';
+                            $_SESSION['id_usuario'] = $usuario->getId();
+                            $_SESSION['alias_usuario'] = $usuario->getAlias();
+                            }
+                            else {
+                                $result['status'] = 2;
+                                $result['message'] = 'Se debe modificar la contraseña por defecto';
+                                $_SESSION['alias_usuario'] = $usuario->getAlias();
+                            }
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                $result['exception'] = 'Clave incorrecta';
+                            }
+                        }
                     } else {
                         if (Database::getException()) {
                             $result['exception'] = Database::getException();
                         } else {
-                            $result['exception'] = 'Clave incorrecta';
+                            $result['exception'] = 'Alias incorrecto';
                         }
                     }
-                } else {
-                    if (Database::getException()) {
-                        $result['exception'] = Database::getException();
-                    } else {
-                        $result['exception'] = 'Alias incorrecto';
-                    }
-                }
-                break;
+                    break;
+                    case 'changePass':
+                        $_POST = $usuario->validateForm($_POST);
+                       // if ($usuario->setId($_POST['id_usuario'])) {
+                            
+                                if ($usuario->setAlias($_SESSION['alias_usuario'])) {                                    
+                                        if ($_POST['contra'] == $_POST['contra2']) {                                            
+                                                if ($usuario->setClave($_POST['contra'])) {
+                                                    if ($usuario->recuContra()) {
+                                                        $result['status'] = 1;
+                                                        $result['message'] = 'Credenciales actualizadas correctamente';
+                                                    } else {
+                                                        $result['exception'] = Database::getException();
+                                                    }
+                                                } else {
+                                                    $result['exception'] = $usuario->getPasswordError();
+                                                }                                            
+                                        } else {
+                                            $result['exception'] = 'Contraseñas diferentes';
+                                        }                                    
+                                } else {
+                                    $result['exception'] = 'Alias incorrecto';
+                                }
+                           // } else {
+                             //   $result['exception'] = 'Usuario inexistente';
+                            //}
+                       
+                        break;
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }

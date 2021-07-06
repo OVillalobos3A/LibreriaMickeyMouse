@@ -24,6 +24,17 @@ if (isset($_GET['action'])) {
                 }
             }
             break;
+            case 'readCount':
+                if ($result['dataset'] = $empl->readCount()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No existen registros.';
+                    }
+                }
+                break;
         case 'readOne':
             if ($empl->setId($_POST['id_empleado'])) {
                 if ($result['dataset'] = $empl->readOne()) {

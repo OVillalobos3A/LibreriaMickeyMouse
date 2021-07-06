@@ -15,6 +15,7 @@ class Usuarios extends Validator
     private $direccion = null;
     private $estado = null;
     private $dui = null;
+    private $primer_uso = null;
 
     /*
     *   Métodos para asignar valores a los atributos.
@@ -23,6 +24,16 @@ class Usuarios extends Validator
     {
         if ($this->validateNaturalNumber($value)) {
             $this->id = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setPrimer_uso($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->primer_uso = $value;
             return true;
         } else {
             return false;
@@ -171,6 +182,11 @@ class Usuarios extends Validator
     {
         return $this->dui;
     }
+    
+    public function getPrimer_uso()
+    {
+        return $this->primer_uso;
+    } 
 
     /*
     *   Métodos para gestionar la cuenta del usuario.
@@ -181,6 +197,20 @@ class Usuarios extends Validator
         $params = array($alias);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
+            $this->alias = $alias;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function checkPrimerUso($alias)
+    {
+        $sql = 'SELECT primer_uso FROM public.usuarios WHERE usuario = ?';
+        $params = array($alias);
+        if ($data = Database::getRow($sql, $params)) {
+            //$this->primer_uso = $data['primer_uso'];
+            $this->setPrimer_uso($data['primer_uso']);
             $this->alias = $alias;
             return true;
         } else {
@@ -264,6 +294,16 @@ class Usuarios extends Validator
         $sql = 'DELETE FROM public."tbUsuarios"
                 WHERE id_usuario = ?';
         $params = array($this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function recuContra()
+    {
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE usuarios
+                SET contraseña = ?, primer_uso = ?
+                WHERE usuario = ?';
+        $params = array($hash, 2, $this->alias);
         return Database::executeRow($sql, $params);
     }
 }

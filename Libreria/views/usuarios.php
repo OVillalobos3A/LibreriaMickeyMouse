@@ -35,7 +35,7 @@ Dashboard_Page::headerTemplate('Usuarios');
             </div>
             <!-- Modal Structure -->
             <!--Se construye la tabla de datos correspondiente a entradas-->
-            <table class="responsive-table striped">
+            <table id="myTable" class="responsive-table striped">
                 <thead>
                     <tr>
                         <th>Empleado</th>

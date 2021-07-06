@@ -16,6 +16,7 @@ class Usuarios_crud extends Validator
     private $tipo_usuario = null;
     private $estado = null;    
     private $codigo = null;
+    private $primer_uso = null;
 
 
 
@@ -25,6 +26,16 @@ class Usuarios_crud extends Validator
     {
         if ($this->validateNaturalNumber($value)) {
             $this->id = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setPrimer_uso($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->primer_uso = $value;
             return true;
         } else {
             return false;
@@ -143,6 +154,11 @@ class Usuarios_crud extends Validator
         return $this->codigo;
     } 
 
+    public function getPrimer_uso()
+    {
+        return $this->primer_uso;
+    } 
+
     //Métodos para realizar las operaciones SCRUD (search, create, read, update, delete).
     public function searchRows($value)
     {
@@ -156,12 +172,11 @@ class Usuarios_crud extends Validator
     }
 
     public function createRow()
-    {
-        
+    {   $this->primer_uso = 1;     
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
-        $sql = 'INSERT INTO usuarios(usuario, contraseña, estado, id_empleado, id_tipo_usuario)
-                VALUES(?, ?, ?, ?, ?)';
-        $params = array($this->usuario, $hash, $this->estado, $this->empleado, $this->tipo_usuario);
+        $sql = 'INSERT INTO usuarios(usuario, contraseña, estado, id_empleado, id_tipo_usuario, primer_uso)
+                VALUES(?, ?, ?, ?, ?, ?)';
+        $params = array($this->usuario, $hash, $this->estado, $this->empleado, $this->tipo_usuario, $this->primer_uso);
         return Database::executeRow($sql, $params);
     }
 
@@ -170,7 +185,7 @@ class Usuarios_crud extends Validator
         $sql = 'SELECT id_usuario, usuario, usuarios.estado, empleados.nombre, tipo_usuario
                 FROM usuarios INNER JOIN empleados USING(id_empleado)
                 INNER JOIN tipo_usuario USING(id_tipo_usuario)
-                where usuarios.id_tipo_usuario = 2 or usuarios.id_tipo_usuario = 3
+                where usuarios.id_tipo_usuario > 1
                 ORDER BY usuario';
         $params = null;
         return Database::getRows($sql, $params);

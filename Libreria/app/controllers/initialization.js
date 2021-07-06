@@ -13,4 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
     // Se inicializa el componente Modal para que funcionen las cajas de dialogo.
     M.Modal.init(document.querySelectorAll('.modal'));
+    
 });
+
+// Se inicializa el componente Modal para que funcionen los select.
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });

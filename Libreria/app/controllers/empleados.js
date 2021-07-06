@@ -16,21 +16,21 @@ document.addEventListener('DOMContentLoaded', function () {
     let date = `${year}-${month}-${day}`;
     // Se asigna la fecha como valor máximo en el campo del formulario.
     document.getElementById('fecha').setAttribute('max', date);
-
 });
-    // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
-    function fillTable(dataset) {
-        let content = '';
-        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-        dataset.map(function (row) {
-            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
-            content += `
+
+// Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
+function fillTable(dataset) {
+    let content = '';
+    // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+    dataset.map(function (row) {
+        // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+        content += `
           <tr>
               <td>${row.nombre}</td>
               <td>${row.apellido}</td>
               <td>${row.telefono}</td>
               <td>${row.correo}</td>              
-              <td>${row.genero}</td>
+              
               <td>${row.dui}</td>
               <td>${row.estado}</td>
               <td><img src="../resources/img/empleados/${row.imagen}" class="materialboxed" height="100"></td>              
@@ -40,13 +40,25 @@ document.addEventListener('DOMContentLoaded', function () {
               </td>
           </tr>
       `;
-        });
-        document.getElementById('tbody-rows').innerHTML = content;
-        // Se inicializa el componente Material Box asignado a las imagenes para que funcione el efecto Lightbox.
-        M.Materialbox.init(document.querySelectorAll('.materialboxed'));
-        // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
-        M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+    });
+    document.getElementById('tbody-rows').innerHTML = content;
+    
+    if ($.fn.dataTable.isDataTable('#myTable')) {
+        table = $('#myTable').DataTable();
     }
+    else {
+        table = $('#myTable').DataTable({
+            searching: false,
+            ordering: false,
+            "lengthChange": false,
+            "pageLength": 5
+        });
+    }
+    // Se inicializa el componente Material Box asignado a las imagenes para que funcione el efecto Lightbox.
+    M.Materialbox.init(document.querySelectorAll('.materialboxed'));
+    // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
+    M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+}
 
 
 document.getElementById('search-form').addEventListener('submit', function (event) {

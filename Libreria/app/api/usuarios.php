@@ -256,10 +256,16 @@ if (isset($_GET['action'])) {
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->checkUser($_POST['alias'])) {
                     if ($usuario->checkPassword($_POST['clave'])) {
+                        if ($usuario->getPrimer_uso() == 2) {
                         $result['status'] = 1;
                         $result['message'] = 'Autenticación correcta';
                         $_SESSION['id_usuario'] = $usuario->getId();
                         $_SESSION['alias_usuario'] = $usuario->getAlias();
+                        }
+                        else {
+                            $result['status'] = 2;
+                            $result['message'] = 'Se debe modificar la contraseña por defecto';
+                        }
                     } else {
                         if (Database::getException()) {
                             $result['exception'] = Database::getException();

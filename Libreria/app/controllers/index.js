@@ -41,9 +41,13 @@ document.getElementById('session-form').addEventListener('submit', function (eve
         if (request.ok) {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                if (response.status) {
+                if (response.status == 1) {
                     sweetAlert(1, response.message, 'graficas.php');
-                } else {
+                } 
+                else if (response.status == 2) {
+                    sweetAlert(3, response.message, 'primer_uso.php');
+                } 
+                else {
                     sweetAlert(2, response.exception, null);
                 }
             });

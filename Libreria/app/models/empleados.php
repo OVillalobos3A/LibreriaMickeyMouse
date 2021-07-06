@@ -201,7 +201,7 @@ class Empleados_crud extends Validator
 
     public function readAll()
     {
-        $sql = 'SELECT id_empleado, nombre, apellido, correo, dui, telefono, genero, fecha_nac, estado, imagen
+        $sql = 'SELECT id_empleado, nombre, apellido, correo, dui, telefono, genero, fecha_nac, empleados.estado, imagen
                 FROM empleados';
         $params = null;
         return Database::getRows($sql, $params);
@@ -237,6 +237,16 @@ class Empleados_crud extends Validator
         }
     }
 
+    public function readCount()
+    {
+        $sql = 'SELECT Count(id_empleado) as numero
+                FROM empleados';
+        $params = null;
+        return Database::getRow($sql, $params);
+    }
+
+    
+
     public function updateRow($current_image)
     {
         // Se verifica si existe una nueva imagen para borrar la actual, de lo contrario se mantiene la actual.
@@ -255,65 +265,6 @@ class Empleados_crud extends Validator
                 WHERE id_empleado = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
-    }
-
-    //Métodos para la edición del perfil:
-    public function readEmfileds()
-    {
-        $sql = 'SELECT usuarios.id_empleado as emp, nombre, apellido, correo, telefono, imagen, usuarios.id_usuario, usuario
-                FROM usuarios INNER JOIN empleados ON usuarios.id_empleado = empleados.id_empleado
-                WHERE usuarios.id_usuario = ?';
-        $params = array($_SESSION['id_usuario']);
-        return Database::getRow($sql, $params);
-    }
-
-    public function updateRowProfile($current_image)
-    {
-        // Se verifica si existe una nueva imagen para borrar la actual, de lo contrario se mantiene la actual.
-        ($this->imagen) ? $this->deleteFile($this->getRuta(), $current_image) : $this->imagen = $current_image;
-        $sql = 'UPDATE empleados 
-                SET nombre = ?, apellido = ?, correo = ?, telefono = ?, imagen = ?
-                WHERE id_empleado = ?';
-        $params = array($this->nombre, $this->apellido, $this->correo, $this->tel, $this->imagen, $this->id);
-        return Database::executeRow($sql, $params);
-    }
-
-    public function updateUserCredentials()
-    {
-        // Se encripta la clave por medio del algoritmo bcrypt que genera un string de 60 caracteres.
-        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
-        $sql = 'UPDATE usuarios 
-                SET usuario = ?, contraseña = ?
-                WHERE id_usuario = ?';
-        $params = array($this->alias, $hash, $this->id);
-        return Database::executeRow($sql, $params);
-    }
-
-    public function updateUserCredentials2()
-    {
-        $sql = 'UPDATE usuarios 
-                SET usuario = ?
-                WHERE id_usuario = ?';
-        $params = array($this->alias, $this->id);
-        return Database::executeRow($sql, $params);
-    }
-
-    public function readOne1()
-    {
-        $sql = "SELECT usuarios.id_usuario as emp, usuarios.id_empleado as empleado, nombre, apellido, imagen, CONCAT('¡BIENVENID@!', ' ', usuario) as usuario
-                FROM usuarios INNER JOIN empleados ON usuarios.id_empleado = empleados.id_empleado
-                WHERE usuarios.id_usuario = ?";
-        $params = array($_SESSION['id_usuario']);
-        return Database::getRows($sql, $params);
-    }
-
-    public function readOneuser()
-    {
-        $sql = 'SELECT nombre, apellido, correo, telefono, imagen, usuarios.id_usuario, usuario
-                FROM usuarios INNER JOIN empleados ON usuarios.id_empleado = empleados.id_empleado
-                WHERE usuarios.id_usuario = ?';
-        $params = array($_SESSION['id_usuario']);
-        return Database::getRow($sql, $params);
     }
 
 }
