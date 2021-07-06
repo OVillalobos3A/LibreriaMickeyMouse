@@ -180,7 +180,7 @@ if (isset($_GET['action'])) {
                     if ($usuario->checkUser($_POST['user'])) {                        
                         if ($usuario->checkPassword($_POST['pass'])) {
                             $usuario->checkPrimerUso($_POST['user']);
-                            if ($usuario->getPrimer_uso() == 2) {
+                            if ($usuario->getPrimer_uso() != 1) {
                             $result['status'] = 1;
                             $result['message'] = 'Autenticación correcta';
                             $_SESSION['id_usuario'] = $usuario->getId();
