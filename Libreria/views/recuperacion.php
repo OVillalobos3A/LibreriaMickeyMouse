@@ -1,5 +1,5 @@
 <?php
-include("../app/helpers/dashboard1.php");
+include("../app/helpers/dashboard.php");
 Dashboard_Page::headerTemplate('libreria');
 ?>
 
@@ -13,7 +13,7 @@ Dashboard_Page::headerTemplate('libreria');
         <div class="card whithe">
              <!--Defiendo el contenido de la card que contendrá el formulario-->
             <div class="card-content black-text">
-                <a class="waves-effect yellow darken-3 white-text btn" href="../views/index.php">
+                <a class="waves-effect yellow black-text btn" href="../views/index.php">
                     <i class="material-icons left">arrow_back</i>Login
                 </a>
                 <br>
@@ -35,7 +35,7 @@ Dashboard_Page::headerTemplate('libreria');
                         <div class="row">
                             <!--Estableciendo el tamaño del que tomará el Input field-->
                             <div class="input-field col s12 m6">
-                                <button class="btn waves-effect yellow darken-3 white-text" type="submit" name="action">Enviar código
+                                <button class="btn waves-effect yellow black-text" type="submit" name="action">Enviar código
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>

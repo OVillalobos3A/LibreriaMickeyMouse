@@ -48,6 +48,10 @@ main {
   width: 100%;
   height: 500px;
 }
+.login-background{
+  background-image: url("../multimedia/login/login.png");
+  background-size: cover;
+}
 .rad{
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
