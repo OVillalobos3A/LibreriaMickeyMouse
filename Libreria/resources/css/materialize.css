@@ -4781,12 +4781,12 @@ small {
 }
 
 .card.small .card-image, .card.medium .card-image, .card.large .card-image {
-  max-height: 60%;
+  max-height: 45%;
   overflow: hidden;
 }
 
 .card.small .card-image + .card-content, .card.medium .card-image + .card-content, .card.large .card-image + .card-content {
-  max-height: 40%;
+  max-height: 45%;
 }
 
 .card.small .card-content, .card.medium .card-content, .card.large .card-content {

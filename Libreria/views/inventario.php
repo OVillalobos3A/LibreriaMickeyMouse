@@ -68,7 +68,7 @@ Dashboard_Page::headerTemplate('libreria');
                             <label>Tipo</label>
                         </div>       
                         <div class="input-field col s12 m12 l12">
-                            <textarea id="descripcion" name="decripcion" class="materialize-textarea" required></textarea>
+                            <textarea id="descripcion" name="descripcion" class="materialize-textarea" required></textarea>
                             <label for="descripcion">Descripcion</label>
                         </div>            
                         <div class="input-field col s12 m6 l6">

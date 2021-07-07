@@ -19,12 +19,8 @@ class Dashboard_Page {
             <link type="text/css" rel="stylesheet" href="../resources/css/materialize.css"  media="screen,projection"/>          
             <!--Importar css propio-->   
             <link type="text/css" rel="stylesheet" href="../resources/css/libreria.css"/>
-            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">  
-            <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
             <!--Para que sea resposivo-->
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-            
             <title>'. $title .'</title>
           </head>
       
@@ -36,7 +32,7 @@ class Dashboard_Page {
     // Se comprueba si existe una sesión de administrador para mostrar el menú de opciones, de lo contrario se muestra un menú vacío.
     if (isset($_SESSION['id_usuario'])) {
         // Se verifica si la página web actual es diferente a index.php (Iniciar sesión) y a register.php (Crear primer usuario) para no iniciar sesión otra vez, de lo contrario se direcciona a main.php
-        if ($filename != 'index.php' && $filename != 'register.php' && $filename != 'primer_uso.php') {
+        if ($filename != 'index.php' && $filename != 'register.php') {
             // Se llama al método que contiene el código de las cajas de dialogo (modals).
             self::modals();
             // Se imprime el código HTML para el encabezado del documento con el menú de opciones.
@@ -145,7 +141,7 @@ class Dashboard_Page {
         }
     } else {
         // Se verifica si la página web actual es diferente a index.php (Iniciar sesión) y a register.php (Crear primer usuario) para direccionar a index.php, de lo contrario se muestra un menú vacío.
-        if ($filename != 'index.php' && $filename != 'register.php' && $filename != 'primer_uso.php') {
+        if ($filename != 'index.php' && $filename != 'register.php') {
             header('location: index.php');
         } else {
             // Se imprime el código HTML para el encabezado del documento con un menú vacío cuando sea iniciar sesión o registrar el primer usuario.
@@ -176,7 +172,6 @@ class Dashboard_Page {
                 <script type="text/javascript" src="../app/controllers/initialization.js"></script>
                 <script type="text/javascript" src="../app/controllers/' . $controller . '"></script>
                 <script type="text/javascript" src="../app/helpers/components.js"></script>
-                
             ';
             $links = '
                 <h5 class="white-text Titulos">California</h5>
@@ -250,9 +245,13 @@ class Dashboard_Page {
             ';
         } else {
             $scripts = '
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+                <script>
+                    M.AutoInit();
+                </script>
+                <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
+                <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>    
                 <script type="text/javascript" src="../app/controllers/account.js"></script>
-                <script type="text/javascript" src="../resources/js/materialize.js"></script>
-                <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>
                 <script type="text/javascript" src="../app/helpers/components.js"></script>
                 <script type="text/javascript" src="../app/controllers/' . $controller . '"></script>
             ';

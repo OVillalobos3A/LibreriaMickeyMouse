@@ -21,23 +21,34 @@ function openName() {
                     response.dataset.map(function (row) {
                         // Se crean y concatenan las tarjetas con los datos de cada categoría.
                         content += `
-                            <div class="center-align">
-                                <img class="circle" height="100" src="../resources/img/empleados/${row.imagen}">
+                            <div id="perfil">
+                                <div class="center-align">
+                                    <img class="circle" height="100" src="../resources/img/empleados/${row.imagen}">
+                                    <p class="white-text Texto">${row.ider}</p>
+                                </div>
+                                <div class="center-align">
+                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil" onclick="openUpdateProfile(${row.empleado})">account_circle</i>Perfil</a>
+                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales" onclick="openUpdateCredentials(${row.id_usuario})">pin</i>Credenciales</a>
+                                </div>
+                                <div><br></div>
                             </div>
-                            <div class="center-align">
-                                <a class="waves-effect  yellow darken-3 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil" onclick="openUpdateProfile(${row.empleado})">account_circle</i>Perfil</a>
-                                <a class="waves-effect  yellow darken-3 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales" onclick="openUpdateCredentials(${row.id_usuario})">pin</i>Credenciales</a>
-                            </div>
-                            <div class="card white">
-                                <!--Defiendo el contenido de la card que contendrá las gráficas-->
-                                <div class="card-content black-text">
-                                    <!--Definiendo el nombre del encabezado-->
-                                    <h3 class="center-align Titulos yellow-text text-darken-3">${row.usuario}</h3>
-                                    <h5 class="center-align Text">Estas son las novedades:</h5>
-                                    <!--Definiendo el panel número 1 para almacenar las gráficas-->
-                                    <!--En este caso solo son imagenes-->
+                            <div class="col s12 m12 l12 center-align">
+                                <div class="card white rad">
+                                    <!--Defiendo el contenido de la card que contendrá las gráficas-->
+                                    <div class="card-content black-text">
+                                        
+                                        <div id="graficas">
+                                            <!--Definiendo el nombre del encabezado-->
+                                            <h3 class="center-align Titulos amber-text text-accent-4">${row.usuario}</h3>
+                                            <h5 class="center-align Text">Estas son las novedades:</h5>
+                                            <!--Definiendo el panel número 1 para almacenar las gráficas-->
+                                            <!--En este caso solo son imagenes-->
+                                        </div>
+                                        
+                                    </div>
                                 </div>
                             </div>
+                            
                         `;
                     });
                     // Se agregan las tarjetas a la etiqueta div mediante su id para mostrar las categorías.
