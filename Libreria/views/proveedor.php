@@ -1,11 +1,11 @@
 <?php
 include("../app/helpers/dashboard.php");
-Dashboard_Page::headerTemplate('Proveedores');
+Dashboard_Page::headerTemplate('Proveedor');
 ?>
 <br>
 <br>
 <div class="container">
-    <div class="card whithe">
+    <div class="card white" id="ocultable1">
         <div class="card-content Black-text">
             <!--Colocamos el titulo de la card-->
             <span class="card-title center-align"><b> Visualizar Proveedores </b></span>
@@ -13,154 +13,95 @@ Dashboard_Page::headerTemplate('Proveedores');
             <!--Agregamos un botón cuya función es que nos mueste el formulario para agregar-->
             <!--un registro-->
             <div class="col s6">
-                <a class="waves-effect yellow darken-3 btn modal-trigger" href="#modal_registro">
+                <a onclick="openCreateDialog()" class="waves-effect yellow darken-3 btn modal-trigger" href="#">
                     <i class="material-icons left">add</i>Agregar proveedor
                 </a>
             </div>
             <br>
             <!--Se añade un input field el cual su función es buscar una entrada en especifico-->
-            <div class="input-field col s6">
-                <i class="material-icons prefix">search</i>
-                <input type="text" id="autocomplete-input" class="autocomplete">
-                <label for="autocomplete-input">Buscar proveedor</label>
-            </div>
-            <!-- Modal Structure -->
-            <div id="modal_registro" class="modal">
-                <div class="modal-content">
-                    <h5 class="center-align">Agregar proveedor</h5>
-                    <br>
-                    <!--Estableciendo el tamaño de cada div correspondiente-->
-                    <div class="row">
-                        <!--Creamos la estructura del formulario respectivo-->
-                        <form class="col-md-4">
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="nombres" type="text" class="validate">
-                                    <label for="nombres">Nombre del proveedor</label>
-                                </div>
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="apellidos" type="text" class="validate">
-                                    <label for="apellidos">Dirección</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="correo" type="text" class="validate">
-                                    <label for="correo">Correo</label>
-                                </div>
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="telefono" type="text" class="validate">
-                                    <label for="telefono">Teléfono</label>
-                                </div>
-                            </div>
-                        </form>
+            <div class="row">
+                <form method="post" id="search-form">
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
+                        <label for="autocomplete-input"> nombre del proveedor</label>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a id="btn_confirmar" class="btn-floating btn-medium waves-effect waves-light red modal-close"
-                        title="Guardar Cambios" onclick="ActualizarRegistro()"><i class="material-icons">check</i></a>
-                    <a id="cancelar" class="btn-floating modal-close btn-medium waves-effect waves-light red"
-                        title="Cancelar"><i class="material-icons">clear</i>
-                    </a>
-                </div>
-            </div>
-            <div id="modal_update" class="modal">
-                <div class="modal-content">
-                    <h5 class="center-align">Actualización de proveedor</h5>
-                    <br>
-                    <!--Estableciendo el tamaño de cada div correspondiente-->
-                    <div class="row">
-                        <!--Creamos la estructura del formulario respectivo-->
-                        <form class="col-md-4">
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="nombres" type="text" class="validate">
-                                    <label for="nombres">Nombre del proveedor</label>
-                                </div>
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="apellidos" type="text" class="validate">
-                                    <label for="apellidos">Dirección</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="correo" type="text" class="validate">
-                                    <label for="correo">Correo</label>
-                                </div>
-                                <!--Estableciendo el tamaño del que tomará el Input field-->
-                                <div class="input-field col s12 m6">
-                                    <input id="telefono" type="text" class="validate">
-                                    <label for="telefono">Teléfono</label>
-                                </div>
-                            </div>
-                        </form>
+                    <div class="input-field s12 m6">
+                        <button class="btn red" type="submit" name="action">Buscar
+                            <i class="material-icons right">search</i>
+                        </button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a id="btn_confirmar" class="btn-floating btn-medium waves-effect waves-light red modal-close"
-                        title="Guardar Cambios" onclick="ActualizarRegistro()"><i class="material-icons">check</i></a>
-                    <a id="cancelar" class="btn-floating modal-close btn-medium waves-effect waves-light red"
-                        title="Cancelar"><i class="material-icons">clear</i>
-                    </a>
-                </div>
+                </form>
             </div>
             <!--Se construye la tabla de datos correspondiente a entradas-->
-            <table class="responsive-table striped">
+            <table id="myTable" class="responsive-table striped">            
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Correo</th>
-                        <th>Dirección</th>
+                        <th>Direccion</th>
                         <th>Teléfono</th>
-                        <th>Acción</th>
+                        <th>Correo</th>
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr>
-                        <th>Facela</th>
-                        <th>facela@gmail.com</th>
-                        <th>Calle al volcan Local 12, 13, 14</th>
-                        <th>7787-2265</th>
-                        <th>
-                            <a class="btn-floating btn waves-effect waves yellow darken-3 modal-trigger" href="#modal_update"><i class="material-icons" title="Editar registro">create</i></a>
-                            <a class="btn-floating btn waves-effect waves yellow darken-3" href="#" onclick="EliminarRegistro()"><i class="material-icons" title="Eliminar registro">delete</i></a>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Augusto Valladares</th>
-                        <th>augusto515@gmail.com</th>
-                        <th>Colonia miralvalle</th>
-                        <th>7787-8531</th>
-                        <th>
-                            <a class="btn-floating btn waves-effect waves yellow darken-3 modal-trigger" href="#modal_update"><i class="material-icons" title="Editar registro">create</i></a>
-                            <a class="btn-floating btn waves-effect waves yellow darken-3" href="#" onclick="EliminarRegistro()"><i class="material-icons" title="Eliminar registro">delete</i></a>
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>Denis Romero</th>
-                        <th>denisrrmro@hotmail.com</th>
-                        <th>Calle a mariona centro penal al esperanza</th>
-                        <th>7559-2237</th>
-                        <th>
-                            <a class="btn-floating btn waves-effect waves yellow darken-3 modal-trigger" href="#modal_update"><i class="material-icons" title="Editar registro">create</i></a>
-                            <a class="btn-floating btn waves-effect waves yellow darken-3" href="#" onclick="EliminarRegistro()"><i class="material-icons" title="Eliminar registro">delete</i></a>
-                        </th>
-                    </tr>
+                <tbody id="tbody-rows">
                 </tbody>
             </table>
+            
         </div>
     </div>
 </div>
 
+<!-- Modal Structure -->
+<div id="save-modal" class="modal">
+    <div class="modal-content">
+        <h5 id="modal-title" class="center-align">Agregar proveedor</h5>
+        <br>
+        <div class="row">
+            <!--Creamos la estructura del formulario respectivo-->
+            <form method="post" id="save-form" name="save-form" enctype="multipart/form-data">
+                <div class="row">
+                    <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+                    <input class="hide" type="text" id="id_proveedor" name="id_proveedor" />
+                    <div class="row">
+                        <!--Estableciendo el tamaño del que tomará el Input field-->
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">person</i>
+                            <input id="nombres" name="nombres" type="text" required class="validate">
+                            <label for="nombres">Nombres</label>
+                        </div>
+                        <!--Estableciendo el tamaño del que tomará el Input field-->
+                        <div class="input-field col s12 m6">
+                            <input id="direccion" name="direccion" required type="text" class="validate">
+                            <label for="direccion">Direccion</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Estableciendo el tamaño del que tomará el Input field-->
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">email</i>
+                            <input id="correo" name="correo" required type="text" class="validate">
+                            <label for="correo">Correo</label>
+                        </div>
+                        <!--Estableciendo el tamaño del que tomará el Input field-->
+                        <div class="input-field col s12 m6">
+                            <i class="material-icons prefix">phone</i>
+                            <input id="telefono" name="telefono" required type="text" class="validate">
+                            <label for="telefono">Teléfono</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row center-align">
+                    <a href="#" class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                    <button type="submit" class="btn waves-effect red tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<br>
 <?php
-  //Se imprime la plantilla del pie y se envía el nombre del controlador para la página web
-  Dashboard_Page::footerTemplate('usuarios.js');
+//Se imprime la plantilla del pie y se envía el nombre del controlador para la página web
+Dashboard_Page::footerTemplate('proveedor.js');
 ?>
