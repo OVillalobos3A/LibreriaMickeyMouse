@@ -1,6 +1,8 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
-const API_PRODUCTOS = '../app/api/dashboard/productos.php?action=';
-const ENDPOINT_TIPO_PRODUCTOS= '../app/api/dashboard/categorias.php?action=readAll';
+const API_PRODUCTOS = '../app/api/productos.php?action=';
+const ENDPOINT_TIPO_PRODUCTOS= '../app/api/tipo_producto.php?action=readAll';
+const ENDPOINT_TIPO_MARCA= '../app/api/marca.php?action=readAll';
+const ENDPOINT_PROVEEDOR= '../app/api/proveedores.php?action=readAll';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
@@ -16,66 +18,72 @@ function fillTable(dataset) {
     //Se crea la variable que contiene el modal para crear productos
     let adder = '';
     adder +=    `
-        <div class="col l4 s12 m6">
-            <div class="card small z-depth-0 hoverable">
-                <div class="card-image center"><br><br><br>
-                    <a href="#!" onclick="openCreateDialog()" class="center"><svg xmlns="http://www.w3.org/2000/svg" x="0px"
-                            y="0px" width="50" height="50" viewBox="0 0 172 172" style=" fill:#000000;">
-                            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt"
-                                stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray=""
-                                stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none"
-                                text-anchor="none" style="mix-blend-mode: normal">
-                                <path d="M0,172v-172h172v172z" fill="none"></path>
-                                <g fill="#000000">
-                                    <path
-                                        d="M68.8,13.76c-0.91228,0.00018 -1.78715,0.36269 -2.43219,1.00781l-5.87219,5.87219h-28.20531c-6.3882,0 -11.97418,4.43656 -13.41063,10.66266l-7.85422,34.05734h-4.14547c-3.76014,0 -6.88,3.11986 -6.88,6.88v13.76c0,3.76014 3.11986,6.88 6.88,6.88h1.64609l18.39594,63.79453c0.8428,2.90336 3.98637,5.00547 7.47797,5.00547h69.72047c-1.548,-2.15 -2.89653,-4.44792 -4.0111,-6.88h-65.70937c-0.49536,0 -0.92176,-0.24671 -0.86672,-0.04031l-17.83828,-61.87969h140.61l-2.00219,6.9875c2.16032,0.95976 4.22749,2.07921 6.17453,3.37953l2.98984,-10.36703h1.65281c3.76014,0 6.88,-3.11986 6.88,-6.88v-13.76c0,-3.76014 -3.11986,-6.88 -6.88,-6.88h-4.14547l-7.86094,-34.05734c-1.43608,-6.22454 -7.01571,-10.66266 -13.40391,-10.66266h-28.20531l-5.87219,-5.87219c-0.64504,-0.64512 -1.5199,-1.00764 -2.43219,-1.00781zM70.22437,20.64h31.55125l5.87219,5.87219c0.64504,0.64512 1.5199,1.00764 2.43219,1.00781h29.62969c3.22317,0 5.98107,2.19555 6.70531,5.33469l7.49813,32.50531h-135.82625l7.49813,-32.50531c0.72388,-3.13758 3.48215,-5.33469 6.70531,-5.33469h29.62969c0.91228,-0.00018 1.78715,-0.36269 2.43219,-1.00781zM6.88,72.24h158.24v13.76h-158.24zM58.48,103.2c-1.89888,0 -3.44,1.54456 -3.44,3.44v34.13797c0,1.89544 1.54112,3.44 3.44,3.44c1.89888,0 3.44,-1.54456 3.44,-3.44v-34.13797c0,-1.89544 -1.54112,-3.44 -3.44,-3.44zM85.99328,103.2c-1.89888,0 -3.44,1.54456 -3.44,3.44l0.00672,34.13797c0,1.89544 1.54112,3.44 3.44,3.44c1.89888,0 3.44,-1.54456 3.44,-3.44l-0.00672,-34.13797c0,-1.89544 -1.54112,-3.44 -3.44,-3.44zM137.6,103.2c-18.92,0 -34.4,15.48 -34.4,34.4c0,18.92 15.48,34.4 34.4,34.4c18.92,0 34.4,-15.48 34.4,-34.4c0,-18.92 -15.48,-34.4 -34.4,-34.4zM137.6,110.08c15.136,0 27.52,12.384 27.52,27.52c0,15.136 -12.384,27.52 -27.52,27.52c-15.136,0 -27.52,-12.384 -27.52,-27.52c0,-15.136 12.384,-27.52 27.52,-27.52zM137.6,117.30265c-2.064,0 -3.44,1.376 -3.44,3.44v13.41735h-13.41735c-2.064,0 -3.44,1.376 -3.44,3.44c0,2.064 1.376,3.44 3.44,3.44h13.41735v13.41735c0,2.064 1.376,3.44 3.44,3.44c2.064,0 3.44,-1.376 3.44,-3.44v-13.41735h13.41735c2.064,0 3.44,-1.376 3.44,-3.44c0,-2.064 -1.376,-3.44 -3.44,-3.44h-13.41735v-13.41735c0,-2.064 -1.376,-3.44 -3.44,-3.44z">
-                                    </path>
-                                </g>
-                            </g>
-                        </svg></a>
-                </div>
-                <div class="card-content black-text">
-                    <span class="card-title Texto center">Agregar nuevo producto</span>
-                </div>
-            </div>
-            <br>
-            <br>
-        </div>
-    `;
-    // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
-    dataset.map(function (row) {
-        // Se establece un icono para el estado del producto.
-        (row.estado_producto) ? icon = 'visibility' : icon = 'visibility_off';
-        // Se crean y concatenan las cards con los datos de cada registro.
-        content += `   
-            <div class="col l4 s12 m6">
-                <div class="card small z-depth-0">
-                    <div class="card-image">
-                        <img src="../../resources/img/productos/${row.foto}">
-                    </div>
-                    <a href='#' data-target='dropdownmas'
-                        class="dropdown-trigger btn-floating right btn-large waves-effect waves-dark transparent z-depth-0">
-                        <i class="large material-icons black-text hoverable">more_vert</i>
-                    </a>
-                    <div class="card-content black-text">
-                        <span class="card-title black-text">${row.nombre_producto}</span>
-                        <p>$${row.precio_producto}</p>
-                        <p>Disponibles: ${row.cantidad_total}</p>
+    <div class="col s12 m6 l4">
+        <div class="col s12 white hoverable appear-down rad">
+            <div class="card small z-depth-0">
+                <div class="card-content black-text center">
+                    <div class="container">
                         <div class="row">
-                            <br>
-                        </div>
-                        <div class="row">
-                            <div class="col s4 m4 l4">
-                                <a href="#" onclick="openUpdateDialog(${row.id_producto})" class="btn btn-floating waves-effect black tooltipped" data-tooltip="Actualizar"><i class="material-icons">mode_edit</i></a>                            </div>
-                            <div class="col s4 m4 l4">
-                                <a href="#" onclick="openDeleteDialog(${row.id_producto})" class="btn btn-floating waves-effect black tooltipped" data-tooltip="Eliminar"><i class="material-icons">delete</i></a>
+                            <div class="col s12 m12 l12">
+                                <br><br><br>
+                                <a onclick="openCreateDialog()" href="#">
+                                <i class="valing-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                    width="50" height="50"
+                                    viewBox="0 0 50 50"
+                                    style=" fill:#000000;"><path d="M 20 4 A 1.0001 1.0001 0 0 0 19.292969 4.2929688 L 17.585938 6 L 9.3867188 6 C 7.5296852 6 5.9058511 7.2896965 5.4882812 9.0996094 L 3.2050781 19 L 2 19 C 0.897 19 0 19.897 0 21 L 0 24 C 0 25.103 0.897 26 2 26 L 48 26 C 49.103 26 50 25.103 50 24 L 50 21 C 50 19.897 49.103 19 48 19 L 46.794922 19 L 44.509766 9.0996094 C 44.0923 7.2901497 42.470315 6 40.613281 6 L 32.414062 6 L 30.707031 4.2929688 A 1.0001 1.0001 0 0 0 30 4 L 20 4 z M 20.414062 6 L 29.585938 6 L 31.292969 7.7070312 A 1.0001 1.0001 0 0 0 32 8 L 40.613281 8 C 41.550248 8 42.351965 8.638241 42.5625 9.5507812 L 44.742188 19 L 5.2578125 19 L 7.4375 9.5507812 C 7.6479301 8.6386942 8.4497521 8 9.3867188 8 L 18 8 A 1.0001 1.0001 0 0 0 18.707031 7.7070312 L 20.414062 6 z M 2.7695312 28 L 7.8261719 45.542969 C 8.0701719 46.387969 8.985 47 10 47 L 32.880859 47 C 34.697941 48.847586 37.219827 50 40 50 C 45.5 50 50 45.5 50 40 C 50 36.774533 48.446014 33.902012 46.056641 32.070312 L 47.230469 28 L 2.7695312 28 z M 17 31 C 17.55 31 18 31.45 18 32 L 18 43 C 18 43.55 17.55 44 17 44 C 16.45 44 16 43.55 16 43 L 16 32 C 16 31.45 16.45 31 17 31 z M 25 31 L 25.001953 31 C 25.550953 31 26 31.45 26 32 L 26 43 C 26 43.55 25.55 44 25 44 C 24.45 44 24 43.55 24 43 L 24 32 C 24 31.45 24.45 31 25 31 z M 40 32 C 44.4 32 48 35.6 48 40 C 48 44.4 44.4 48 40 48 C 35.6 48 32 44.4 32 40 C 32 35.6 35.6 32 40 32 z M 40 34.099609 C 39.4 34.099609 39 34.499609 39 35.099609 L 39 39 L 35.099609 39 C 34.499609 39 34.099609 39.4 34.099609 40 C 34.099609 40.6 34.499609 41 35.099609 41 L 39 41 L 39 44.900391 C 39 45.500391 39.4 45.900391 40 45.900391 C 40.6 45.900391 41 45.500391 41 44.900391 L 41 41 L 44.900391 41 C 45.500391 41 45.900391 40.6 45.900391 40 C 45.900391 39.4 45.500391 39 44.900391 39 L 41 39 L 41 35.099609 C 41 34.499609 40.6 34.099609 40 34.099609 z"></path></svg></i>  
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <br>
-                <br>
+                    <span class="card-title Titulos black-text center">Agregar Producto</span>
+                </div>             
             </div>
+        </div>
+        <div class="col">
+        <br>
+        </div>
+    </div>
+    `;
+    // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+    dataset.map(function (row) {
+        content += `   
+            <div class="col s12 m6 l4">
+                <div class="col s12 white hoverable appear-down rad">
+                    <div class="card small z-depth-0">
+                        <!--Imagen del producto-->
+                        <div class="card-image">
+                            <img src="../resources/img/productos/${row.imagen}">            
+                        </div>
+                        <a href='#' data-target='dropdownmas' class="hide dropdown-trigger btn-floating right btn-large waves-effect waves-light white z-depth-0">
+                        <i class="large material-icons black-text hoverable">more_vert</i>
+                        </a>
+                        <div class="card-content black-text">
+                            <span class="card-title Titulos black-text">$${row.precio}</span>
+                            <p class="Texto">${row.nombre_producto}</p>
+                            <p class="Texto">Disponibles: ${row.stock}</p>
+                            <div class="row">
+                                <div class="col s3 m3 l3">
+                                    <a href="#" onclick="openViewDialog(${row.id_inventario})" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Ver más"><i class="material-icons black-text">call_made</i></a>   
+                                </div>
+                                <div class="col s3 m3 l3">
+                                    <a href="#" onclick="openUpdateDialog(${row.id_inventario})" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Actualizar"><i class="material-icons black-text">mode_edit</i></a>   
+                                </div>
+                                <div class="col s3 m3 l3">
+                                    <a href="entradas.php" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Actualizar Stock"><i class="material-icons black-text">iso</i></a>
+                                </div>
+                                <div class="col s3 m3 l3">
+                                    <a href="#" onclick="openDeleteDialog(${row.id_inventario})" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Eliminar"><i class="material-icons black-text">delete</i></a>
+                                </div>
+                            </div>  
+                        </div>          
+                    </div>
+                </div>
+                <div class="col">
+                    <br>
+                </div>
+            </div>
+    
+            
         `;
     });
     // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
@@ -107,6 +115,8 @@ function openCreateDialog() {
     document.getElementById('foto').required = true;
     // Se llama a la función que llena el select del formulario. Se encuentra en el archivo components.js
    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', null);
+   fillSelect(ENDPOINT_TIPO_MARCA, 'marca', null);
+   fillSelect(ENDPOINT_PROVEEDOR, 'proveedor', null);
 }
 
 // Función para preparar el formulario al momento de modificar un registro.
@@ -119,7 +129,7 @@ function openUpdateDialog(id) {
     // Se asigna el título para la caja de dialogo (modal).
     document.getElementById('modal-title').textContent = 'Actualizar producto';
     // Se establece el campo de archivo como opcional.
-    document.getElementById('archivo_producto').required = false;
+    document.getElementById('foto').required = false;
 
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
@@ -135,16 +145,15 @@ function openUpdateDialog(id) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-                    document.getElementById('id_producto').value = response.dataset.id_producto;
-                    document.getElementById('nombre_producto').value = response.dataset.nombre_producto;
-                    document.getElementById('precio_producto').value = response.dataset.precio_producto;
-                    document.getElementById('descripcion_producto').value = response.dataset.descripcion_producto;
-                    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', response.dataset.id_categoria);
-                    if (response.dataset.estado_producto) {
-                        document.getElementById('estado_producto').checked = true;
-                    } else {
-                        document.getElementById('estado_producto').checked = false;
-                    }
+                    document.getElementById('id_producto').value = response.dataset.id_inventario;
+                    document.getElementById('nombre').value = response.dataset.nombre_producto;
+                    document.getElementById('precio').value = response.dataset.precio;
+                    document.getElementById('descripcion').value = response.dataset.descripcion;
+                    document.getElementById('stock').value = response.dataset.stock;
+                    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', response.dataset.id_proveedor);
+                    fillSelect(ENDPOINT_TIPO_MARCA, 'marca', response.dataset.id_marca);
+                    fillSelect(ENDPOINT_PROVEEDOR, 'proveedor', response.dataset.id_proveedores);
+                    document.getElementById('imagen').setAttribute('src', '../resources/img/productos/' + response.dataset.imagen);
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
                     M.updateTextFields();
                 } else {
@@ -158,7 +167,6 @@ function openUpdateDialog(id) {
         console.log(error);
     });
 }
-
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de guardar.
 document.getElementById('save-form').addEventListener('submit', function (event) {
     // Se evita recargar la página web después de enviar el formulario.

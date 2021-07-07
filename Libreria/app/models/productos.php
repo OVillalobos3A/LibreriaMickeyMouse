@@ -8,18 +8,16 @@ class Productos extends Validator
     private $id = null;
     private $cliente = null;
     private $nombre = null;
-    private $comentario = null;
-    private $valor = null;
     private $descripcion = null;
     private $precio = null;
     private $cantidad = null;
     private $marca = null;
-    private $descuento = null;
+    private $autor = null;
     private $imagen = null;
     private $tipo = null;
-    private $estado = null;
+    private $proveedor = null;
     private $foto = null;
-    private $ruta = '../../../resources/img/productos/';
+    private $ruta = '../../resources/img/productos/';
 
     /*
     *   Métodos para asignar valores a los atributos.
@@ -48,26 +46,6 @@ class Productos extends Validator
     {
         if ($this->validateAlphanumeric($value, 1, 50)) {
             $this->nombre = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function setComentario($value)
-    {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
-            $this->comentario = $value;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function setValor($value)
-    {
-        if ($this->validateNaturalNumber($value)) {
-            $this->valor = $value;
             return true;
         } else {
             return false;
@@ -106,7 +84,7 @@ class Productos extends Validator
 
     public function setMarca($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
+        if ($this->validateNaturalNumber($value)) {
             $this->marca = $value;
             return true;
         } else {
@@ -114,10 +92,10 @@ class Productos extends Validator
         }
     }
 
-    public function setDescuento($value)
+    public function setAutor($value)
     {
-        if ($this->validateNaturalNumber($value)) {
-            $this->descuento = $value;
+        if ($this->validateAlphanumeric($value, 0, 50)) {
+            $this->autor = $value;
             return true;
         } else {
             return false;
@@ -144,10 +122,10 @@ class Productos extends Validator
         }
     }
 
-    public function setEstado($value)
+    public function setProveedor($value)
     {
-        if ($this->validateBoolean($value)) {
-            $this->estado = $value;
+        if ($this->validateNaturalNumber($value)) {
+            $this->proveedor = $value;
             return true;
         } else {
             return false;
@@ -220,38 +198,35 @@ class Productos extends Validator
     //Buscar
     public function searchRows($value)
     {
-        $sql = 'SELECT id_producto,categoria,nombre_producto, precio_producto, descripcion_producto, cantidad_total, marca_producto, estado_producto, foto
-                FROM public."tbProductos" INNER JOIN public."tbCategorias" USING(id_categoria)
-                WHERE nombre_producto ILIKE ? OR descripcion_producto ILIKE ?
+        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, descuento, stock, autor, imagen, public.proveedor.nombre, tipo_producto, marca
+        FROM public.inventario
+            INNER JOIN public.tipo_producto USING(id_tipo_producto) 
+            INNER JOIN public.proveedor USING(id_proveedor) 
+            INNER JOIN public.marca USING(id_marca)
+                WHERE public.inventario.nombre ILIKE ? OR public.inventario.descripcion ILIKE ? OR autor ILIKE ? OR tipo_producto ILIKE ?
                 ORDER BY nombre_producto';
-        $params = array("%$value%", "%$value%");
+        $params = array("%$value%", "%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
     
     //Crear Producto
     public function createRow()
     {
-        $sql = 'INSERT INTO public."tbProductos"(nombre_producto, id_categoria, precio_producto, descripcion_producto, cantidad_total, estado_producto, marca_producto, foto)
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?)';
-        $params = array($this->nombre,$this->tipo, $this->precio, $this->descripcion, $this->cantidad, $this->estado, $this->marca, $this->foto);
-        return Database::executeRow($sql, $params);
-    }
-
-    //Crear comentario
-    public function createComent()
-    {
-        $sql = 'INSERT INTO public."tbValoracion"(id_cliente, id_producto, comentario, calificacion)
-                VALUES( ?, ?, ?, ?)';
-        $params = array($this->cliente,$this->id, $this->comentario, $this->valor);
+        $sql = 'INSERT INTO public.inventario( nombre, precio, descripcion, stock, autor, imagen, id_proveedor, id_tipo_producto, id_marca)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        $params = array($this->nombre, $this->precio, $this->descripcion, $this->cantidad, $this->autor, $this->foto, $this->proveedor, $this->tipo, $this->marca);
         return Database::executeRow($sql, $params);
     }
 
     //Ver todos los productos
     public function readAll()
     {
-        $sql = 'SELECT id_producto,categoria,nombre_producto, precio_producto, descripcion_producto, cantidad_total, marca_producto, estado_producto, foto
-                FROM public."tbProductos" INNER JOIN public."tbCategorias" USING(id_categoria)
-                ORDER BY nombre_producto ';
+        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, descuento, stock, autor, imagen, public.proveedor.nombre, tipo_producto, marca
+        FROM public.inventario
+            INNER JOIN public.tipo_producto USING(id_tipo_producto) 
+            INNER JOIN public.proveedor USING(id_proveedor) 
+            INNER JOIN public.marca USING(id_marca) 
+            ORDER BY public.inventario.nombre';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -259,42 +234,13 @@ class Productos extends Validator
     //Leer solo un producto
     public function readOne()
     {
-        $sql = 'SELECT id_producto,categoria,nombre_producto, precio_producto, descripcion_producto, cantidad_total, marca_producto, estado_producto, foto
-        FROM public."tbProductos" INNER JOIN public."tbCategorias" USING(id_categoria)
-                WHERE id_producto = ?';
+        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion as descripcion, descuento, stock, autor, imagen,id_proveedor, public.proveedor.nombre as proveedor, id_tipo_producto, tipo_producto,id_marca, marca
+        FROM public.inventario
+            INNER JOIN public.tipo_producto USING(id_tipo_producto) 
+            INNER JOIN public.proveedor USING(id_proveedor) 
+            INNER JOIN public.marca USING(id_marca)
+                WHERE  id_inventario = ?';
         $params = array($this->id);
-        return Database::getRow($sql, $params);
-    }
-
-    //Promedio de las valoraciones
-    public function averageOne()
-    {
-        $sql = 'SELECT avg(calificacion) 
-        FROM public."tbValoracion";
-                WHERE id_producto = ?';
-        $params = array($this->id);
-        return Database::getRow($sql, $params);
-    }
-
-    //Comentarios
-    public function Coments()
-    {
-        $sql = 'SELECT comentario
-        FROM public."tbValoracion" 
-	    inner join public."tbClientes" using(id_cliente) 
-                WHERE id_producto = ?';
-        $params = array($this->id);
-        return Database::getRow($sql, $params);
-    }
-    
-    //Sirve para verificar si el usuario que comentara, compro antes el producto
-    public function verify()
-    {
-        $sql = 'SELECT id_detalle, id_producto, cantidad_producto, precio_producto, id_pedido
-        FROM public."tbDetalle_pedido"
-        inner join public."tbPedidos" p using(id_pedido) 
-        where id_producto = ? and p.id_cliente = ? And p.estado_pedido = ? or p.estado_pedido = ?';
-        $params = array($this->id,$this->cliente,'1','2');
         return Database::getRow($sql, $params);
     }
 
