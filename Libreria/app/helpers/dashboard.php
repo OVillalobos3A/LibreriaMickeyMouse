@@ -38,7 +38,7 @@ class Dashboard_Page {
             // Se imprime el código HTML para el encabezado del documento con el menú de opciones.
             print('
           <ul id="DropdownAdmin" class="dropdown-content">
-            <li><a href="proveedoree.php" class="Titulos grey-text text-darken-4">Proveedores</a></li>
+            <li><a href="proveedor.php" class="Titulos grey-text text-darken-4">Proveedores</a></li>
             <li><a href="marca.php" class="Titulos grey-text text-darken-4">Marcas</a></li>
           </ul>
 
