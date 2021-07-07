@@ -198,14 +198,14 @@ class Productos extends Validator
     //Buscar
     public function searchRows($value)
     {
-        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, descuento, stock, autor, imagen, public.proveedor.nombre, tipo_producto, marca
+        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, descuento, stock, autor, imagen, public.proveedor.nombre, tipo_producto, nombre_marca
         FROM public.inventario
             INNER JOIN public.tipo_producto USING(id_tipo_producto) 
             INNER JOIN public.proveedor USING(id_proveedor) 
             INNER JOIN public.marca USING(id_marca)
-                WHERE public.inventario.nombre ILIKE ? OR public.inventario.descripcion ILIKE ? OR autor ILIKE ? OR tipo_producto ILIKE ?
+                WHERE public.inventario.nombre ILIKE ? OR public.inventario.descripcion ILIKE ? OR autor ILIKE ? OR tipo_producto ILIKE ? OR  nombre_marca ILIKE ?
                 ORDER BY nombre_producto';
-        $params = array("%$value%", "%$value%", "%$value%", "%$value%");
+        $params = array("%$value%", "%$value%", "%$value%", "%$value%", "%$value%");
         return Database::getRows($sql, $params);
     }
     
@@ -221,7 +221,7 @@ class Productos extends Validator
     //Ver todos los productos
     public function readAll()
     {
-        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, descuento, stock, autor, imagen, public.proveedor.nombre, tipo_producto, marca
+        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, descuento, stock, autor, imagen, public.proveedor.nombre, tipo_producto, nombre_marca
         FROM public.inventario
             INNER JOIN public.tipo_producto USING(id_tipo_producto) 
             INNER JOIN public.proveedor USING(id_proveedor) 
@@ -234,7 +234,7 @@ class Productos extends Validator
     //Leer solo un producto
     public function readOne()
     {
-        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion as descripcion, descuento, stock, autor, imagen,id_proveedor, public.proveedor.nombre as proveedor, id_tipo_producto, tipo_producto,id_marca, marca
+        $sql = 'SELECT id_inventario, public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion as descripcion, descuento, stock, autor, imagen,id_proveedor, public.proveedor.nombre as proveedor, id_tipo_producto, tipo_producto,id_marca, nombre_marca
         FROM public.inventario
             INNER JOIN public.tipo_producto USING(id_tipo_producto) 
             INNER JOIN public.proveedor USING(id_proveedor) 
