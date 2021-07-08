@@ -19,20 +19,6 @@ Dashboard_Page::headerTemplate('libreria');
                 </div>
             </div>
         </div>
-        <div class="col s12 m12">
-            <div class="card-panel white rad">
-                <div class="row">
-                    <div class="col s12 m6 center-align">                                            
-                    <br>
-                        <img class="responsive-img" src="../resources/img/productos/chart1.PNG">
-                    </div>
-                    <div class="col s12 m6 center-align">                    
-                    <br>
-                        <img class="responsive-img" src="../resources/img/productos/chart2.PNG">
-                    </div>
-                </div>
-            </div>
-        </div>
         <div id="save-modal" class="modal">
             <div class="modal-content">
                 <h5 id="modal-title" class="center-align"></h5>

@@ -415,7 +415,7 @@ class Perfil extends Validator
 
     public function readOne1()
     {
-        $sql = "SELECT usuarios.id_usuario as emp, usuarios.id_empleado as empleado, nombre, apellido, imagen, CONCAT('@',usuario) as ider, CONCAT('¡BIENVENID@!', ' ', usuario) as usuario
+        $sql = "SELECT usuarios.id_usuario as emp, usuarios.id_empleado as empleado, nombre, apellido, imagen, CONCAT('@',usuario) as ider, CONCAT('¡BIENVENID@!', ' ', nombre, ' ', apellido) as usuario
                 FROM usuarios INNER JOIN empleados ON usuarios.id_empleado = empleados.id_empleado
                 WHERE usuarios.id_usuario = ?";
         $params = array($_SESSION['id_usuario']);
