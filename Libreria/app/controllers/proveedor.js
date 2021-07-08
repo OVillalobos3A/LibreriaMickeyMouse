@@ -86,7 +86,7 @@ function openUpdateDialog(id) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
-                    document.getElementById('id_empleado').value = response.dataset.id_proveedor;
+                    document.getElementById('id_proveedor').value = response.dataset.id_proveedor;
                     document.getElementById('nombres').value = response.dataset.nombre;
                     document.getElementById('correo').value = response.dataset.correo;
                     document.getElementById('telefono').value = response.dataset.telefono;

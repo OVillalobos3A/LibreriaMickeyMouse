@@ -5,7 +5,7 @@ Dashboard_Page::headerTemplate('Proveedor');
 <br>
 <br>
 <div class="container">
-    <div class="card white" id="ocultable1">
+    <div class="card white rad" id="ocultable1">
         <div class="card-content Black-text">
             <!--Colocamos el titulo de la card-->
             <span class="card-title center-align"><b> Visualizar Proveedores </b></span>
@@ -53,7 +53,7 @@ Dashboard_Page::headerTemplate('Proveedor');
 </div>
 
 <!-- Modal Structure -->
-<div id="save-modal" class="modal">
+<div id="save-modal" class="modal rad">
     <div class="modal-content">
         <h5 id="modal-title" class="center-align">Agregar proveedor</h5>
         <br>

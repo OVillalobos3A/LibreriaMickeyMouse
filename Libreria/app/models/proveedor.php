@@ -37,7 +37,7 @@ class Proveedor_crud extends Validator
 
     public function setDireccion($value)
     {
-        if ($this->validateAlphanumeric($value, 1, 50)) {
+        if ($this->validateString($value, 1, 500)) {
             $this->direccion = $value;
             return true;
         } else {
@@ -152,7 +152,7 @@ class Proveedor_crud extends Validator
         $sql = 'UPDATE proveedor 
                 SET nombre = ?, correo = ?, direccion = ?, telefono = ?
                 WHERE id_proveedor = ?';
-        $params = array($this->nombre, $this->correo, $this->direccion, $this->tel);
+        $params = array($this->nombre, $this->correo, $this->direccion, $this->tel,$this->id);
         return Database::executeRow($sql, $params);
     }
 

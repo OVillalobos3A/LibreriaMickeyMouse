@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
         case 'readOne':
-            if ($prov->setId($_POST['id_empleado'])) {
+            if ($prov->setId($_POST['id_proveedor'])) {
                 if ($result['dataset'] = $prov->readOne()) {
                     $result['status'] = 1;
                 } else {
@@ -111,10 +111,10 @@ if (isset($_GET['action'])) {
                             if($prov->setCorreo($_POST['correo'])){
                                 if($prov->setTel($_POST['telefono'])){
                                     if ($prov->updateRow()) {
-                                            $result['status'] = 1;
-                                            $result['message'] = 'Proveedor modificado correctamente';
+                                        $result['status'] = 1;
+                                        $result['message'] = 'Proveedor modificado correctamente';
                                     } else {
-                                            $result['exception'] = Database::getException();;
+                                        $result['exception'] = Database::getException();;
                                     }
                                 }
                                 else{
@@ -124,7 +124,6 @@ if (isset($_GET['action'])) {
                             else{
                                 $result['exception'] = 'Correo incorrecto';
                             }
-                          
                         }
                         else{
                             $result['exception'] = 'Direccion incorrecta';
