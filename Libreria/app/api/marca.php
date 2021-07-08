@@ -36,7 +36,7 @@ if (isset($_GET['action'])) {
                 }
                 break;
         case 'readOne':
-            if ($prov->setId($_POST['id_empleado'])) {
+            if ($prov->setId($_POST['id_marca'])) {
                 if ($result['dataset'] = $prov->readOne()) {
                     $result['status'] = 1;
                 } else {
@@ -75,13 +75,12 @@ if (isset($_GET['action'])) {
         case 'create':
             $_POST = $prov->validateForm($_POST);
             if ($prov->setNombre($_POST['nombre'])) {
-                            if ($prov->createRow()) {
-                                    $result['status'] = 1;
-                                    $result['message'] = 'marca creada correctamente';
-                            } else {
-                                    $result['exception'] = Database::getException();;
-                            }
-                        }
+                if ($prov->createRow()) {
+                        $result['status'] = 1;
+                        $result['message'] = 'marca creada correctamente';
+                } else {
+                        $result['exception'] = Database::getException();;
+                }
             }
             else {
                 $result['exception'] = 'Nombres incorrectos';
@@ -92,13 +91,12 @@ if (isset($_GET['action'])) {
             if ($prov->setId($_POST['id_marca'])) {
                 if($data = $prov->readOne()){
                     if ($prov->setNombre($_POST['nombre'])) {
-                                    if ($prov->createRow()) {
-                                            $result['status'] = 1;
-                                            $result['message'] = 'Proveedor modificado correctamente';
-                                    } else {
-                                            $result['exception'] = Database::getException();;
-                                    }
-                                }
+                        if ($prov->updateRow()) {
+                                $result['status'] = 1;
+                                $result['message'] = 'Proveedor modificado correctamente';
+                        } else {
+                                $result['exception'] = Database::getException();;
+                        }
                     }
                     else {
                         $result['exception'] = 'Nombres incorrectos';
@@ -118,11 +116,7 @@ if (isset($_GET['action'])) {
                     if ($data = $prov->readOne()) {
                         if ($prov->deleteRow()) {
                             $result['status'] = 1;
-                            if ($prov->deleteFile($prov->getRuta()) {
-                                $result['message'] = 'Marca eliminado correctamente';
-                            } else {
-                                $result['message'] = 'Marca eliminado pero no se borró la imagen';
-                            }
+                            $result['message'] = 'Marca eliminado correctamente';
                         } else {
                             $result['exception'] = Database::getException();
                         }

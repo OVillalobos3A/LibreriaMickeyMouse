@@ -68,7 +68,7 @@ function openCreateDialog() {
     let instance = M.Modal.getInstance(document.getElementById('save-modal'));
     instance.open();
     // Se asigna el título para la caja de dialogo (modal).
-    document.getElementById('modal-title').textContent = 'Agregar proveedor';
+    document.getElementById('modal-title').textContent = 'Agregar marca';
 }
 
 function openUpdateDialog(id) {
@@ -78,13 +78,13 @@ function openUpdateDialog(id) {
     let instance = M.Modal.getInstance(document.getElementById('save-modal'));
     instance.open();
     // Se asigna el título para la caja de dialogo (modal).
-    document.getElementById('modal-title').textContent = 'Actualizar proveedor';
+    document.getElementById('modal-title').textContent = 'Actualizar marca';
 
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
     data.append('id_marca', id);
 
-    fetch(API_PROVEEDOR + 'readOne', {
+    fetch(API_MARCA + 'readOne', {
         method: 'post',
         body: data
     }).then(function (request) {
@@ -95,7 +95,7 @@ function openUpdateDialog(id) {
                 if (response.status) {
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
                     document.getElementById('id_marca').value = response.dataset.id_marca;
-                    document.getElementById('nombre_marca').value = response.dataset.nombre_marca;
+                    document.getElementById('nombre').value = response.dataset.nombre_marca;
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.                    
                     M.updateTextFields();
                 } else {

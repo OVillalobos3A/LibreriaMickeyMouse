@@ -13,7 +13,7 @@ Dashboard_Page::headerTemplate('Proveedor');
             <!--Agregamos un botón cuya función es que nos mueste el formulario para agregar-->
             <!--un registro-->
             <div class="col s6">
-                <a onclick="openCreateDialog()" class="waves-effect yellow darken-3 btn modal-trigger" href="#">
+                <a onclick="openCreateDialog()" class="waves-effect yellow darken-3 btn" href="#">
                     <i class="material-icons left">add</i>Agregar marca
                 </a>
             </div>
@@ -24,7 +24,7 @@ Dashboard_Page::headerTemplate('Proveedor');
                     <div class="input-field col s12 m6">
                         <i class="material-icons prefix">search</i>
                         <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
-                        <label for="autocomplete-input"> nombre de la marca</label>
+                        <label for="autocomplete-input">Nombre de la marca</label>
                     </div>
                     <div class="input-field s12 m6">
                         <button class="btn red" type="submit" name="action">Buscar
@@ -40,11 +40,9 @@ Dashboard_Page::headerTemplate('Proveedor');
                         <th>Nombre</th>
                     </tr>
                 </thead>
-
                 <tbody id="tbody-rows">
                 </tbody>
             </table>
-            
         </div>
     </div>
 </div>
@@ -63,7 +61,7 @@ Dashboard_Page::headerTemplate('Proveedor');
                     <div class="row">
                         <!--Estableciendo el tamaño del que tomará el Input field-->
                         <div class="input-field col s12 m6">
-                            <i class="material-icons prefix">person</i>
+                            <i class="material-icons prefix">cases</i>
                             <input id="nombre" name="nombre" type="text" required class="validate">
                             <label for="nombre">Nombre</label>
                         </div>

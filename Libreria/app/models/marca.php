@@ -99,12 +99,12 @@ class Marca_crud extends Validator
 
     
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         $sql = 'UPDATE marca 
                 SET nombre_marca = ?
-                WHERE id_marca = ?'
-        $params = array($this->nombre);
+                WHERE id_marca = ?';
+        $params = array($this->nombre, $this->id);
         return Database::executeRow($sql, $params);
     }
 

@@ -61,7 +61,6 @@ function fillTable(dataset) {
                             <span class="card-title Titulos black-text">$${row.precio}</span>
                             <p class="Texto">${row.nombre_producto}</p>
                             <p class="Texto">Disponibles: ${row.stock}</p>
-                            <p class="Texto">Marca: ${row.nombre_marca}</p>
                             <div class="row">
                                 <div class="col s3 m3 l3">
                                     <a href="#" onclick="openViewDialog(${row.id_inventario})" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Ver más"><i class="material-icons black-text">call_made</i></a>   
@@ -94,6 +93,7 @@ function fillTable(dataset) {
     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }
+/*
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
 document.getElementById('search-form').addEventListener('submit', function (event) {
     // Se evita recargar la página web después de enviar el formulario.
@@ -101,6 +101,7 @@ document.getElementById('search-form').addEventListener('submit', function (even
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
     searchRows(API_PRODUCTOS, 'search-form');
 });
+*/
 // Función para preparar el formulario al momento de insertar un registro.
 function openCreateDialog() {
     // Se restauran los elementos del formulario.
@@ -112,7 +113,6 @@ function openCreateDialog() {
     document.getElementById('modal-title').textContent = 'Crear producto';
     // Se establece el campo de archivo como obligatorio.
     document.getElementById('foto').required = true;
-    document.getElementById('esconder').classList.add("hide");
     // Se llama a la función que llena el select del formulario. Se encuentra en el archivo components.js
    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', null);
    fillSelect(ENDPOINT_TIPO_MARCA, 'marca', null);
@@ -130,9 +130,6 @@ function openUpdateDialog(id) {
     document.getElementById('modal-title').textContent = 'Actualizar producto';
     // Se establece el campo de archivo como opcional.
     document.getElementById('foto').required = false;
-    document.getElementById('stock').disabled = true;
-    document.getElementById('label-stock').innerHTML="Cantidad (solo puede actualizarse haciendo una entrada) ";
-    document.getElementById('aviso').innerHTML="Los cambios(incluyendo la imagen del producto) se visualizaran al guardar los datos";
 
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
@@ -151,7 +148,6 @@ function openUpdateDialog(id) {
                     document.getElementById('id_producto').value = response.dataset.id_inventario;
                     document.getElementById('nombre').value = response.dataset.nombre_producto;
                     document.getElementById('precio').value = response.dataset.precio;
-                    document.getElementById('autor').value = response.dataset.autor;
                     document.getElementById('descripcion').value = response.dataset.descripcion;
                     document.getElementById('stock').value = response.dataset.stock;
                     fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', response.dataset.id_proveedor);
