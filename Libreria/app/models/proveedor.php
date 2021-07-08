@@ -9,7 +9,7 @@ class Proveedor_crud extends Validator
     private $nombre = null;
     private $direccion = null;
     private $correo = null;
-    private $telefono = null;
+    private $tel = null;
 
     
     /*
@@ -91,7 +91,7 @@ class Proveedor_crud extends Validator
 
     public function getTel()
     {
-        return $this->telefono;
+        return $this->tel;
     }
 
 
@@ -128,7 +128,7 @@ class Proveedor_crud extends Validator
     public function createRow()
     {
         $sql = 'INSERT INTO public.proveedor(nombre, correo, direccion, telefono)
-                VALUES (?, ?, ?, ?, ?)';
+                VALUES (?, ?, ?, ?)';
         $params = array( $this->nombre, $this->correo, $this->direccion, $this->tel);
         if ($this->ide = Database::getLastRow($sql, $params)) {
             return true;
@@ -147,12 +147,12 @@ class Proveedor_crud extends Validator
 
     
 
-    public function updateRow($current_image)
+    public function updateRow()
     {
         $sql = 'UPDATE proveedor 
                 SET nombre = ?, correo = ?, direccion = ?, telefono = ?
-                WHERE id_proveedor = ?'
-        $params = array($this->nombre, $this->direccion, $this->correo, $this->tel);
+                WHERE id_proveedor = ?';
+        $params = array($this->nombre, $this->correo, $this->direccion, $this->tel);
         return Database::executeRow($sql, $params);
     }
 

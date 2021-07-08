@@ -74,10 +74,10 @@ if (isset($_GET['action'])) {
             break;
         case 'create':
             $_POST = $prov->validateForm($_POST);
-            if ($prov->setNombre($_POST['nombre'])) {
-                if ($prov->setDireccion($POST['direccion'])){
-                    if($prov->setCorreo($POST['correo'])){
-                        if($prov->setTel($POST['telefono'])){
+            if ($prov->setNombre($_POST['nombres'])) {
+                if ($prov->setDireccion($_POST['direccion'])){
+                    if($prov->setCorreo($_POST['correo'])){
+                        if($prov->setTel($_POST['telefono'])){
                             if ($prov->createRow()) {
                                     $result['status'] = 1;
                                     $result['message'] = 'Proveedor creado correctamente';
@@ -106,11 +106,11 @@ if (isset($_GET['action'])) {
             $_POST = $prov->validateForm($_POST);
             if ($prov->setId($_POST['id_proveedor'])) {
                 if($data = $prov->readOne()){
-                    if ($prov->setNombre($_POST['nombre'])) {
-                        if ($prov->setDireccion($POST['direccion'])){
-                            if($prov->setCorreo($POST['correo'])){
-                                if($prov->setTel($POST['telefono'])){
-                                    if ($prov->createRow()) {
+                    if ($prov->setNombre($_POST['nombres'])) {
+                        if ($prov->setDireccion($_POST['direccion'])){
+                            if($prov->setCorreo($_POST['correo'])){
+                                if($prov->setTel($_POST['telefono'])){
+                                    if ($prov->updateRow()) {
                                             $result['status'] = 1;
                                             $result['message'] = 'Proveedor modificado correctamente';
                                     } else {
@@ -148,11 +148,7 @@ if (isset($_GET['action'])) {
                     if ($data = $prov->readOne()) {
                         if ($prov->deleteRow()) {
                             $result['status'] = 1;
-                            if ($prov->deleteFile($prov->getRuta()) {
-                                $result['message'] = 'proveedor eliminado correctamente';
-                            } else {
-                                $result['message'] = 'proveedor eliminado pero no se borró la imagen';
-                            }
+                            $result['message'] = 'Proveedor eliminado correctamente';
                         } else {
                             $result['exception'] = Database::getException();
                         }
