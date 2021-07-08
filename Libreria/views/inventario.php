@@ -117,6 +117,39 @@ Dashboard_Page::headerTemplate('libreria');
         </div>
     </div>
 
+    <div id="view-modal" class="modal Texto rad">
+        <div class="modal-content black-text">
+            <br>
+            <div class="row">
+                <div class="col s4 m4 l4">
+                    <img class="responsive-img" id="imagen-v" src="">
+                </div>
+                <div class="col s8 m8 l8">
+                    <!--Precio-->
+                    <h4 class="Titulos" id="precio-v"></h4>
+                    <!--Nombre-->
+                    <span class="Texto flow-text" id="nombre-v"></span>
+                    <!--Tipo del Producto-->
+                    <p class="Texto" id="tipo_producto-v"></p>
+                    <!--Descripción-->
+                    <p class="Texto" id="descripcion-v"></p>
+                    <!--Marca-->
+                    <p class="Texto" id="autor-v"></p>
+                    <!--Marca-->
+                    <p class="Texto" id="marca-v"></p>
+                    <!--Proveedor-->
+                    <p class="Texto" id="proveedor-v"></p>
+                    <!--Cantidad-->
+                    <p class="Texto" id="stock-v"></p>
+                </div>
+            </div>
+            <div class="col s12 modal-footer">
+                <br>
+                <button href="#!" class="modal-close waves-effect waves-light btn-flat">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
 </section>
 <?php
   //Se imprime la plantilla del pie y se envía el nombre del controlador para la página web

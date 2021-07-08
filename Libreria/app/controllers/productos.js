@@ -100,6 +100,48 @@ document.getElementById('search-form').addEventListener('submit', function (even
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
     searchRows(API_PRODUCTOS, 'search-form');
 });
+
+// Función para ver todos los detaller del producto
+function openViewDialog(id) {
+    // Se abre la caja de dialogo (modal) que contiene el formulario.
+    let instance = M.Modal.getInstance(document.getElementById('view-modal'));
+    instance.open();
+    
+    // Se define un objeto con los datos del registro seleccionado.
+    const data = new FormData();
+    data.append('id_producto', id);
+
+    fetch(API_PRODUCTOS + 'readOne', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    // Se inicializan los campos del modal con los datos del registro seleccionado.
+                    document.getElementById('nombre-v').textContent = response.dataset.nombre_producto;
+                    document.getElementById('precio-v').textContent = '$' + response.dataset.precio;
+                    document.getElementById('autor-v').textContent = 'Autor: '+response.dataset.autor;
+                    document.getElementById('descripcion-v').textContent = response.dataset.descripcion;
+                    document.getElementById('stock-v').textContent = 'Cantidad disponible: ' + response.dataset.stock;
+                    document.getElementById('tipo_producto-v').textContent = 'Tipo de producto: '+response.dataset.tipo_producto;
+                    document.getElementById('marca-v').textContent = 'Marca: ' + response.dataset.nombre_marca;
+                    document.getElementById('proveedor-v').textContent = 'Proveedor: ' + response.dataset.proveedor;
+                    document.getElementById('imagen-v').setAttribute('src', '../resources/img/productos/' + response.dataset.imagen);
+                } else {
+                    sweetAlert(2, response.exception, null);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
 // Función para preparar el formulario al momento de insertar un registro.
 function openCreateDialog() {
     // Se restauran los elementos del formulario.
