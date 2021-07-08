@@ -38,9 +38,9 @@ Dashboard_Page::headerTemplate('Proveedor');
                 <thead>
                     <tr>
                         <th>Nombre</th>
-                        <th>Direccion</th>
-                        <th>Teléfono</th>
                         <th>Correo</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
                     </tr>
                 </thead>
 

@@ -1,5 +1,5 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
-const API_PROVEEDOR = '../app/api/proveedores.php?action=';
+const API_PROVEEDOR = '../app/api/proveedor.php?action=';
 
 document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
@@ -37,18 +37,7 @@ function fillTable(dataset) {
       `;
     });
     document.getElementById('tbody-rows').innerHTML = content;
-    
-    if ($.fn.dataTable.isDataTable('#myTable')) {
-        table = $('#myTable').DataTable();
-    }
-    else {
-        table = $('#myTable').DataTable({
-            searching: false,
-            ordering: false,
-            "lengthChange": false,
-            "pageLength": 5
-        });
-    }
+
     // Se inicializa el componente Material Box asignado a las imagenes para que funcione el efecto Lightbox.
     M.Materialbox.init(document.querySelectorAll('.materialboxed'));
     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
