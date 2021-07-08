@@ -1,14 +1,13 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
 const API_PRODUCTOS = '../app/api/productos.php?action=';
-const ENDPOINT_TIPO_PRODUCTOS= '../app/api/tipo_producto.php?action=readAll';
-const ENDPOINT_TIPO_MARCA= '../app/api/marca.php?action=readAll';
-const ENDPOINT_PROVEEDOR= '../app/api/proveedores.php?action=readAll';
+const ENDPOINT_TIPO_PRODUCTOS= '../app/api/productos.php?action=readTypes';
+const ENDPOINT_TIPO_MARCA= '../app/api/productos.php?action=readBrands';
+const ENDPOINT_PROVEEDOR= '../app/api/productos.php?action=readProvs';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
     readRows(API_PRODUCTOS);
-    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'cmbtipo_producto', null);
 });
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
@@ -61,6 +60,7 @@ function fillTable(dataset) {
                             <span class="card-title Titulos black-text">$${row.precio}</span>
                             <p class="Texto">${row.nombre_producto}</p>
                             <p class="Texto">Disponibles: ${row.stock}</p>
+                            <p class="Texto">Marca: ${row.nombre_marca}</p>
                             <div class="row">
                                 <div class="col s3 m3 l3">
                                     <a href="#" onclick="openViewDialog(${row.id_inventario})" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Ver más"><i class="material-icons black-text">call_made</i></a>   
@@ -72,7 +72,7 @@ function fillTable(dataset) {
                                     <a href="entradas.php" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Actualizar Stock"><i class="material-icons black-text">iso</i></a>
                                 </div>
                                 <div class="col s3 m3 l3">
-                                    <a href="#" onclick="openDeleteDialog(${row.id_inventario})" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Eliminar"><i class="material-icons black-text">delete</i></a>
+                                    <a onclick="openDeleteDialog(${row.id_inventario})" class="btn btn-floating waves-effect white z-depth-0 tooltipped" data-tooltip="Eliminar"><i class="material-icons black-text">delete</i></a>
                                 </div>
                             </div>  
                         </div>          
@@ -93,7 +93,6 @@ function fillTable(dataset) {
     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }
-/*
 // Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
 document.getElementById('search-form').addEventListener('submit', function (event) {
     // Se evita recargar la página web después de enviar el formulario.
@@ -101,7 +100,6 @@ document.getElementById('search-form').addEventListener('submit', function (even
     // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
     searchRows(API_PRODUCTOS, 'search-form');
 });
-*/
 // Función para preparar el formulario al momento de insertar un registro.
 function openCreateDialog() {
     // Se restauran los elementos del formulario.
@@ -113,6 +111,7 @@ function openCreateDialog() {
     document.getElementById('modal-title').textContent = 'Crear producto';
     // Se establece el campo de archivo como obligatorio.
     document.getElementById('foto').required = true;
+    document.getElementById('esconder').classList.add("hide");
     // Se llama a la función que llena el select del formulario. Se encuentra en el archivo components.js
    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', null);
    fillSelect(ENDPOINT_TIPO_MARCA, 'marca', null);
@@ -130,6 +129,9 @@ function openUpdateDialog(id) {
     document.getElementById('modal-title').textContent = 'Actualizar producto';
     // Se establece el campo de archivo como opcional.
     document.getElementById('foto').required = false;
+    document.getElementById('stock').disabled = true;
+    document.getElementById('label-stock').innerHTML="Cantidad (solo puede actualizarse haciendo una entrada) ";
+    document.getElementById('aviso').innerHTML="Los cambios(incluyendo la imagen del producto) se visualizaran al guardar los datos";
 
     // Se define un objeto con los datos del registro seleccionado.
     const data = new FormData();
@@ -148,11 +150,12 @@ function openUpdateDialog(id) {
                     document.getElementById('id_producto').value = response.dataset.id_inventario;
                     document.getElementById('nombre').value = response.dataset.nombre_producto;
                     document.getElementById('precio').value = response.dataset.precio;
+                    document.getElementById('autor').value = response.dataset.autor;
                     document.getElementById('descripcion').value = response.dataset.descripcion;
                     document.getElementById('stock').value = response.dataset.stock;
                     fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', response.dataset.id_proveedor);
                     fillSelect(ENDPOINT_TIPO_MARCA, 'marca', response.dataset.id_marca);
-                    fillSelect(ENDPOINT_PROVEEDOR, 'proveedor', response.dataset.id_proveedores);
+                    fillSelect(ENDPOINT_PROVEEDOR, 'proveedor', response.dataset.id_proveedor);
                     document.getElementById('imagen').setAttribute('src', '../resources/img/productos/' + response.dataset.imagen);
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
                     M.updateTextFields();
