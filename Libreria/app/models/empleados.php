@@ -2,7 +2,7 @@
 /*
 *	Clase para manejar la tabla usuarios de la base de datos. Es clase hija de Validator.
 */
-class Empleados_crud extends Validator
+class Empleados extends Validator
 {
     //Declaración de atributos
     private $id = null;

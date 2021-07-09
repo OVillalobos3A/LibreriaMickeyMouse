@@ -5,7 +5,7 @@
 
 
 
-class Usuarios_crud extends Validator
+class UsuariosCrud extends Validator
 {
     //Declarando los atributos
     private $id = null;

@@ -66,7 +66,7 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
             <form method="post" id="save-form" enctype="multipart/form-data">
                 <!-- Campo oculto para asignar el id del registro al momento de modificar -->
                 <div class="row">
-                    <table class="responsive-table striped">
+                    <table class="responsive-table striped" id="myTable">
                         <thead>
                             <tr>
                                 <th>Código de la factura</th>

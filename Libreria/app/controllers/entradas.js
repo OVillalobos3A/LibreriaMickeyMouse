@@ -31,14 +31,16 @@ function fillTable(dataset) {
     document.getElementById('tbody-rows').innerHTML = content;
     
     if ($.fn.dataTable.isDataTable('#myTable')) {
-        table = $('#myTable').DataTable();
+        table = $('#myTable').DataTable();              
     }
     else {
-        table = $('#myTable').DataTable({                    
+        table = $('#myTable').DataTable({     
             "lengthChange": false,
             "pageLength": 5,
-            "responsive": true
-        });                    
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+              }            
+        });           
     }
     
     
