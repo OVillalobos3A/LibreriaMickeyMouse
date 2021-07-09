@@ -109,7 +109,7 @@ Dashboard_Page::headerTemplate('libreria');
                         <div class="col s12 modal-footer">
                             <br>
                             <a href="#!" class="modal-close waves-effect waves-black btn-flat">Cancelar</a>
-                            <button class="btn-flat modal-close" type="submit">Guardar</button>
+                            <button class="btn-flat" type="submit">Guardar</button>
                         </div>
                     </div>
                 </form>

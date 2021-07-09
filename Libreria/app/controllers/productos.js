@@ -195,7 +195,7 @@ function openUpdateDialog(id) {
                     document.getElementById('autor').value = response.dataset.autor;
                     document.getElementById('descripcion').value = response.dataset.descripcion;
                     document.getElementById('stock').value = response.dataset.stock;
-                    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', response.dataset.id_proveedor);
+                    fillSelect(ENDPOINT_TIPO_PRODUCTOS, 'tipo_producto', response.dataset.id_tipo_producto);
                     fillSelect(ENDPOINT_TIPO_MARCA, 'marca', response.dataset.id_marca);
                     fillSelect(ENDPOINT_PROVEEDOR, 'proveedor', response.dataset.id_proveedor);
                     document.getElementById('imagen').setAttribute('src', '../resources/img/productos/' + response.dataset.imagen);
