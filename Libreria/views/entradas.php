@@ -67,7 +67,7 @@ Dashboard_Page::headerTemplate('Gestión de entradas');
                     </div>
                 <!--Estableciendo el tamaño del que tomará el Input field-->
                 <div class="input-field col s12 m6">
-                  <input id="cantidad" name="cantidad" type="number" class="validate" required>
+                  <input id="cantidad" name="cantidad" type="number" class="validate" min="1" required>
                   <label for="cantidad">Cantidad</label>
                 </div>
               </div>            
