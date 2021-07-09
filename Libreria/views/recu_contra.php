@@ -1,5 +1,5 @@
 <?php
-include("../app/helpers/dashboard1.php");
+include("../app/helpers/dashboard.php");
 Dashboard_Page::headerTemplate('libreria');
 ?>
 
@@ -10,7 +10,7 @@ Dashboard_Page::headerTemplate('libreria');
 <br>
 <div class="row container" id="ocultable">
     <div class="col s12">
-        <div class="card whithe">
+        <div class="card white rad">
              <!--Defiendo el contenido de la card que contendrá el formulario-->
             <div class="card-content black-text">
                 <a class="waves-effect yellow darken-3 white-text btn" href="../views/index.php">
@@ -86,5 +86,5 @@ Dashboard_Page::headerTemplate('libreria');
 <br>
 <?php
   //Se imprime la plantilla del pie y se envía el nombre del controlador para la página web
-  Dashboard_Page::footerTemplate();
+  Dashboard_Page::footerTemplate('recu_contra.js');
 ?>

@@ -5,7 +5,7 @@ Dashboard_Page::headerTemplate('Gestión de entradas');
 <br>
 <br>
 <div class="container" id="tbentradas">
-  <div class="card whithe">
+  <div class="card white rad">
     <div class="card-content Black-text">
       <!--Colocamos el titulo de la card-->
       <span class="card-title center-align"><b> Visualizar Entradas </b></span>
@@ -13,7 +13,7 @@ Dashboard_Page::headerTemplate('Gestión de entradas');
       <!--Agregamos un botón cuya función es que nos mueste el formulario para agregar-->
       <!--un registro-->
       <div class="col s6">
-                <a onclick="openCreateDialog()" class="waves-effect yellow darken-3 btn modal-trigger" href="#">
+                <a onclick="openCreateDialog()" class="waves-effect amber accent-4 btn modal-trigger" href="#">
                     <i class="material-icons left">add</i>Agregar entrada
                 </a>
       </div>
@@ -21,13 +21,13 @@ Dashboard_Page::headerTemplate('Gestión de entradas');
       <!--Se añade un input field el cual su función es buscar una entrada en especifico-->
       <div class="row">
                 <form method="post" id="search-form">
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m8 l8">
                         <i class="material-icons prefix">search</i>
                         <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
                         <label for="autocomplete-input">Fecha de la entrada</label>
                     </div>
-                    <div class="input-field s12 m6">
-                        <button class="btn red" type="submit" name="action">Buscar
+                    <div class="input-field s12 m4 l4">
+                        <button class="btn red accent-4" type="submit" name="action">Buscar
                             <i class="material-icons right">search</i>
                         </button>
                     </div>
@@ -54,7 +54,7 @@ Dashboard_Page::headerTemplate('Gestión de entradas');
   </div>
 </div>
 
-<div id="save-modal" class="modal">
+<div id="save-modal" class="modal Texto rad">
       <div class="modal-content">
         <h5 id="modal-title" class="center-align">Agregar entrada</h5>
         <br>

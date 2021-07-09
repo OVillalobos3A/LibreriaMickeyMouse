@@ -3,7 +3,7 @@ include("../app/helpers/dashboard.php");
 Dashboard_Page::headerTemplate('Registro');
 ?>
 <section class="login-background">
-	<div class="container">
+	<div class="container Texto">
 		<div class="row">
 			<div class="col s12">
 				<br><br>
@@ -14,38 +14,46 @@ Dashboard_Page::headerTemplate('Registro');
 						<form action="post" id="register-form">		
 							<h3 class="Titulos black-text">Registro de Usuario</h3>
 							<br>
+							<p>Los campos que son obligatorios apareceran marcados con un (*)</p>
+							<br>
 							<span>Ingresa tus datos personales y de contacto</span>
 							<br><br>
 							<div class="row">
 								<!--Texbox Nombre-->
 								<div class="input-field col s12 m6 l6">
-									<input id="nombre" name="nombre" type="text" class="validate" required>
-									<label for="nombre">Nombres</label>										
+									<i class="material-icons prefix">recent_actors</i>
+									<input placeholder="Ingresa tu Nombre" id="nombre" name="nombre" type="text" class="validate" required>
+									<label for="nombre">Nombres *</label>										
 								</div>
 								<!--Texbox Apellidos-->
 								<div class="input-field col s12 m6 l6">
-									<input id="apellido" name="apellido" type="text" class="validate" required>
-									<label for="apellido">Apellidos</label>										
+									<i class="material-icons prefix">recent_actors</i>
+									<input placeholder="Ingresa tus Apellidos" id="apellido" name="apellido" type="text" class="validate" required>
+									<label for="apellido">Apellidos *</label>										
 								</div>
 								<!--Texbox Correo-->
 								<div class="input-field col s12 m12 l12">
-									<input id="correo" name="correo" type="email" class="validate" required>
-									<label for="correo">Correo</label>										
+									<i class="material-icons prefix">email</i>
+									<input placeholder="Ingresa tu dirección de Correo Electrónico" id="correo" name="correo" type="email" class="validate" required>
+									<label for="correo">Correo *</label>										
 								</div>
 								<!--Texbox teléfono-->
 								<div class="input-field col s12 m6 l6">
-									<input id="telefono" name="telefono" type="tel" class="validate" required>
-									<label for="telefono">Teléfono: *Utiliza el siguiente formato 0000-0000</label>										
+									<i class="material-icons prefix">phone</i>
+									<input placeholder="0000-0000" id="telefono" name="telefono" type="tel" class="validate" required>
+									<label for="telefono">Teléfono * : (Utiliza el siguiente formato 0000-0000)</label>										
 								</div>
 								<!--Texbox DUI-->
 								<div class="input-field col s12 m6 l6">
-									<input id="dui" name="dui" type="text" class="validate" required>
-									<label for="dui">DUI: *Utiliza el siguiente formato 00000000-0</label>										
+									<i class="material-icons prefix">call_to_action</i>
+									<input placeholder="00000000-0" id="dui" name="dui" type="text" class="validate" required>
+									<label for="dui">DUI * : (Utiliza el siguiente formato 00000000-0)</label>										
 								</div>
 								<!--Texbox Nacimiento-->
 								<div class="input-field col s12 m6 l6">
+									<i class="material-icons prefix">date_range</i>
 									<input id="fecha" name="fecha" type="date" class="datepicker" required>
-									<label for="fecha">Fecha de nacimiento</label>										
+									<label for="fecha">Fecha de nacimiento *</label>										
 								</div>
 								<!--Combobox Género-->
 								<div class="input-field col s12 m6 l6">
@@ -55,7 +63,7 @@ Dashboard_Page::headerTemplate('Registro');
 										<option value="M">Masculino</option>
 										<option value="N">Prefiero no decirlo</option>
 									</select>	
-									<label>Género</label>									
+									<label>Género *</label>			
 								</div>
 								<div class="input-field col s12 m12 l12">
 									<div class="file-field input-field">
@@ -64,7 +72,7 @@ Dashboard_Page::headerTemplate('Registro');
 											<input id="foto" name="foto" type="file" accept=".gif, .jpg, .png">
 										</div>
 										<div class="file-path-wrapper">
-											<input placeholder="Imagen" class="file-path validate" type="text">
+											<input placeholder="Selecciona una Imagen *" class="file-path validate" type="text">
 										</div>
 									</div>
 								</div>
@@ -73,8 +81,9 @@ Dashboard_Page::headerTemplate('Registro');
 								<br><br>
 								<!--Texbox Nombre-->
 								<div class="input-field col s12 m6 l6">
-									<input id="alias" name="alias" type="text" class="validate" required>
-									<label for="alias">Nombre de usuario</label>										
+									<i class="material-icons prefix">assignment_ind</i>
+									<input placeholder="Ingresa tu nombre de Usuario" id="alias" name="alias" type="text" class="validate" required>
+									<label for="alias">Nombre de usuario *</label>										
 								</div>
 								<!--Combobox Género-->
 								<div class="input-field col s12 m6 l6">
@@ -85,13 +94,15 @@ Dashboard_Page::headerTemplate('Registro');
 								</div>
 								<!--Texbox Password-->
 								<div class="input-field col s12 m6 l6">
-									<input id="contra" name="contra" type="password" class="validate" required>
-									<label for="contra">Contraseña</label>										
+									<i class="material-icons prefix">lock</i>
+									<input placeholder="Ingresa la contraseña que utilizaras" id="contra" name="contra" type="password" class="validate" required>
+									<label for="contra">Contraseña *</label>										
 								</div>
 								<!--Texbox Password-->
 								<div class="input-field col s12 m6 l6">
-									<input id="contra2" name="contra2" type="password" class="validate" required>
-									<label for="contra2">Confirme su contraseña</label>										
+									<i class="material-icons prefix">lock_outline</i>
+									<input placeholder="Ingresa de nuevo tu contraseña" id="contra2" name="contra2" type="password" class="validate" required>
+									<label for="contra2">Confirme su contraseña *</label>										
 								</div>
 								<div class="col s12 m12 l12">
 									<br><br>

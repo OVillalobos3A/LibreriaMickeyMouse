@@ -21,8 +21,8 @@ function fillTable(dataset) {
                 <td>${row.estado}</td>
                 <td>${row.tipo_usuario}</td>                
                 <td>
-                <a href="#" onclick="openUpdateDialog(${row.id_usuario})" class="btn-floating btn waves-effect waves yellow darken-3"><i class="material-icons" title="Editar registro">create</i></a>
-                <a href="#" onclick="openDeleteDialog(${row.id_usuario})" class="btn-floating btn waves-effect waves yellow darken-3"><i class="material-icons" title="Eliminar registro">delete</i></a>
+                <a href="#" onclick="openUpdateDialog(${row.id_usuario})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Editar registro">create</i></a>
+                <a href="#" onclick="openDeleteDialog(${row.id_usuario})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Eliminar registro">delete</i></a>
                 </td>
                 
             </tr>

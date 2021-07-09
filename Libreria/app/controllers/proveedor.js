@@ -30,8 +30,8 @@ function fillTable(dataset) {
               <td>${row.direccion}</td>
               <td>${row.telefono}</td>                    
               <td>
-                <a href="#" onclick="openUpdateDialog(${row.id_proveedor})" class="btn-floating btn waves-effect waves yellow darken-3" data-tooltip="Editar"><i class="material-icons" title="Editar registro">create</i></a>
-                <a href="#" onclick="openDeleteDialog(${row.id_proveedor})" class="btn-floating btn waves-effect waves yellow darken-3" data-tooltip="Eliminar"><i class="material-icons" title="Eliminar registro">delete</i></a>
+                <a href="#" onclick="openUpdateDialog(${row.id_proveedor})" class="btn-floating btn waves-effect waves amber accent-4" data-tooltip="Editar"><i class="material-icons" title="Editar registro">create</i></a>
+                <a href="#" onclick="openDeleteDialog(${row.id_proveedor})" class="btn-floating btn waves-effect waves amber accent-4" data-tooltip="Eliminar"><i class="material-icons" title="Eliminar registro">delete</i></a>
               </td>
           </tr>
       `;

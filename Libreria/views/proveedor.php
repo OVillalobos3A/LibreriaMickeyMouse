@@ -4,7 +4,7 @@ Dashboard_Page::headerTemplate('Proveedor');
 ?>
 <br>
 <br>
-<div class="container">
+<div class="container Texto">
     <div class="card white rad" id="ocultable1">
         <div class="card-content Black-text">
             <!--Colocamos el titulo de la card-->
@@ -13,7 +13,7 @@ Dashboard_Page::headerTemplate('Proveedor');
             <!--Agregamos un botón cuya función es que nos mueste el formulario para agregar-->
             <!--un registro-->
             <div class="col s6">
-                <a onclick="openCreateDialog()" class="waves-effect yellow darken-3 btn modal-trigger" href="#">
+                <a onclick="openCreateDialog()" class="waves-effect amber accent-4 btn modal-trigger" href="#">
                     <i class="material-icons left">add</i>Agregar proveedor
                 </a>
             </div>
@@ -21,13 +21,13 @@ Dashboard_Page::headerTemplate('Proveedor');
             <!--Se añade un input field el cual su función es buscar una entrada en especifico-->
             <div class="row">
                 <form method="post" id="search-form">
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m8 l8">
                         <i class="material-icons prefix">search</i>
                         <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
-                        <label for="autocomplete-input"> nombre del proveedor</label>
+                        <label for="autocomplete-input">Ingresa el Nombre del Proveedor que deseas buscar</label>
                     </div>
-                    <div class="input-field s12 m6">
-                        <button class="btn red" type="submit" name="action">Buscar
+                    <div class="input-field s12 m4 m4">
+                        <button class="btn red accent-4" type="submit" name="action">Buscar
                             <i class="material-icons right">search</i>
                         </button>
                     </div>
@@ -39,8 +39,8 @@ Dashboard_Page::headerTemplate('Proveedor');
                     <tr>
                         <th>Nombre</th>
                         <th>Correo</th>
-                        <th>Direccion</th>
-                        <th>Telefono</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
                     </tr>
                 </thead>
 
@@ -53,7 +53,7 @@ Dashboard_Page::headerTemplate('Proveedor');
 </div>
 
 <!-- Modal Structure -->
-<div id="save-modal" class="modal rad">
+<div id="save-modal" class="modal Texto rad">
     <div class="modal-content">
         <h5 id="modal-title" class="center-align">Agregar proveedor</h5>
         <br>

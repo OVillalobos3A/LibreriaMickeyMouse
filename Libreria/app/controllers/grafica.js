@@ -174,9 +174,7 @@ document.getElementById('credential-form').addEventListener('submit', function (
     if (document.getElementById('id_usuario').value) {
         action = 'updateUserCredentials';
     } else {
-
     }
-    
     saveRowUser(API_PROFILE, action, 'credential-form', 'credential-modal');
 
 });

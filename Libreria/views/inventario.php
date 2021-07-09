@@ -15,7 +15,8 @@ Dashboard_Page::headerTemplate('libreria');
             <div class="row">
                 <form method="post" id="search-form">
                     <div class="input-field col s8 m10 l10">
-                        <input id="search" type="text" name="search" class="validate white-text" required>
+                        <i class="material-icons prefix white-text">search</i>
+                        <input placeholder="Ingresa el nombre, la descripción, marca o tipo del Producto que quieras buscar" id="search" type="text" name="search" class="validate white-text" required>
                         <label for="search">Buscar Producto</label>                                
                     </div>
                     <div class="input-field col s4 m2 l2">
@@ -39,6 +40,7 @@ Dashboard_Page::headerTemplate('libreria');
     <div id="save-modal" class="modal Texto rad">
         <div class="modal-content black-text">
             <h5 id="modal-title"></h5>
+            <p>Los campos que no pueden quedar vacíos se marcaran con un (*)</p>
             <br>
             <div class="container" id="esconder">
                 <div class="row">
@@ -53,42 +55,48 @@ Dashboard_Page::headerTemplate('libreria');
                     
                     <div class="row">
                         <div class="input-field col s12 m6 l6">
-                            <input id="nombre" name="nombre" type="text" class="validate" required>
-                            <label for="nombre">Nombre del producto</label>
+                        <i class="material-icons prefix">assignment</i>
+                            <input placeholder="Ingresa el Nombre del Producto" id="nombre" name="nombre" type="text" class="validate" required>
+                            <label for="nombre">Nombre del producto *</label>
                         </div>   
                         <div class="input-field col s12 m6 l6">
                             <select id="tipo_producto" name="tipo_producto">
                             </select>
-                            <label>Tipo</label>
+                            <label>Tipo *</label>
                         </div>       
                         <div class="input-field col s12 m12 l12">
-                            <textarea id="descripcion" name="descripcion" class="materialize-textarea" required></textarea>
-                            <label for="descripcion">Descripcion</label>
-                        </div>            
+                            <i class="material-icons prefix">description</i>
+                            <textarea placeholder="Añade una Descripción del Producto" id="descripcion" name="descripcion" class="materialize-textarea" required></textarea>
+                            <label for="descripcion">Descripcion *</label>
+                        </div>      
+                        <!--Combobox Proveedor-->
                         <div class="input-field col s12 m6 l6">
-                            <input id="autor" name="autor" type="text" class="validate">
-                            <label for="autor">Autor (opcional)</label>
-                        </div>       
+                        <i class="material-icons prefix"></i>
+                            <select id="proveedor" name="proveedor">
+                            </select>
+                            <label>Proveedor *</label>
+                        </div>          
                         <!--Combobox Marca-->
                         <div class="input-field col s12 m6 l6">
                             <select id="marca" name="marca">
                             </select>
-                            <label>Marca</label>
+                            <label>Marca *</label>
                         </div>
-                        <!--Combobox Proveedor-->
                         <div class="input-field col s12 m6 l6">
-                            <select id="proveedor" name="proveedor">
-                            </select>
-                            <label>Proveedor</label>
+                            <i class="material-icons prefix">book</i>
+                            <input placeholder="Ingresa el Autor(En caso sea necesario)" id="autor" name="autor" type="text" class="validate">
+                            <label for="autor">Autor (opcional)</label>
                         </div>    
                         <!--Texbox Cantidad-->
                         <div class="input-field col s12 m6 l6">
-                            <input id="stock" name="stock" type="number" min="1" class="validate" required>
-                            <label for="stock" id="label-stock">Cantidad Disponible</label>
+                            <i class="material-icons prefix">sort</i>
+                            <input placeholder="Ingresa la Cantidad Disponible actual del Producto" id="stock" name="stock" type="number" min="1" class="validate" required>
+                            <label for="stock" id="label-stock">Cantidad Disponible *</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
-                            <input id="precio" name="precio" type="number" min="1" max="90" step="any" class="validate" required>
-                            <label for="precio">Precio $</label>
+                            <i class="material-icons prefix">monetization_on</i>
+                            <input placeholder="$00.00" id="precio" name="precio" type="number" min="1" max="90" step="any" class="validate" required>
+                            <label for="precio">Precio $ *</label>
                         </div>
                         <div class="input-field col s12 m12 l12">
                             <div class="file-field input-field">
@@ -97,7 +105,7 @@ Dashboard_Page::headerTemplate('libreria');
                                     <input id="foto" type="file" name="foto" accept=".gif, .jpg, .png">
                                 </div>
                                 <div class="file-path-wrapper">
-                                    <input placeholder="Imagen" id="imagen" class="file-path validate" type="text">
+                                    <input placeholder="Selecciona una Imagen *" id="imagen" class="file-path validate" type="text">
                                 </div>
                             </div>
                         </div>
@@ -106,11 +114,10 @@ Dashboard_Page::headerTemplate('libreria');
                             <span id="aviso"></span>
                             <br>
                         </div>
-                        <div class="col s12 modal-footer">
-                            <br>
-                            <a href="#!" class="modal-close waves-effect waves-black btn-flat">Cancelar</a>
-                            <button class="btn-flat" type="submit">Guardar</button>
-                        </div>
+                    </div>
+                    <div class="row center-align">
+                        <a class="btn waves-effect red accent-4 tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                        <button type="submit" class="btn waves-effect red accent-4 tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
                     </div>
                 </form>
             </div>

@@ -4,21 +4,21 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
 ?>
 <br>
 <br>
-<div class="container" id="tbentradas">
-    <div class="card whithe">
+<div class="container Text" id="tbentradas">
+    <div class="card white rad">
         <div class="card-content Black-text">
             <!--Colocamos el titulo de la card-->
             <span class="card-title center-align"><b> <h4>Historial de ventas</h4></b></span>
             <br>
             <form method="post" id="search-form">
                 <div class="row">
-                    <div class="input-field col s12 m6">
+                    <div class="input-field col s12 m8 m8">
                         <i class="material-icons prefix">search</i>
                         <input id="search" type="text" name="search"  maxlength="40" required/>
-                        <label for="autocomplete-input">Núm de factura</label>
+                        <label for="autocomplete-input">Ingresa el Número de factura que quieres buscar</label>
                     </div>
-                    <div class="input-field s12 m6">
-                        <button class="btn red" type="submit" name="action">Buscar
+                    <div class="input-field s12 m4 l4">
+                        <button class="btn red accent-4" type="submit" name="action">Buscar
                             <i class="material-icons right">search</i>
                         </button>
                     </div>
@@ -32,7 +32,7 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
                     <input class="hide" type="number" id="id_pedido" name="id_pedido"/>
                     <div class="row">
                         <div class="col s12 m12">
-                            <h4 class="center-align yellow-text text-darken-3"><b>Detalle de la venta</b></h4>
+                            <h4 class="center-align amber-text text-accent-4"><b>Detalle de la venta</b></h4>
                             </div>
                         </div>
                         <div class="row">                    
@@ -75,7 +75,6 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
                                 <th>Total</th>
                                 <th>Fecha</th>
                                 <th>Empleado encargado</th>
-                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-rows">

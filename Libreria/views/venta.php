@@ -20,9 +20,9 @@ Dashboard_Page::headerTemplate('Venta');
             <br>
             <!-- Modal Structure -->
             <form method="post" id="save-form" name="save-form" enctype="multipart/form-data" class="col-md-4">
-                <div id="modal_registro" class="modal">
+                <div id="modal_registro" class="modal Texto rad">
                     <div class="modal-content">
-                        <a href="#" class="btn waves-effect red tooltipped modal-close right-align" data-tooltip="Cerrar"><i class="material-icons">cancel</i></a>  
+                        <a href="#" class="btn waves-effect red accent-4 tooltipped modal-close right-align" data-tooltip="Cerrar"><i class="material-icons">cancel</i></a>  
                         <h5 class="center-align">Buscar producto</h5>
                         <br>
                         <!--Estableciendo el tamaño de cada div correspondiente-->
@@ -33,7 +33,7 @@ Dashboard_Page::headerTemplate('Venta');
                                 <label for="autocomplete-input">Nombre del producto</label>
                             </div>
                             <div class="input-field s12 m6">
-                                <button class="btn red" type="submit" name="action">Buscar
+                                <button class="btn red accent-4" type="submit" name="action">Buscar
                                     <i class="material-icons right">search</i>
                                 </button>
                             </div>
@@ -103,7 +103,7 @@ Dashboard_Page::headerTemplate('Venta');
 </div>
 
 <form method="post" id="item-form">
-    <div id="item-modal" class="modal">
+    <div id="item-modal" class="modal Texto rad">
         <div class="modal-content">
             <!-- Título para la caja de dialogo -->
             <h4 class="center-align">Elegir cantidad</h4>
@@ -121,14 +121,14 @@ Dashboard_Page::headerTemplate('Venta');
                     </div>
                 </div>
                 <div class="row center-align">
-                    <a class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
-                    <button type="submit" class="btn waves-effect red tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
+                    <a class="btn waves-effect red accent-4 tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                    <button type="submit" class="btn waves-effect red accent-4 tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
                 </div>
         </div>
     </div>
 </form>
 
-<div id="item1-modal" class="modal">
+<div id="item1-modal" class="modal Texto rad">
     <div class="modal-content">
         <!-- Título para la caja de dialogo -->
         <h4 class="center-align">Cambiar cantidad</h4>
@@ -147,8 +147,8 @@ Dashboard_Page::headerTemplate('Venta');
                 </div>
             </div>
             <div class="row center-align">
-                <a href="#" class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
-                <button type="submit" class="btn waves-effect red tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
+                <a href="#" class="btn waves-effect red accent-4 tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+                <button type="submit" class="btn waves-effect red accent-4 tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
                 <h6><b id="mensaje"></b></h6>
             </div>
         </form>
