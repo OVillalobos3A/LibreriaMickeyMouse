@@ -163,6 +163,28 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Detalle incorrecto';
                 }
                 break;
+            case 'search':
+                $_POST = $pedido->validateForm($_POST);
+                if ($_POST['search'] != '') {
+                    if ($result['dataset'] = $pedido->searchRows($_POST['search'])) {
+                        $result['status'] = 1;
+                        $rows = count($result['dataset']);
+                        if ($rows > 1) {
+                            $result['message'] = 'Se encontraron ' . $rows . ' coincidencias';
+                        } else {
+                            $result['message'] = 'Solo existe una coincidencia';
+                        }
+                    } else {
+                        if (Database::getException()) {
+                            $result['exception'] = Database::getException();
+                        } else {
+                            $result['exception'] = 'No hay coincidencias';
+                        }
+                    }
+                } else {
+                    $result['exception'] = 'Ingrese un valor para buscar';
+                }
+                break;
             //Método para actualizar el estado del carrito
             //pasar de "En preparación" a "Finalizado"
             case 'finishFact':

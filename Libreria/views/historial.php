@@ -49,6 +49,7 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
                                 <!--Se crean las filas con los elementos que va a llevar la tabla-->
                                     <tr>
                                         <th>Producto</th>
+                                        <th>Imagen</th>
                                         <th>Cantidad</th>  
                                         <th>Precio</th>
                                         <th>Subtotal</th>                                  

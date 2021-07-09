@@ -33,6 +33,7 @@ function readOrderDetail() {
                         content += `
                             <tr>
                                 <td>${row.nombre}</td>
+                                <td><img src="../resources/img/productos/${row.imagen}" class="materialboxed" height="100"></td>
                                 <td>${row.precio}</td>
                                 <td>${row.cantidad}</td>
                                 <td>${row.subtotal}</td>
@@ -95,6 +96,7 @@ function openCreateDialog() {
             content += `
             <tr>
                 <td>${row.nombre}</td>
+                <td><img src="../resources/img/productos/${row.imagen}" class="materialboxed" height="100"></td>
                 <td>${row.precio}</td>
                 <td><a onclick="openUpdateDialog(${row.id_inventario})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Añadir producto">add</i></a></td>
             </tr>
@@ -525,5 +527,70 @@ function finishFact() {
     });
 }
 
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('save-form').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+    searchRows1(API_FACTURA, 'save-form');
+    function searchRows1(api, form) {
+        fetch(api + 'search', {
+            method: 'post',
+            body: new FormData(document.getElementById(form))
+        }).then(function (request) {
+            // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+            if (request.ok) {
+                request.json().then(function (response) {
+                    // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                    if (response.status) {
+                        // Se envían los datos a la función del controlador para que llene la tabla en la vista.
+                        fillTable1(response.dataset);
+                        sweetAlert(1, response.message, null);
+                    } else {
+                        sweetAlert(2, response.exception, null);
+                    }
+                });
+            } else {
+                console.log(request.status + ' ' + request.statusText);
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
 
+    function fillTable1(dataset) {
+        let content = '';
+        // Se recorre el conjunto de registros (dataset) fila por fila a través del objeto row.
+        dataset.map(function (row) {
+            // Se crean y concatenan las filas de la tabla con los datos de cada registro.
+            content += `
+            <tr>
+                <td>${row.nombre}</td>
+                <td><img src="../resources/img/productos/${row.imagen}" class="materialboxed" height="100"></td>
+                <td>${row.precio}</td>
+                <td><a onclick="openUpdateDialog(${row.id_inventario})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Añadir producto">add</i></a></td>
+            </tr>
+            `;
+        });
+        // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
+        document.getElementById('tbody-rows').innerHTML = content;
+
+        // Se agrega la paginación a la tabla
+        if ($.fn.dataTable.isDataTable('#myTable2')) {
+            table = $('#myTable2').DataTable();              
+        }
+        else {
+            table = $('#myTable2').DataTable({
+                searching: false,
+                ordering: false,
+                "lengthChange": false,
+                "pageLength": 5,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                  }            
+            });           
+        }
+        // Se inicializa el componente Material Box asignado a las imagenes para que funcione el efecto Lightbox.
+    }
+});
 

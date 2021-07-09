@@ -181,7 +181,7 @@ class Factura extends Validator
 
     public function readAll()
     {
-        $sql = 'SELECT id_inventario, nombre, precio
+        $sql = 'SELECT id_inventario, nombre, precio, imagen
                 FROM inventario 
                 ORDER BY nombre';
         $params = null;
@@ -201,7 +201,7 @@ class Factura extends Validator
     // Método para obtener los productos que se encuentran en el carrito de compras.
     public function reCharge()
     {
-        $sql = "SELECT id_detalle, nombre, detalle_compra.cantidad, ('$' || ' ' || CAST(detalle_compra.precio AS varchar)) as precio, 
+        $sql = "SELECT id_detalle, nombre, detalle_compra.cantidad, ('$' || ' ' || CAST(detalle_compra.precio AS varchar)) as precio, imagen,
                 ('$' || ' ' || CAST((detalle_compra.precio*detalle_compra.cantidad) AS varchar)) as subtotal, id_inventario, detalle_compra.precio as cost
                 FROM detalle_compra INNER JOIN  factura USING(id_factura) INNER JOIN inventario USING(id_inventario)
                 WHERE id_factura = ?";
@@ -309,6 +309,15 @@ class Factura extends Validator
                 FROM detalle_compra INNER JOIN factura USING(id_factura)
                 WHERE id_inventario = ? and detalle_compra.id_factura = ?';
         $params = array($this->producto, $_SESSION['id_factura']);
+        return Database::getRows($sql, $params);
+    }
+
+    public function searchRows($value)
+    {
+        $sql = "SELECT id_inventario, nombre, precio, imagen
+                FROM inventario
+                WHERE nombre ILIKE ?";
+        $params = array("%$value%");
         return Database::getRows($sql, $params);
     }
 }

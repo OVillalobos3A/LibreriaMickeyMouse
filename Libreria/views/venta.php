@@ -27,21 +27,22 @@ Dashboard_Page::headerTemplate('Venta');
                         <br>
                         <!--Estableciendo el tamaño de cada div correspondiente-->
                         <div class="row">
-                            <!--Creamos la estructura del formulario respectivo-->
-                            <form class="col-md-4">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <i class="material-icons prefix">search</i>
-                                        <input type="text" id="autocomplete-input" class="autocomplete">
-                                        <label for="autocomplete-input">Nombre del producto</label>
-                                    </div>
-                                </div>
-                            </form>
+                            <div class="input-field col s12 m6">
+                                <i class="material-icons prefix">search</i>
+                                <input id="search" type="text" name="search"  maxlength="40" required/>
+                                <label for="autocomplete-input">Nombre del producto</label>
+                            </div>
+                            <div class="input-field s12 m6">
+                                <button class="btn red" type="submit" name="action">Buscar
+                                    <i class="material-icons right">search</i>
+                                </button>
+                            </div>
                         </div>
                         <table class="responsive-table centered" id="myTable2">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
+                                    <th>Imagen</th>
                                     <th>Precio</th>
                                     <th>Acción</th>
                                 </tr>
@@ -64,6 +65,7 @@ Dashboard_Page::headerTemplate('Venta');
                                 <!--Se crean las filas con los elementos que va a llevar la tabla-->
                                     <tr>
                                         <th>Producto</th>
+                                        <th>Imagen</th>
                                         <th>Precio</th>
                                         <th>Cantidad</th>
                                         <th>Subtotal</th>
