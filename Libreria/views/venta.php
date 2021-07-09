@@ -38,7 +38,7 @@ Dashboard_Page::headerTemplate('Venta');
                                 </div>
                             </form>
                         </div>
-                        <table class="responsive-table centered">
+                        <table class="responsive-table centered" id="myTable2">
                             <thead>
                                 <tr>
                                     <th>Nombre</th>

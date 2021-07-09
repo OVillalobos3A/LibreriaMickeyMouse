@@ -14,18 +14,25 @@ Dashboard_Page::headerTemplate('Gestión de entradas');
       <!--un registro-->
       <div class="col s6">
                 <a onclick="openCreateDialog()" class="waves-effect yellow darken-3 btn modal-trigger" href="#">
-                    <i class="material-icons left">add</i>Agregar usuario
+                    <i class="material-icons left">add</i>Agregar entrada
                 </a>
       </div>
       <br>
       <!--Se añade un input field el cual su función es buscar una entrada en especifico-->
-      <!--<div class="input-field col s6">
-        <i class="material-icons prefix">search</i>
-        <input type="text" id="autocomplete-input" class="autocomplete">
-        <label for="autocomplete-input">Buscar entrada</label>
-      </div>-->
-
-      <!-- Modal Structure -->
+      <div class="row">
+                <form method="post" id="search-form">
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">search</i>
+                        <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
+                        <label for="autocomplete-input">Fecha de la entrada</label>
+                    </div>
+                    <div class="input-field s12 m6">
+                        <button class="btn red" type="submit" name="action">Buscar
+                            <i class="material-icons right">search</i>
+                        </button>
+                    </div>
+                </form>
+            </div>      
       
       <!--Se construye la tabla de datos correspondiente a entradas-->
       <table class="responsive-table striped" id="myTable">

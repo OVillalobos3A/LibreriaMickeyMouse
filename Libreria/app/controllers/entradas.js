@@ -34,22 +34,28 @@ function fillTable(dataset) {
         table = $('#myTable').DataTable();              
     }
     else {
-        table = $('#myTable').DataTable({     
+        table = $('#myTable').DataTable({
+            searching: false,
+            ordering: false,
             "lengthChange": false,
             "pageLength": 5,
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
               }            
         });           
-    }
-    
-    
-    
-
+    }           
 
     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }
+
+// Método manejador de eventos que se ejecuta cuando se envía el formulario de buscar.
+document.getElementById('search-form').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+    searchRows(API_ENTRADAS, 'search-form');
+});
 
 // Función para preparar el formulario al momento de insertar un registro.
 function openCreateDialog() {

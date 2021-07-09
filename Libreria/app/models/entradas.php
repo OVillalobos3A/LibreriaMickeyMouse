@@ -154,6 +154,17 @@ class Entradas extends Validator
         return Database::getRows($sql, $params);
     }
 
+    public function searchRows($value)
+    {
+        $sql = 'SELECT id_entrada, entrada_inventario.cantidad as cantidad, entrada_inventario.fecha as fecha, empleados.nombre as empleado, inventario.nombre as producto, entrada_inventario.id_inventario as id_inventario
+        FROM entrada_inventario INNER JOIN empleados USING(id_empleado)
+        INNER JOIN inventario USING(id_inventario)      
+        WHERE inventario.nombre ILIKE ?
+        ORDER BY entrada_inventario.fecha';
+        $params = array("%$value%");
+        return Database::getRows($sql, $params);
+    }
+
     public function readProd()
     {
         $sql = 'SELECT id_inventario, nombre as producto

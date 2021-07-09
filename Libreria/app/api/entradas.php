@@ -37,6 +37,24 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                case 'search':
+                    $_POST = $entradas->validateForm($_POST);                    
+                        if ($result['dataset'] = $entradas->searchRows($_POST['search'])) {
+                            $result['status'] = 1;
+                            $rows = count($result['dataset']);
+                            if ($rows > 1) {
+                                $result['message'] = 'Se encontraron ' . $rows . ' coincidencias';
+                            } else {
+                                $result['message'] = 'Solo existe una coincidencia';
+                            }
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                $result['exception'] = 'No hay coincidencias';
+                            }
+                        }                   
+                    break;
             case 'create':
                 $_POST = $entradas->validateForm($_POST);
                 if ($entradas->setCantidad($_POST['cantidad'])) {
@@ -72,8 +90,7 @@ if (isset($_GET['action'])) {
                 } else {
                     $result['exception'] = 'Error al asignar la cantidad a ingresar.';
                 }
-                break;
-
+                break;                
             case 'updateProduct':
                 $_POST = $entradas->validateForm($_POST);
                 if ($entradas->setId($_POST['id_usuario'])) {

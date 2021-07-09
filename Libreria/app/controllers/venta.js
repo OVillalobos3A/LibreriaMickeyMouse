@@ -102,6 +102,22 @@ function openCreateDialog() {
         });
         // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
         document.getElementById('tbody-rows').innerHTML = content;
+
+        // Se agrega la paginación a la tabla
+        if ($.fn.dataTable.isDataTable('#myTable2')) {
+            table = $('#myTable2').DataTable();              
+        }
+        else {
+            table = $('#myTable2').DataTable({
+                searching: false,
+                ordering: false,
+                "lengthChange": false,
+                "pageLength": 5,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                  }            
+            });           
+        }
         // Se inicializa el componente Material Box asignado a las imagenes para que funcione el efecto Lightbox.
     }
 }
