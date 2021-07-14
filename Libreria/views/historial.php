@@ -75,6 +75,7 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
                                 <th>Total</th>
                                 <th>Fecha</th>
                                 <th>Empleado encargado</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                         <tbody id="tbody-rows">

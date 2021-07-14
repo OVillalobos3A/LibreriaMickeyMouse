@@ -44,6 +44,7 @@ Dashboard_Page::headerTemplate('Empleados');
                         <th>Dui</th>
                         <th>Estado</th>
                         <th>Imagen</th>
+                        <th>Accion</th>
                     </tr>
                 </thead>
 

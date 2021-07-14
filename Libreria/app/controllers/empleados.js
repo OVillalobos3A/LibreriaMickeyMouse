@@ -42,7 +42,10 @@ function fillTable(dataset) {
       `;
     });
     document.getElementById('tbody-rows').innerHTML = content;
-    
+        
+    // Se inicializa el componente Material Box asignado a las imagenes para que funcione el efecto Lightbox.
+    M.Materialbox.init(document.querySelectorAll('.materialboxed'));
+
     if ($.fn.dataTable.isDataTable('#myTable')) {
         table = $('#myTable').DataTable();              
     }
@@ -51,14 +54,9 @@ function fillTable(dataset) {
             searching: false,
             ordering: false,
             "lengthChange": false,
-            "pageLength": 5,
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
-              }            
+            "pageLength": 5           
         });           
     }
-    // Se inicializa el componente Material Box asignado a las imagenes para que funcione el efecto Lightbox.
-    M.Materialbox.init(document.querySelectorAll('.materialboxed'));
     // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
     M.Tooltip.init(document.querySelectorAll('.tooltipped'));
 }

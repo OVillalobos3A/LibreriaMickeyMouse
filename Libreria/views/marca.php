@@ -38,6 +38,7 @@ Dashboard_Page::headerTemplate('Proveedor');
                 <thead>
                     <tr>
                         <th>Nombre</th>
+                        <th>Accion</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-rows">

@@ -41,6 +41,7 @@ Dashboard_Page::headerTemplate('Proveedor');
                         <th>Correo</th>
                         <th>Dirección</th>
                         <th>Teléfono</th>
+                        <th>Accion</th>
                     </tr>
                 </thead>
 
