@@ -288,6 +288,21 @@ class Validator
         }
     }
 
+    public function validateBirthDate($value)
+    {
+        // Se dividen las partes de la fecha y se guardan en un arreglo en el siguiene orden: año, mes y día.
+        $date = explode('-', $value);
+        if (checkdate($date[1], $date[2], $date[0])) {
+            $f2 = new DateTime("now");
+            $diferencia =  $value->diff($f2);
+            if ($diferencia->format("%y") > 18) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Método para validar la ubicación de un archivo antes de subirlo al servidor.
     *

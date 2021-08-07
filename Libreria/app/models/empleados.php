@@ -22,9 +22,13 @@ class Empleados extends Validator
     /*
     *   Métodos para asignar valores a los atributos.
     */
+
+    //Permite validar el Id del Empleado
     public function setId($value)
     {
+        //Se valida que el campo sea un número natural
         if ($this->validateNaturalNumber($value)) {
+            //Se guarda el dato
             $this->id = $value;
             return true;
         } else {
@@ -32,9 +36,12 @@ class Empleados extends Validator
         }
     }
 
+    //Permite validar el Nombre del Empleado
     public function setNombre($value)
     {
+        //Se valida que el campo sea un alfanúmerico(números y letras)
         if ($this->validateAlphabetic($value, 1, 50)) {
+            //Se guarda el dato
             $this->nombre = $value;
             return true;
         } else {
@@ -42,9 +49,12 @@ class Empleados extends Validator
         }
     }
 
+    //Permite validar los Apellidos del Empleado
     public function setApellido($value)
     {
+        //Se valida que el campo sea un alfanúmerico(números y letras)
         if ($this->validateAlphabetic($value, 1, 50)) {
+            //Se guarda el dato
             $this->apellido = $value;
             return true;
         } else {
@@ -52,9 +62,12 @@ class Empleados extends Validator
         }
     }
 
+    //Permite validar el Correo del Empleado
     public function setCorreo($value)
     {
+        //Se valida que el Correo Electrónico del Empleado contenga el formato correcto para ese campo
         if ($this->validateEmail($value)) {
+            //Se guarda el dato
             $this->correo = $value;
             return true;
         } else {
@@ -62,9 +75,12 @@ class Empleados extends Validator
         }
     }
 
+    //Permite validar el Número de Teléfono del Empleado
     public function setTel($value)
     {
+        //Se valida que el Número de Teléfono del Empleado contenga el formato correcto para ese campo
         if ($this->validatePhone($value)) {
+            //Se guarda el dato
             $this->tel = $value;
             return true;
         } else {
@@ -72,6 +88,7 @@ class Empleados extends Validator
         }
     }
 
+    //Permite validar la Fecha ingresada para el Empleado
     public function setFecha($value)
     {
         if ($this->validateDate($value)) {
@@ -85,6 +102,7 @@ class Empleados extends Validator
     public function setGen($value)
     {
         if ($this->validateGen($value)) {
+            //Se guarda el dato
             $this->gen = $value;
             return true;
         } else {
@@ -95,6 +113,7 @@ class Empleados extends Validator
     public function setDui($value)
     {
         if ($this->validateDUI($value, 1, 50)) {
+            //Se guarda el dato
             $this->dui = $value;
             return true;
         } else {
@@ -105,6 +124,7 @@ class Empleados extends Validator
     public function setCodigo($value)
     {
         if ($this->validateNaturalNumber($value)) {
+            //Se guarda el dato
             $this->primer_uso = $value;
             return true;
         } else {
@@ -115,6 +135,7 @@ class Empleados extends Validator
     public function setEstado($value)
     {
         if ($this->validateAlphanumeric($value, 1, 50)) {
+            //Se guarda el dato
             $this->estado = $value;
             return true;
         } else {
@@ -125,6 +146,7 @@ class Empleados extends Validator
     public function setImagen($file)
     {
         if ($this->validateImageFile($file, 500, 500)) {
+            //Se guarda el dato
             $this->imagen = $this->getImageName();
             return true;
         } else {
