@@ -288,7 +288,7 @@ class Entradas extends Validator
         }                
     }
 
-    //Se elimina la Entrada
+    //Eliminar la Entrada
     public function deleteRow()
     {
         //Se guarda la consulta sql
