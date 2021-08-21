@@ -97,8 +97,6 @@ class Marca_crud extends Validator
         return Database::getRow($sql, $params);
     }
 
-    
-
     public function updateRow()
     {
         $sql = 'UPDATE marca 
@@ -114,6 +112,18 @@ class Marca_crud extends Validator
                 WHERE id_marca = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+    public function readAllReport()
+    {
+        $sql = 'SELECT public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, stock, autor, public.proveedor.nombre as proveedor, tipo_producto
+                FROM public.marca
+                INNER JOIN public.inventario USING(id_marca)
+                INNER JOIN public.tipo_producto USING(id_tipo_producto) 
+                INNER JOIN public.proveedor USING(id_proveedor)
+                WHERE id_marca = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
     }
 
 }

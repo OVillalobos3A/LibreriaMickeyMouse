@@ -71,14 +71,10 @@ class Report extends FPDF
                 // Se agrega un salto de línea para mostrar el contenido principal del documento.
                 $this->Ln(10);
             }else {
-                $this->SetFont('Arial', '', 10);
-                $this->Cell(0, 10, utf8_decode('No se han podido leer los datos del usuario'), 1, 1);
-                $this->Ln(10);
+                header('location: ../../../views/graficas.php');
             }
         } else {
-            $this->SetFont('Arial', '', 10);
-            $this->Cell(0, 10, utf8_decode('No se ha podido verificar al usuario en Sesión'), 1, 1);
-            $this->Ln(10);
+            header('location: ../../../views/graficas.php');
         }
     }
 
