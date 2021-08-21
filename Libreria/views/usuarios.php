@@ -106,6 +106,24 @@ Dashboard_Page::headerTemplate('Usuarios');
     </div>
 </div>
 
+<div id="save-modal1" class="modal Texto rad">
+    <div class="modal-content">
+        <form method="post" id="graphic-form" name="graphic-form" enctype="multipart/form-data">
+            <input class="hide" type="number" id="id_user" name="id_user" />
+            <a href="#" class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+            <h5 id="modal-title" class="center-align">Estadísticas de ventas realizadas</h5>
+            <br>
+            <div id="contenedor">
+                <canvas id="chart4"></canvas>
+            </div>
+            <div id="contenedor1">
+                <canvas id="chart5"></canvas>
+            </div>  
+        </form>
+    </div>
+</div>
+<!-- Importación del archivo para generar gráficas en tiempo real. Para más información https://www.chartjs.org/ -->
+<script type="text/javascript" src="../resources/js/chart.js"></script>
 <?php
 //Se imprime la plantilla del pie y se envía el nombre del controlador para la página web
 Dashboard_Page::footerTemplate('usuarios.js');
