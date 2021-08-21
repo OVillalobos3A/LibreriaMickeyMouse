@@ -275,6 +275,22 @@ class Productos extends Validator
         return Database::getRows($sql, $params);
     }
 
+    //Ver todos los productos
+    public function readAllReport()
+    {
+        //Se guarda la consulta sql
+        $sql = 'SELECT public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, stock, autor, public.proveedor.nombre as proveedor, tipo_producto, nombre_marca
+        FROM public.inventario
+            INNER JOIN public.tipo_producto USING(id_tipo_producto) 
+            INNER JOIN public.proveedor USING(id_proveedor) 
+            INNER JOIN public.marca USING(id_marca) 
+            ORDER BY public.inventario.nombre';
+        //Se guarda un array con los parametros de la consulta(vacío)
+        $params = null;
+        //Se retorna la ejecución del método "getRow"
+        return Database::getRows($sql, $params);
+    }
+
     //Ver todos los Proveedores
     public function readProvs()
     {

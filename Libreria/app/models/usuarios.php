@@ -280,6 +280,16 @@ class Usuarios extends Validator
         return Database::getRow($sql, $params);
     }
 
+    public function readOneReport()
+    {
+        $sql = 'SELECT nombre, apellido, usuario
+                FROM public.usuarios
+                INNER JOIN public.empleados USING(id_empleado)
+                WHERE id_usuario = ?';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+
     public function updateRow()
     {
         $sql = 'UPDATE public."tbUsuarios"

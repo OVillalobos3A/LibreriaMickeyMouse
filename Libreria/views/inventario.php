@@ -14,7 +14,7 @@ Dashboard_Page::headerTemplate('libreria');
           <div class="col s12">
             <div class="row">
                 <form method="post" id="search-form">
-                    <div class="input-field col s8 m10 l10">
+                    <div class="input-field col s7 m9 l9">
                         <i class="material-icons prefix white-text">search</i>
                         <input placeholder="Ingresa el nombre, la descripción, marca o tipo del Producto que quieras buscar" id="search" type="text" name="search" class="validate white-text" required>
                         <label for="search">Buscar Producto</label>                                
@@ -23,6 +23,9 @@ Dashboard_Page::headerTemplate('libreria');
                         <button type="submit" class="btn col s12 waves-effect white black-text"><i class="material-icons right black-text">search</i>Buscar</button>
                     </div>
                 </form>
+                <div class="input-field col s1 m1 l1">
+                    <a href="../app/reports/inventario.php" target="_blank"  class="btn waves-effect white tooltiped" data-tooltip="Imprimir reporte"><i class="material-icons black-text">assignment</i></a>
+                </div>
             </div>
           </div>
         </div>           
