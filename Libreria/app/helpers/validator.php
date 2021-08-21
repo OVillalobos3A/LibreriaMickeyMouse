@@ -289,31 +289,6 @@ class Validator
     }
 
     /*
-    *   Método para validar una fecha de nacimiento que corresponde a un MAYOR DE EDAD.
-    *
-    *   Parámetros: $value (dato a validar).
-    *   
-    *   Retorno: booleano (true si el valor es correcto o false en caso contrario).
-    */
-    public function validateBirthDate($value)
-    {
-        // Se dividen las partes de la fecha y se guardan en un arreglo en el siguiene orden: año, mes y día.
-        $date = explode('-', $value);
-        if (checkdate($date[1], $date[2], $date[0])) {
-            //Se setea la fecha de ahora
-            $f2 = new DateTime("now");
-            //Se establece la diferencia entre ambas fechas
-            $diferencia =  $value->diff($f2);
-            //Se define si la fecha corresponde a la mayoría de edad
-            if ($diferencia->format("%y") > 18) {
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    /*
     *   Método para validar la ubicación de un archivo antes de subirlo al servidor.
     *
     *   Parámetros: $file (archivo), $path (ruta del archivo) y $name (nombre del archivo).
