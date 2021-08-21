@@ -23,6 +23,7 @@ function fillTable(dataset) {
                 <td>
                 <a href="#" onclick="openUpdateDialog(${row.id_usuario})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Editar registro">create</i></a>
                 <a href="#" onclick="openDeleteDialog(${row.id_usuario})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Eliminar registro">delete</i></a>
+                <a href="#" onclick="openGraphic(${row.id_usuario})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Historial de ventas">assessment</i></a>
                 </td>
                 
             </tr>
@@ -139,3 +140,99 @@ function openDeleteDialog(id) {
     // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
     confirmDelete(API_USUARIOS, data);
 }
+
+function openGraphic(id) {
+    // Se define un objeto con los datos del registro seleccionado.
+    const data = new FormData();
+    data.append('id_user', id);
+    graficaLinealVentasUsuario(API_USUARIOS, data);
+    graficaPolarDineroVenta(API_USUARIOS, data);
+}
+
+
+// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+function graficaLinealVentasUsuario(api, data) {
+    fetch(api + 'secondOption', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    let instance = M.Modal.getInstance(document.getElementById('save-modal1'));
+                    instance.open();
+                    document.getElementById("chart4").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart4"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.fecha);
+                        cantidad.push(row.total);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    lineGraph('chart4', categorias, cantidad, '$', 'Dinero recaudado');
+                } else {
+                    document.getElementById("chart4").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart4"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    sweetAlert(3, 'No hay datos disponibles', null);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para mostrar el porcentaje de productos por categoría en una gráfica de pastel.
+function graficaPolarDineroVenta(api, data) {
+    fetch(api + 'firstOption', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    document.getElementById("chart5").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart5"; 
+                    document.getElementById("contenedor1").appendChild(canvas);
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.fecha);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+                    polarGraph('chart5', categorias, cantidad, 'Cantidad de ventas realizadas');
+                } else {
+                    document.getElementById("chart5").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart5"; 
+                    document.getElementById("contenedor1").appendChild(canvas);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+

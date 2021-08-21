@@ -136,3 +136,145 @@ function openDeleteDialog(id, cant, inv) {
         });
     }
 }
+
+// Función para preparar el formulario al momento de realizar la gráfica.
+function openCreateDialog1() {
+    document.getElementById('option1').style.display = '';
+    document.getElementById('chart2').style.display = 'none';
+    document.getElementById('option2').style.display = 'none';
+    // Se restauran los elementos del formulario.
+    document.getElementById('save-form1').reset();
+    // Se abre la caja de dialogo (modal) que contiene el formulario.
+    let instance = M.Modal.getInstance(document.getElementById('save-modal1'));
+    instance.open();
+    // Se asigna el título para la caja de dialogo (modal).
+    document.getElementById('modal-title').textContent = 'Generar gráfico especifico';
+}
+
+function showTwo() {
+    document.getElementById('option2').style.display = '';
+    document.getElementById('option1').style.display = 'none';
+    document.getElementById('date1').value = document.getElementById('fecha1').value;
+    document.getElementById('date2').value = document.getElementById('fecha2').value;
+}
+
+function showOne() {
+    document.getElementById('option1').style.display = '';
+    document.getElementById('option2').style.display = 'none';
+    document.getElementById('fecha1').value = document.getElementById('date1').value;
+    document.getElementById('fecha2').value = document.getElementById('date2').value;
+}
+
+document.getElementById('save-form1').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    // Se llama a la función que realiza la búsqueda. Se encuentra en el archivo components.js
+    if (document.getElementById('fecha1').value > document.getElementById('fecha2').value) {
+        sweetAlert(3, 'Fechas especificadas no válidas, asegurese de que el rango de fechas sea el correcto.', null);
+    }
+    else {
+        loadGraphicOne(API_ENTRADAS, 'save-form1');
+    }
+    
+});
+
+document.getElementById('save-form2').addEventListener('submit', function (event) {
+    // Se evita recargar la página web después de enviar el formulario.
+    event.preventDefault();
+    if (document.getElementById('date1').value > document.getElementById('date2').value) {
+        sweetAlert(3, 'Fechas especificadas no válidas, asegurese de que el rango de fechas sea el correcto.', null);
+    }
+    else {
+        loadGraphicTwo(API_ENTRADAS, 'save-form2');
+    }
+});
+
+function loadGraphicOne(api, form) {
+    fetch(api + 'firstOption', {
+        method: 'post',
+        body: new FormData(document.getElementById(form))
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    document.getElementById("chart2").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart2"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    document.getElementById('chart2').style.display = '';
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.fecha);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    lineGraph('chart2', categorias, cantidad, 'Cantidad', 'Cantidad de entradas realizadas');
+                } else {
+                    sweetAlert(3, response.exception, null);
+                    document.getElementById("chart2").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart2"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    document.getElementById('chart2').style.display = 'none';
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+function loadGraphicTwo(api, form) {
+    fetch(api + 'secondOption', {
+        method: 'post',
+        body: new FormData(document.getElementById(form))
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    document.getElementById("chart2").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart2"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    document.getElementById('chart2').style.display = '';
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.nombre);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    barGraph('chart2', categorias, cantidad, 'Cantidad', 'Cantidad ingresada por producto');
+                } else {
+                    sweetAlert(3, response.exception, null);
+                    document.getElementById("chart2").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart2"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    document.getElementById('chart2').style.display = 'none';
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+

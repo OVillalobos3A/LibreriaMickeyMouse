@@ -3,7 +3,9 @@ const API_PROFILE =  '../app/api/perfil.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
-    openName(API_PROFILE);        
+    openName(API_PROFILE);  
+    graficaBarrasInventarioStock();
+    graficaDonutCantidadVentas();      
 });
 
 // Función para preparar el formulario al momento de modificar un registro.
@@ -29,6 +31,7 @@ function openName() {
                                 <div class="center-align">
                                     <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil" onclick="openUpdateProfile(${row.empleado})">account_circle</i>Perfil</a>
                                     <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales" onclick="openUpdateCredentials(${row.id_usuario})">pin</i>Credenciales</a>
+                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons center tooltipped" data-tooltip="Gráfico de ventas" onclick="openModalGraphic()">analytics</i></a>
                                 </div>
                                 <div><br></div>
                             </div>
@@ -178,3 +181,150 @@ document.getElementById('credential-form').addEventListener('submit', function (
     saveRowUser(API_PROFILE, action, 'credential-form', 'credential-modal');
 
 });
+
+// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+function graficaBarrasInventarioStock() {
+    fetch(API_PROFILE + 'cantidadProductoStockMax', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.nombre);
+                        cantidad.push(row.stock);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    barGraph('chart1', categorias, cantidad, 'Cantidad', 'Cantidad en stock');
+                } else {
+                    document.getElementById('chart1').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para mostrar el porcentaje de productos por categoría en una gráfica de pastel.
+function graficaDonutCantidadVentas() {
+    fetch(API_PROFILE + 'topVentaCantidad', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.fecha);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica tipo donut. Se encuentra en el archivo components.js
+                    doughnutGraph('chart3', categorias, cantidad, 'Ventas realizadas');
+                } else {
+                    document.getElementById('chart3').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+
+// Función para preparar el formulario al momento de realizar la gráfica.
+function openModalGraphic() {
+    let instance = M.Modal.getInstance(document.getElementById('save-modal1'));
+    instance.open();
+    graficaLinealVentasUsuario();
+    graficaPolarDineroVenta();
+}
+
+// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+function graficaLinealVentasUsuario() {
+    fetch(API_PROFILE + 'secondOption', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.fecha);
+                        cantidad.push(row.total);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de barras. Se encuentra en el archivo components.js
+                    lineGraph('chart4', categorias, cantidad, '$', 'Dinero recaudado');
+                } else {
+                    document.getElementById('chart4').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+// Función para mostrar el porcentaje de productos por categoría en una gráfica de pastel.
+function graficaPolarDineroVenta() {
+    fetch(API_PROFILE + 'firstOption', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.fecha);
+                        cantidad.push(row.cantidad);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica de pastel en porcentajes. Se encuentra en el archivo components.js
+                    polarGraph('chart5', categorias, cantidad, 'Cantidad de ventas realizadas');
+                } else {
+                    document.getElementById('chart5').remove();
+                    console.log(response.exception);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
+
