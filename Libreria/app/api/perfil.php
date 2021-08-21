@@ -163,6 +163,50 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'cantidadProductoStockMax':
+                if ($result['dataset'] = $usuario->cantidadProductoStockMax()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
+            case 'topVentaCantidad':
+                if ($result['dataset'] = $usuario->topVentaCantidad()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
+            case 'firstOption':
+                if ($result['dataset'] = $usuario->firstOption()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
+            case 'secondOption':
+                if ($result['dataset'] = $usuario->secondOption()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

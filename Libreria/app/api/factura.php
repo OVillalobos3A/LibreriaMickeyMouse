@@ -65,14 +65,18 @@ if (isset($_GET['action'])) {
                 break;
             case 'readFact':
                 if ($pedido->startOrder()) {
-                    if ($result['dataset'] = $pedido->readFact()) {
-                        $result['status'] = 1;
-                    } else {
-                        if (Database::getException()) {
-                            $result['exception'] = Database::getException();
+                    if ($pedido->actuFecha()) {
+                        if ($result['dataset'] = $pedido->readFact()) {
+                            $result['status'] = 1;
                         } else {
-                            $result['exception'] = 'Ha ocurrido un error en la obtención de datos';
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                $result['exception'] = 'Ha ocurrido un error en la obtención de datos';
+                            }
                         }
+                    } else {
+                        $result['exception'] = 'Ocurrió un problema al obtener la información de la venta';
                     }
                 } else {
                     $result['exception'] = 'Ocurrió un problema al obtener la información de la compra';

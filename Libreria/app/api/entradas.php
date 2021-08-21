@@ -142,7 +142,46 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Entrada incorrecta.';
                 }
                 break;
-
+            case 'firstOption':
+                $_POST = $entradas->validateForm($_POST);
+                if ($entradas->setFecha1($_POST['fecha1'])) {
+                    if ($entradas->setFecha2($_POST['fecha2'])) {
+                        if ($result['dataset'] = $entradas->firstOption()) {
+                            $result['status'] = 1;
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                $result['exception'] = 'No hay datos disponibles';
+                            }
+                        }
+                    } else {
+                        $result['exception'] = 'Fecha de inicio incorrecta';
+                    }
+                } else {
+                    $result['exception'] = 'Fecha final incorrecta';
+                }
+                break;
+            case 'secondOption':
+                $_POST = $entradas->validateForm($_POST);
+                if ($entradas->setFecha1($_POST['date1'])) {
+                    if ($entradas->setFecha2($_POST['date2'])) {
+                        if ($result['dataset'] = $entradas->secondOption()) {
+                            $result['status'] = 1;
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                $result['exception'] = 'No hay datos disponibles';
+                            }
+                        }
+                    } else {
+                        $result['exception'] = 'Fecha de inicio incorrecta';
+                    }
+                } else {
+                    $result['exception'] = 'Fecha final incorrecta';
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible fuera de la sesión';
         }
