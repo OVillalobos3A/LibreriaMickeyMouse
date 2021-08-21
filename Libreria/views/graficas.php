@@ -10,11 +10,13 @@ Dashboard_Page::headerTemplate('libreria');
                 <div class="row">
                     <div class="col s12 m6 center-align">                                            
                     <br>
-                        <img class="responsive-img" src="../resources/img/productos/chart1.PNG">
+                        <canvas id="chart1"></canvas>
+                        <h4 class="center-align black-text">Top 5 productos con mayor stock</h4>
                     </div>
                     <div class="col s12 m6 center-align">                    
                     <br>
-                        <img class="responsive-img" src="../resources/img/productos/chart2.PNG">
+                    <canvas id="chart3"></canvas>
+                        <h4 class="center-align black-text">Top fechas con mayor número de ventas</h4>
                     </div>
                 </div>
             </div>
@@ -107,6 +109,21 @@ Dashboard_Page::headerTemplate('libreria');
     </div>
 </div>
 
+<div id="save-modal1" class="modal Texto rad">
+    <div class="modal-content">
+        <a href="#" class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+        <h5 id="modal-title" class="center-align">Estadísticas de ventas realizadas</h5>
+        <br>
+        <div id="contenedor">
+            <canvas id="chart4"></canvas>
+        </div>
+        <div id="contenedor1">
+            <canvas id="chart5"></canvas>
+        </div>  
+    </div>
+</div>
+<!-- Importación del archivo para generar gráficas en tiempo real. Para más información https://www.chartjs.org/ -->
+<script type="text/javascript" src="../resources/js/chart.js"></script>
 <?php
 //Se imprime la plantilla del pie y se envía el nombre del controlador para la página web
 Dashboard_Page::footerTemplate('grafica.js');
