@@ -482,4 +482,49 @@ class Perfil extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    //Método para obtener el listado de los 5 productos que más se
+    //tienen en stock
+    public function cantidadProductoStockMax()
+    {
+        $sql = 'SELECT nombre, stock
+                FROM inventario
+                GROUP BY nombre, stock ORDER BY stock DESC
+                FETCH FIRST 5 ROWS ONLY';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Método para obtener el listado de las 5 fechas que más se
+    //han realizado ventas
+    public function topVentaCantidad()
+    {
+        $sql = 'SELECT fecha, count(id_factura) as cantidad
+                FROM factura INNER JOIN detalle_compra USING(id_factura)
+                GROUP BY fecha, cantidad ORDER BY cantidad DESC
+                FETCH FIRST 5 ROWS ONLY';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    //Método para obtener la fechas con las cantidad de ventas realizadas por el usuario
+    public function firstOption()
+    {
+        $sql = 'SELECT fecha, count(id_factura) cantidad
+                FROM factura INNER JOIN usuarios USING(id_usuario)
+                WHERE id_usuario = ?
+                GROUP BY fecha ORDER BY cantidad DESC';
+        $params = array($_SESSION['id_usuario']);
+        return Database::getRows($sql, $params);
+    }
+
+    public function secondOption()
+    {
+        $sql = 'SELECT DISTINCT fecha, Sum(detalle_compra.precio*detalle_compra.cantidad) as total
+                FROM factura INNER JOIN detalle_compra USING(id_factura) INNER JOIN usuarios USING(id_usuario)
+                WHERE id_usuario = ?
+                GROUP BY fecha ORDER BY fecha DESC';
+        $params = array($_SESSION['id_usuario']);
+        return Database::getRows($sql, $params);
+    }
+
 }

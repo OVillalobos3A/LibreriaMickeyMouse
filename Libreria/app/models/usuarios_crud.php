@@ -185,7 +185,6 @@ class UsuariosCrud extends Validator
         $sql = 'SELECT id_usuario, usuario, usuarios.estado, empleados.nombre, tipo_usuario
                 FROM usuarios INNER JOIN empleados USING(id_empleado)
                 INNER JOIN tipo_usuario USING(id_tipo_usuario)
-                where usuarios.id_tipo_usuario > 1
                 ORDER BY usuario';
         $params = null;
         return Database::getRows($sql, $params);
@@ -294,5 +293,28 @@ class UsuariosCrud extends Validator
                 WHERE id_usuario = ?';
         $params = array($this->id);
         return Database::executeRow($sql, $params);
+    }
+
+    //Método para obtener la fechas con las cantidad de ventas realizadas por el usuario
+    public function firstOption()
+    {
+        $this->estado = "Finalizado";
+        $sql = 'SELECT fecha, count(id_factura) cantidad
+                FROM factura INNER JOIN usuarios USING(id_usuario)
+                WHERE id_usuario = ? and factura.estado = ?
+                GROUP BY fecha ORDER BY cantidad DESC';
+        $params = array($this->id, $this->estado);
+        return Database::getRows($sql, $params);
+    }
+
+    public function secondOption()
+    {
+        $this->estado = "Finalizado";
+        $sql = 'SELECT DISTINCT fecha, Sum(detalle_compra.precio*detalle_compra.cantidad) as total
+                FROM factura INNER JOIN detalle_compra USING(id_factura) INNER JOIN usuarios USING(id_usuario)
+                WHERE id_usuario = ? and factura.estado = ?
+                GROUP BY fecha ORDER BY fecha DESC';
+        $params = array($this->id, $this->estado);
+        return Database::getRows($sql, $params);
     }
 }
