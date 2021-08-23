@@ -6,32 +6,40 @@ Dashboard_Page::headerTemplate('Proveedor');
 <br>
 <div class="container Texto">
     <div class="card white rad" id="ocultable1">
-        <div class="card-content Black-text">
+        <div class="card-content black-text">
             <!--Colocamos el titulo de la card-->
             <span class="card-title center-align"><b> Visualizar Proveedores </b></span>
             <br>
             <!--Agregamos un botón cuya función es que nos mueste el formulario para agregar-->
             <!--un registro-->
-            <div class="col s6">
-                <a onclick="openCreateDialog()" class="waves-effect amber accent-4 btn modal-trigger" href="#">
-                    <i class="material-icons left">add</i>Agregar proveedor
-                </a>
-            </div>
+            <div class="col s12">
+                <div class="col s6">
+                    <a onclick="openCreateDialog()" class="waves-effect amber accent-4 btn modal-trigger" href="#">
+                        <i class="material-icons left">add</i>Agregar proveedor
+                    </a>
+                </div>
             <br>
-            <!--Se añade un input field el cual su función es buscar una entrada en especifico-->
-            <div class="row">
-                <form method="post" id="search-form">
-                    <div class="input-field col s12 m8 l8">
-                        <i class="material-icons prefix">search</i>
-                        <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
-                        <label for="autocomplete-input">Ingresa el Nombre del Proveedor que deseas buscar</label>
+            </div>
+            <div class="col s12 m12 l12">
+                <!--Se añade un input field el cual su función es buscar una entrada en especifico-->
+                <div class="row">
+                    <form method="post" id="search-form">
+                        <div class="input-field col s7 m9 l9">
+                            <i class="material-icons prefix">search</i>
+                            <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
+                            <label for="search">Ingresa el Nombre del Proveedor que deseas buscar</label>
+                        </div>
+                        <div class="input-field col s4 m2 l2">
+                            <button class="btn red accent-4" type="submit" name="action">Buscar
+                                <i class="material-icons right">search</i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="input-field col s1 m1 l1">
+                        <!--Se añade un boton para genera reporte-->
+                        <a href="../app/reports/proveedores.php" target="_blank" class="btn waves-effect red accent-4 tooltipped" data-tooltip="Reporte de proveedores"><i class="material-icons">assignment</i></a>
                     </div>
-                    <div class="input-field s12 m4 m4">
-                        <button class="btn red accent-4" type="submit" name="action">Buscar
-                            <i class="material-icons right">search</i>
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
             <!--Se construye la tabla de datos correspondiente a entradas-->
             <table id="myTable" class="responsive-table striped">            

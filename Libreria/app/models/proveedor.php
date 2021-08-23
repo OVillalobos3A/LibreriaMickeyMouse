@@ -145,8 +145,6 @@ class Proveedor_crud extends Validator
         return Database::getRow($sql, $params);
     }
 
-    
-
     public function updateRow()
     {
         $sql = 'UPDATE proveedor 
@@ -164,5 +162,24 @@ class Proveedor_crud extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    public function readAllReport()
+    {
+        $sql = 'SELECT nombre, correo, direccion, telefono
+                FROM public.proveedor';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function readProductosReport()
+    {
+        $sql = 'SELECT public.inventario.nombre as nombre_producto, precio, public.inventario.descripcion, stock, autor, nombre_marca as marca, tipo_producto
+                FROM public.proveedor
+                INNER JOIN public.inventario USING(id_proveedor)
+                INNER JOIN public.tipo_producto USING(id_tipo_producto) 
+                INNER JOIN public.marca USING(id_marca)
+                WHERE id_proveedor = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
 }
 

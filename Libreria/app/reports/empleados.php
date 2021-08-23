@@ -25,17 +25,17 @@ if ($dataEmpleados = $empleado->readReportEmpleados()) {
         $pdf->SetFont('Arial', '', 11);
         $pdf->SetTextColor(0,0,0);
         // Se imprimen las celdas con los datos de los productos.                    
-            $pdf->Cell(93, 10, utf8_decode('Correo: '.$rowEmpleado['correo']), 1, 0,'C');
-            $pdf->Cell(50, 10, utf8_decode('Teléfono: '.$rowEmpleado['telefono']), 1, 0,'C');
-            $pdf->Cell(43, 10, utf8_decode('DUI: '.$rowEmpleado['dui']), 1, 1,'C');
-            $pdf->Cell(93, 10, utf8_decode('Fecha de nacimiento: '.$rowEmpleado['fecha_nac']), 1, 0,'C');
-            if ($rowEmpleado['genero'] == 'M') {
-            $pdf->Cell(93, 10, utf8_decode('Género: Masculino'), 1, 1,'C');
-            }
-            else{
-                $pdf->Cell(93, 10, utf8_decode('Género: Femenino'), 1, 1,'C');
-            }
-            $pdf->Ln();            
+        $pdf->Cell(186, 10, utf8_decode('Correo: '.$rowEmpleado['correo']), 1, 1,'C');
+        $pdf->Cell(93, 10, utf8_decode('Teléfono: '.$rowEmpleado['telefono']), 1, 0,'C');
+        $pdf->Cell(93, 10, utf8_decode('DUI: '.$rowEmpleado['dui']), 1, 1,'C');
+        $pdf->Cell(93, 10, utf8_decode('Fecha de nacimiento: '.$rowEmpleado['fecha_nac']), 1, 0,'C');
+        if ($rowEmpleado['genero'] == 'M') {
+        $pdf->Cell(93, 10, utf8_decode('Género: Masculino'), 1, 1,'C');
+        }
+        else{
+            $pdf->Cell(93, 10, utf8_decode('Género: Femenino'), 1, 1,'C');
+        }
+        $pdf->Ln();            
     }
 } else {
     $pdf->Cell(0, 10, utf8_decode('No hay empleados que mostrar'), 1, 1);
