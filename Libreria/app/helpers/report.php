@@ -1,7 +1,8 @@
 <?php
-require('../../helpers/database.php');
-require('../../helpers/validator.php');
-require('../../../libraries/fpdf182/fpdf.php');
+require('../helpers/database.php');
+require('../helpers/validator.php');
+require('../../libraries/fpdf182/fpdf.php');
+require('../models/usuarios.php');
 
 /**
 *   Clase para definir las plantillas de los reportes del sitio privado. Para más información http://www.fpdf.org/
@@ -29,7 +30,7 @@ class Report extends FPDF
             // Se asigna el título del documento a la propiedad de la clase.
             $this->title = $title;
             // Se establece el título del documento (true = utf-8).
-            $this->SetTitle('Dashboard - Reporte', true);
+            $this->SetTitle($title, true);
             // Se establecen los margenes del documento (izquierdo, superior y derecho).
             $this->setMargins(15, 15, 15);
             // Se añade una nueva página al documento (orientación vertical y formato carta) y se llama al método Header()
@@ -37,7 +38,7 @@ class Report extends FPDF
             // Se define un alias para el número total de páginas que se muestra en el pie del documento.
             $this->AliasNbPages();
         } else {
-            header('location: ../../../views/dashboard/index.php');
+            header('location: ../../../views/graficas.php');
         }
     }
 
@@ -47,18 +48,32 @@ class Report extends FPDF
     */
     public function Header()
     {
-        // Se establece el logo.
-        $this->Image('../../../resources/img/logo.png', 15, 15, 20);
-        // Se ubica el título.
-        $this->Cell(20);
-        $this->SetFont('Arial', 'B', 15);
-        $this->Cell(166, 10, utf8_decode($this->title), 0, 1, 'C');
-        // Se ubica la fecha y hora del servidor.
-        $this->Cell(20);
-        $this->SetFont('Arial', '', 10);
-        $this->Cell(166, 10, 'Fecha/Hora: '.date('d-m-Y H:i:s'), 0, 1, 'C');
-        // Se agrega un salto de línea para mostrar el contenido principal del documento.
-        $this->Ln(10);
+        $usuario = new Usuarios;
+
+        if ($usuario->setId($_SESSION['id_usuario'])) {
+            if ($dataUsuario = $usuario->readOneReport()) {
+                // Se establece el logo.
+                $this->Image('../../resources/multimedia/login/logo.png', 15, 15, 15);
+                // Se ubica el título.
+                $this->Cell(20);
+                $this->SetFont('Arial', 'B', 15);
+                $this->Cell(156, 10, utf8_decode($this->title), 0, 1, 'C');
+                // Se ubica la fecha y hora del servidor.
+                $this->Cell(20);
+                $this->SetFont('Arial', '', 10);
+                $this->Cell(156, 10, 'Fecha/Hora: '.date('d-m-Y H:i:s'), 0, 1, 'C');
+                // Se muestran los datos del usuario en Sesión
+                $this->Cell(20);
+                $this->SetFont('Arial', '', 10);
+                $this->Cell(156, 10, 'Impreso por: '.utf8_decode($dataUsuario['nombre']).' '.utf8_decode($dataUsuario['apellido']).' @'.utf8_decode($dataUsuario['usuario']), 0, 1, 'C');
+                // Se agrega un salto de línea para mostrar el contenido principal del documento.
+                $this->Ln(10);
+            }else {
+                header('location: ../../../views/graficas.php');
+            }
+        } else {
+            header('location: ../../../views/graficas.php');
+        }
     }
 
     /*

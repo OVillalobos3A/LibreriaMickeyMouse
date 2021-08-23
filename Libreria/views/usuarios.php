@@ -30,6 +30,8 @@ Dashboard_Page::headerTemplate('Usuarios');
                         <button class="btn red accent-4" type="submit" name="action">Buscar
                             <i class="material-icons right">search</i>
                         </button>
+                        <!--Se añade un boton para genera reporte-->
+                        <a href="../app/reports/usuarios.php" target="_blank" class="btn waves-effect red accent-4 tooltipped" data-tooltip="Reporte de usuarios por tipo de usuario"><i class="material-icons">assignment</i></a>
                     </div>
                 </form>
             </div>
