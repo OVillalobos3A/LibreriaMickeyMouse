@@ -1,4 +1,6 @@
 <?php
+
+//Se añaden las referencias con sus rutas correspondientes
 require('../helpers/report.php');
 require('../models/empleados.php');
 
@@ -13,18 +15,21 @@ $usuarios = new Empleados;
 if ($dataUsuarios = $usuarios->readTipo()) {
     // Se recorren los registros ($dataCategorias) fila por fila ($rowCategoria).
     foreach ($dataUsuarios as $rowUsuario) {
-        // Se establece un color de relleno para mostrar el nombre de la categoría.
+        // Se establece un color de relleno para mostrar el encabezado.
         $pdf->SetFillColor(0);
+        //Se establece el color de fuente para el encabezado
         $pdf->SetTextColor(225,225,255);
-        // Se establece la fuente para el nombre de la categoría.
+        // Se establece la fuente para el encabezado.
         $pdf->SetFont('Arial', 'B', 11);
-        // Se imprime una celda con el nombre de la categoría.
+        // Se imprime una celda con el nombre del encabezado.
         $pdf->Cell(0, 10, utf8_decode('Tipo de usuario: '.$rowUsuario['tipo_usuario']), 1, 1, 'C', 1);
         // Se establece la categoría para obtener sus productos, de lo contrario se imprime un mensaje de error.
         if ($usuarios->setId($rowUsuario['id_tipo_usuario'])) {
             // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
             if ($dataProductos = $usuarios->readUsuariosTipo()) {
+                //Se establece un color de fondo para las celdas
                 $pdf->SetFillColor(59, 56, 53);
+                //Se establece un color de fuente para las celdas de los empleados.
                 $pdf->SetTextColor(225,225,255);
                 // Se establece la fuente para el nombre de la categoría.
                 $pdf->SetFont('Arial', 'B', 11);
