@@ -33,7 +33,7 @@ class Proveedor_crud extends Validator
     public function setNombre($value)
     {
         //Se valida que el campo contenga caracteres alfabéticos.
-        if ($this->validateAlphabetic($value, 1, 50)) {}
+        if ($this->validateAlphabetic($value, 1, 50)) {
             //Se guarda el dato
             $this->nombre = $value;
             return true;
