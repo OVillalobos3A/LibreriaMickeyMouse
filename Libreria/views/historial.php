@@ -21,6 +21,9 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
                         <button class="btn red accent-4" type="submit" name="action">Buscar
                             <i class="material-icons right">search</i>
                         </button>
+                        <a onclick="openReportDialog()" class="waves-effect red accent-4 btn" href="#">
+                            <i class="material-icons center tooltipped" data-tooltip="Reporte de ventas por fechas">assignment</i>
+                        </a>
                     </div>
                 </div>
             </form>
@@ -85,6 +88,34 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
             </form>
         </div>
     </div>
+
+    <div id="save-modal2" class="modal Texto rad">
+    <div class="modal-content">
+        <a href="#" class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+        <h5 id="modal-title" class="center-align">Generar gráfico</h5>
+        <br>
+        <div class="row" id="option1">
+            <!--Creamos la estructura del formulario respectivo-->
+            <form method="post" id="save-form2" name="save-form2" enctype="multipart/form-data">
+                <div class="row">
+                    <!--Estableciendo el tamaño del que tomará el Input field-->
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">date_range</i>
+                        <input type="date" id="fecha1" name="fecha1" class="validate" required />
+                        <label for="fecha1">Desde</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <i class="material-icons prefix">date_range</i>
+                        <input type="date" id="fecha2" name="fecha2" class="validate" required />
+                        <label for="fecha2">Hasta</label>
+                    </div>
+                </div> 
+                <div class="row center-align">
+                    <button type="submit" class="btn waves-effect red tooltipped" data-tooltip="Número de entradas realizadas"><i class="material-icons">assignment_turned_in</i></button>
+                    
+                </div>   
+            </form> 
+        </div>
 </div>
 <br>
 

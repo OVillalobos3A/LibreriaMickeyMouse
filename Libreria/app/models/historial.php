@@ -7,6 +7,8 @@ class Historial extends Validator
     // Declaración de atributos (propiedades).
     private $id = null;
     private $estado = null;
+    private $fecha = null;
+    private $fecha2 = null;
     /*
     *   Métodos para asignar valores a los atributos.
     */
@@ -26,6 +28,26 @@ class Historial extends Validator
         return true;
     }
 
+    public function setFecha($value)
+    {
+        if ($this->validateDate($value)) {
+            $this->fecha = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setFecha2($value)
+    {
+        if ($this->validateDate($value)) {
+            $this->fecha2 = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /*
     *   Métodos para obtener valores de los atributos.
     */
@@ -37,6 +59,16 @@ class Historial extends Validator
     public function getEstado()
     {
         return $this->estado;
+    }
+
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    public function getFecha2()
+    {
+        return $this->fecha2;
     }
 
     /*
@@ -93,5 +125,37 @@ class Historial extends Validator
         return Database::getRow($sql, $params);
     }
     
-
+    //Funcion para obtener los datos que van en el reporte de factura
+    public function readFactura()
+    {
+        $sql = 'SELECT detalle_compra.id_factura as id_factura, inventario.nombre as nombre, cantidad, detalle_compra.precio as precio, (detalle_compra.precio * cantidad) as subtotal
+                FROM detalle_compra INNER JOIN factura ON detalle_compra.id_factura = factura.id_factura
+                INNER JOIN inventario ON detalle_compra.id_inventario = inventario.id_inventario
+                WHERE detalle_compra.id_factura = ?';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+    
+    //Funcion para obtener el total de la compra de una factura en especifico.
+    public function readTotal()
+    {
+        $sql = 'SELECT id_factura, sum(detalle_compra.precio * detalle_compra.cantidad) as total
+                FROM factura INNER JOIN detalle_compra USING(id_factura)
+                WHERE detalle_compra.id_factura = ?
+                GROUP BY id_factura;';
+        $params = array($this->id);
+        return Database::getRow($sql, $params);
+    }
+    //Funcion para obtener las ventas que han habido en un rango de fechas.
+    public function readReportVentas()
+    {
+        $sql = "SELECT id_factura, factura.estado as estado, fecha, (empleados.nombre || ' ' || empleados.apellido) as empleado,
+                sum(detalle_compra.precio*detalle_compra.cantidad) as total
+                FROM factura INNER JOIN detalle_compra USING(id_factura) INNER JOIN usuarios USING(id_usuario)
+                INNER JOIN empleados USING(id_empleado)
+                WHERE fecha between ? and ?
+                GROUP BY factura.id_factura, usuario, empleado";
+        $params = array($this->fecha, $this->fecha2);
+        return Database::getRows($sql, $params);
+    }
 }
