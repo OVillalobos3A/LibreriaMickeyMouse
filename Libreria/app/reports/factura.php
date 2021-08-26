@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
             // Se instancia la clase para crear el reporte.
             $pdf = new Report;
             // Se inicia el reporte con el encabezado del documento.
-            $pdf->startReport('Factura - Pedido #' . $rowComprobante['id_factura']);
+            $pdf->startReport('Factura - Venta #' . $rowComprobante['id_factura']);
             //Se agrega el texto que indica el estado del pedido.
             $pdf->Cell(166, 10, 'Estado: '.$rowComprobante['estado'], 0, 1);
             // Se verifica si existen registros (productos) para mostrar, de lo contrario se imprime un mensaje.
@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
                 // Se establece la fuente para los encabezados.
                 $pdf->SetFont('Arial', 'B', 11);
                 // Se imprimen las celdas con los encabezados.
-                $pdf->Cell(186, 10, utf8_decode('Fecha del pedido: ' . $rowComprobante['fecha']), 1, 1, 'C', 1);                
+                $pdf->Cell(186, 10, utf8_decode('Fecha de la venta: ' . $rowComprobante['fecha']), 1, 1, 'C', 1);                
                 $pdf->SetFillColor(59, 56, 53);
                 $pdf->SetTextColor(225,225,255);
                 $pdf->Cell(54, 10, utf8_decode('Nombre'), 1, 0, 'C', 1);
@@ -54,10 +54,10 @@ if (isset($_GET['id'])) {
                     $pdf->SetFont('Arial', '', 11);
                     $pdf->Cell(52, 10, '$'.$rowTotal['total'], 1, 1, 'C', 1);
                 } else {
-                    $pdf->Cell(0, 10, utf8_decode('Hubo un error al obtener el total del pedido'), 1, 1);
+                    $pdf->Cell(0, 10, utf8_decode('Hubo un error al obtener el total de la venta'), 1, 1);
                 }
             } else {
-                $pdf->Cell(0, 10, utf8_decode('No hay productos para esta pedido'), 1, 1);
+                $pdf->Cell(0, 10, utf8_decode('No hay productos para esta venta'), 1, 1);
             }
             // Se envía el documento al navegador y se llama al método Footer()
             $pdf->SetTextColor(0,0,0);  

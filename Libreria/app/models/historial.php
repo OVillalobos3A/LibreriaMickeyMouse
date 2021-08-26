@@ -153,8 +153,9 @@ class Historial extends Validator
                 sum(detalle_compra.precio*detalle_compra.cantidad) as total
                 FROM factura INNER JOIN detalle_compra USING(id_factura) INNER JOIN usuarios USING(id_usuario)
                 INNER JOIN empleados USING(id_empleado)
-                WHERE fecha between ? and ?
-                GROUP BY factura.id_factura, usuario, empleado";
+                WHERE fecha between ? and ?                
+                GROUP BY factura.id_factura, usuario, empleado
+                ORDER BY fecha desc";
         $params = array($this->fecha, $this->fecha2);
         return Database::getRows($sql, $params);
     }
