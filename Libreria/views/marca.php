@@ -1,6 +1,6 @@
 <?php
 include("../app/helpers/dashboard.php");
-Dashboard_Page::headerTemplate('Proveedor');
+Dashboard_Page::headerTemplate('Marcas');
 ?>
 <br>
 <br>
@@ -78,6 +78,22 @@ Dashboard_Page::headerTemplate('Proveedor');
     </div>
 </div>
 <br>
+
+<div id="save-modal1" class="modal Texto rad">
+    <div class="modal-content">
+        <form method="post" id="graphic-form" name="graphic-form" enctype="multipart/form-data">
+            <input class="hide" type="number" id="id_mar" name="id_mar" />
+            <a href="#" class="btn waves-effect red tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
+            <h5 id="modal-title" class="center-align">Productos de la marca</h5>
+            <br>
+            <div id="contenedor">
+                <canvas id="chart11"></canvas>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Importación del archivo para generar gráficas en tiempo real. Para más información https://www.chartjs.org/ -->
+<script type="text/javascript" src="../resources/js/chart.js"></script>
 <?php
 //Se imprime la plantilla del pie y se envía el nombre del controlador para la página web
 Dashboard_Page::footerTemplate('marca.js');

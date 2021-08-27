@@ -19,6 +19,7 @@ class Perfil extends Validator
     private $estado = null;
     private $imagen = null;
     private $ruta = '../../resources/img/empleados/';
+    private $anio = null;
 
     /*
     *   Métodos para asignar valores a los atributos.
@@ -524,6 +525,46 @@ class Perfil extends Validator
                 WHERE id_usuario = ?
                 GROUP BY fecha ORDER BY fecha DESC';
         $params = array($_SESSION['id_usuario']);
+        return Database::getRows($sql, $params);
+    }
+
+    public function MarcasconmasProductos()
+    {
+        $sql = 'SELECT nombre_marca as Marca, count(id_inventario ) Cantidad
+        FROM inventario INNER JOIN marca USING(id_marca)
+        GROUP BY Marca ORDER BY Cantidad DESC
+        LIMIT 5 OFFSET 0';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function ProducosMasVendidos()
+    {
+        $sql = 'SELECT nombre, sum(detalle_compra.cantidad) total
+                FROM detalle_compra INNER JOIN inventario USING(id_inventario)
+                GROUP BY nombre ORDER BY total desc limit 5';
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+    public function TotalVentasEnAnio()
+    {   $this->anio = '2021';
+        $this->estado = 'Finalizado';
+        $sql = "SELECT to_char(factura.fecha, 'Month') AS mes,
+                COUNT(id_factura) venta
+                FROM factura 
+                WHERE EXTRACT(YEAR FROM factura.fecha) = ? AND estado= ?
+                GROUP BY mes";
+        $params = array($this->anio, $this->estado);
+        return Database::getRows($sql, $params);
+    }
+
+    public function ProducosMasVendidosFrecuencia()
+    {
+        $sql = 'SELECT nombre, count(detalle_compra.id_inventario) total
+                FROM detalle_compra INNER JOIN inventario USING(id_inventario)
+                GROUP BY nombre ORDER BY total desc limit 5';
+        $params = null;
         return Database::getRows($sql, $params);
     }
 

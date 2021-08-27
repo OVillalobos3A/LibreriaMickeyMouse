@@ -207,6 +207,50 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+            case 'TotalVentasEnAnio':
+                if ($result['dataset'] = $usuario->TotalVentasEnAnio()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
+            case 'MarcasconmasProductos':
+                if ($result['dataset'] = $usuario->MarcasconmasProductos()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
+            case 'ProducosMasVendidos':
+                if ($result['dataset'] = $usuario->ProducosMasVendidos()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
+            case 'ProducosMasVendidosFrecuencia':
+                if ($result['dataset'] = $usuario->ProducosMasVendidosFrecuencia()) {
+                    $result['status'] = 1;
+                } else {
+                    if (Database::getException()) {
+                        $result['exception'] = Database::getException();
+                    } else {
+                        $result['exception'] = 'No hay datos disponibles';
+                    }
+                }
+                break;
             default:
                 $result['exception'] = 'Acción no disponible dentro de la sesión';
         }

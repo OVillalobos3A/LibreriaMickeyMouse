@@ -126,5 +126,15 @@ class Marca_crud extends Validator
         return Database::getRows($sql, $params);
     }
 
+    public function ProductosCantidadXMarca()
+    {
+        $sql = 'SELECT nombre, stock
+        FROM inventario
+        where id_marca = ?
+        GROUP BY nombre, stock ORDER BY stock DESC';
+        $params = array($this->id);
+        return Database::getRows($sql, $params);
+    }
+
 }
 
