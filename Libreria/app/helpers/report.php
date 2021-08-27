@@ -56,6 +56,8 @@ class Report extends FPDF
                 $this->Image('../../resources/multimedia/login/logo.png', 15, 15, 15);
                 // Se ubica el título.
                 $this->Cell(20);
+                $this->SetTextColor(0,0,0);  
+                // Se establece la fuente para los encabezados.                
                 $this->SetFont('Arial', 'B', 15);
                 $this->Cell(156, 10, utf8_decode($this->title), 0, 1, 'C');
                 // Se ubica la fecha y hora del servidor.
