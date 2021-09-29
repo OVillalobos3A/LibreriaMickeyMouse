@@ -130,6 +130,21 @@ if (isset($_GET['action'])) {
                 //   $result['exception'] = 'No se puede eliminar a sí mismo';
                 //}
                 break;
+            case 'ProductosCantidadXMarca':
+                if ($prov->setId($_POST['id_mar'])) {
+                    if ($result['dataset'] = $prov->ProductosCantidadXMarca()) {
+                        $result['status'] = 1;
+                    } else {
+                        if (Database::getException()) {
+                            $result['exception'] = Database::getException();
+                        } else {
+                            $result['exception'] = 'No hay datos disponibles';
+                        }
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
         default:
             $result['exception'] = 'Acción no disponible fuera de la sesión';
     }

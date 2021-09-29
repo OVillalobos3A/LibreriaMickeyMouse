@@ -30,6 +30,7 @@ function fillTable(dataset) {
                 <a href="#" onclick="openUpdateDialog(${row.id_marca})" class="btn-floating  btn waves-effect waves amber accent-4" data-tooltip="Editar"><i class="material-icons" title="Editar registro">create</i></a>
                 <a href="#" onclick="openDeleteDialog(${row.id_marca})" class="btn-floating btn waves-effect waves amber accent-4" data-tooltip="Eliminar"><i class="material-icons" title="Eliminar registro">delete</i></a>
                 <a href="../app/reports/productos_marca.php?id=${row.id_marca}" target="_blank" class="btn-floating btn waves-effect waves amber accent-4" data-tooltip="Ver Reporte de Productos"><i class="material-icons" title="Ver Reporte de Productos">assignment</i></a>
+                <a href="#" onclick="openGraphic(${row.id_marca})" class="btn-floating btn waves-effect waves amber accent-4"><i class="material-icons" title="Gráfico de los productos de la marca">assessment</i></a>
               </td>
           </tr>
       `;
@@ -139,4 +140,54 @@ function openDeleteDialog(id) {
     data.append('id_marca', id);
     // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
     confirmDelete(API_MARCA, data);
+}
+
+function openGraphic(id) {
+    // Se define un objeto con los datos del registro seleccionado.
+    const data = new FormData();
+    data.append('id_mar', id);
+    graficaDonutProductosCantidadXMarca(API_MARCA, data);
+}
+
+function graficaDonutProductosCantidadXMarca(api, data) {
+    fetch(api + 'ProductosCantidadXMarca', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se remueve la etiqueta canvas de la gráfica.
+                if (response.status) {
+                    // Se declaran los arreglos para guardar los datos por gráficar.
+                    document.getElementById("chart11").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart11"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    let instance = M.Modal.getInstance(document.getElementById('save-modal1'));
+                    instance.open();
+                    let categorias = [];
+                    let cantidad = [];
+                    // Se recorre el conjunto de registros devuelto por la API (dataset) fila por fila a través del objeto row.
+                    response.dataset.map(function (row) {
+                        // Se asignan los datos a los arreglos.
+                        categorias.push(row.nombre);
+                        cantidad.push(row.stock);
+                    });
+                    // Se llama a la función que genera y muestra una gráfica tipo donut. Se encuentra en el archivo components.js
+                    pieGraph('chart11', categorias, cantidad, 'Cantidad en Stock');
+                } else {
+                    document.getElementById("chart11").remove();
+                    var canvas = document.createElement("canvas");
+                    canvas.id = "chart11"; 
+                    document.getElementById("contenedor").appendChild(canvas);
+                    sweetAlert(3, 'No hay datos disponibles', null);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
 }

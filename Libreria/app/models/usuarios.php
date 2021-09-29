@@ -316,4 +316,6 @@ class Usuarios extends Validator
         $params = array($hash, 2, $this->alias);
         return Database::executeRow($sql, $params);
     }
+
+   
 }

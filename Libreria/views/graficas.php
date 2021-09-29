@@ -18,6 +18,29 @@ Dashboard_Page::headerTemplate('libreria');
                     <canvas id="chart3"></canvas>
                         <h4 class="center-align black-text">Top fechas con mayor número de ventas</h4>
                     </div>
+                    <div class="row center-align">
+                        <div class="col s12 m6 center-align">                                            
+                        <br>
+                            <canvas id="chart8"></canvas>
+                            <h5 class="center-align black-text">Top 5 marcas con mas productos en stock</h5>
+                        </div>
+                        <div class="col s12 m6 center-align">                    
+                            <br>
+                            <canvas id="chart7"></canvas>
+                            <h5 class="center-align black-text">Top 5 productos más vendidos con frecuencia</h5> <!--en este caso es la marca numero 1-->
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col s12 m6">                                      
+                        <canvas id="chart6"></canvas>
+                        <h5 class="center-align black-text">Total de ventas por mes en el año 2021</h5>
+                    </div>
+                    <div class="col s12 m6 center-align">                    
+                    <br>
+                        <canvas id="chart9"></canvas>
+                        <h5 class="center-align black-text">Top 5 productos mas vendidos.</h5>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>

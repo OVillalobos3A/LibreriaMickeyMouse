@@ -3,39 +3,50 @@ include("../app/helpers/dashboard.php");
 Dashboard_Page::headerTemplate('libreria');
 ?>
 <section>
-  <div class="container Texto">
-    <div class="row">
-      <div class="col s12 m12 l12">
-        <h1 class="white-text Titulos">Inventario</h1>
-        <h5 class="white-text Texto">Gestión de Productos</h5><br><br>
-      </div>       
-      <div class="col s12 m12 l12">
+    <div class="container Texto">
         <div class="row">
-          <div class="col s12">
-            <div class="row">
-                <form method="post" id="search-form">
-                    <div class="input-field col s8 m10 l10">
-                        <i class="material-icons prefix white-text">search</i>
-                        <input placeholder="Ingresa el nombre, la descripción, marca o tipo del Producto que quieras buscar" id="search" type="text" name="search" class="validate white-text" required>
-                        <label for="search">Buscar Producto</label>                                
-                    </div>
-                    <div class="input-field col s4 m2 l2">
-                        <button type="submit" class="btn col s12 waves-effect white black-text"><i class="material-icons right black-text">search</i>Buscar</button>
-                    </div>
-                </form>
+            <div class="col s12 m12 l12">
+                <h1 class="white-text Titulos">Inventario</h1>
+                <h5 class="white-text Texto">Gestión de Productos</h5><br><br>
             </div>
-          </div>
-        </div>           
-      </div>
+            <div class="col s12 m12 l12">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <form method="post" id="search-form">
+                                <div class="input-field col s7 m9 l9">
+                                    <i class="material-icons prefix white-text">search</i>
+                                    <input
+                                        placeholder="Ingresa el nombre, la descripción, marca o tipo del Producto que quieras buscar"
+                                        id="search" type="text" name="search" class="validate white-text" required>
+                                    <label for="search">Buscar Producto</label>
+                                </div>
+                                <div class="input-field col s4 m2 l2">
+                                    <button type="submit" class="btn col s12 waves-effect white black-text"><i
+                                            class="material-icons right black-text">search</i>Buscar</button>
+                                </div>
+                            </form>
+                            <div class="input-field col s1 m1 l1">
+                                <!--Se añade un boton para genera reporte-->
+                                <a href="../app/reports/inventario.php" target="_blank"
+                                    class="btn waves-effect white tooltipped" data-tooltip="Reporte del Inventario"><i
+                                        class="material-icons black-text">assignment</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <section>
 
     <div class="container">
-        <div class="row" id="tbody-rows">      
+        <div class="row" id="tbody-rows">
         </div>
     </div>
 
-  <!--Modals-->
+    <!--Modals-->
 
     <div id="save-modal" class="modal Texto rad">
         <div class="modal-content black-text">
@@ -51,31 +62,33 @@ Dashboard_Page::headerTemplate('libreria');
             </div>
             <div class="row">
                 <form method="post" id="save-form" enctype="multipart/form-data" class="col s12">
-                <input class="hide" type="number" id="id_producto" name="id_producto"/>
-                    
+                    <input class="hide" type="number" id="id_producto" name="id_producto" />
+
                     <div class="row">
                         <div class="input-field col s12 m6 l6">
-                        <i class="material-icons prefix">assignment</i>
-                            <input placeholder="Ingresa el Nombre del Producto" id="nombre" name="nombre" type="text" class="validate" required>
+                            <i class="material-icons prefix">assignment</i>
+                            <input placeholder="Ingresa el Nombre del Producto" id="nombre" name="nombre" type="text"
+                                class="validate" required>
                             <label for="nombre">Nombre del producto *</label>
-                        </div>   
+                        </div>
                         <div class="input-field col s12 m6 l6">
                             <select id="tipo_producto" name="tipo_producto">
                             </select>
                             <label>Tipo *</label>
-                        </div>       
+                        </div>
                         <div class="input-field col s12 m12 l12">
                             <i class="material-icons prefix">description</i>
-                            <textarea placeholder="Añade una Descripción del Producto" id="descripcion" name="descripcion" class="materialize-textarea" required></textarea>
+                            <textarea placeholder="Añade una Descripción del Producto" id="descripcion"
+                                name="descripcion" class="materialize-textarea" required></textarea>
                             <label for="descripcion">Descripcion *</label>
-                        </div>      
+                        </div>
                         <!--Combobox Proveedor-->
                         <div class="input-field col s12 m6 l6">
-                        <i class="material-icons prefix"></i>
+                            <i class="material-icons prefix"></i>
                             <select id="proveedor" name="proveedor">
                             </select>
                             <label>Proveedor *</label>
-                        </div>          
+                        </div>
                         <!--Combobox Marca-->
                         <div class="input-field col s12 m6 l6">
                             <select id="marca" name="marca">
@@ -84,18 +97,21 @@ Dashboard_Page::headerTemplate('libreria');
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">book</i>
-                            <input placeholder="Ingresa el Autor(En caso sea necesario)" id="autor" name="autor" type="text" class="validate">
+                            <input placeholder="Ingresa el Autor(En caso sea necesario)" id="autor" name="autor"
+                                type="text" class="validate">
                             <label for="autor">Autor (opcional)</label>
-                        </div>    
+                        </div>
                         <!--Texbox Cantidad-->
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">sort</i>
-                            <input placeholder="Ingresa la Cantidad Disponible actual del Producto" id="stock" name="stock" type="number" min="1" class="validate" required>
+                            <input placeholder="Ingresa la Cantidad Disponible actual del Producto" id="stock"
+                                name="stock" type="number" min="1" class="validate" required>
                             <label for="stock" id="label-stock">Cantidad Disponible *</label>
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">monetization_on</i>
-                            <input placeholder="$00.00" id="precio" name="precio" type="number" min="1" max="90" step="any" class="validate" required>
+                            <input placeholder="$00.00" id="precio" name="precio" type="number" min="1" max="90"
+                                step="any" class="validate" required>
                             <label for="precio">Precio $ *</label>
                         </div>
                         <div class="input-field col s12 m12 l12">
@@ -105,7 +121,8 @@ Dashboard_Page::headerTemplate('libreria');
                                     <input id="foto" type="file" name="foto" accept=".gif, .jpg, .png">
                                 </div>
                                 <div class="file-path-wrapper">
-                                    <input placeholder="Selecciona una Imagen *" id="imagen" class="file-path validate" type="text">
+                                    <input placeholder="Selecciona una Imagen *" id="imagen" class="file-path validate"
+                                        type="text">
                                 </div>
                             </div>
                         </div>
@@ -116,8 +133,10 @@ Dashboard_Page::headerTemplate('libreria');
                         </div>
                     </div>
                     <div class="row center-align">
-                        <a class="btn waves-effect red accent-4 tooltipped modal-close" data-tooltip="Cancelar"><i class="material-icons">cancel</i></a>
-                        <button type="submit" class="btn waves-effect red accent-4 tooltipped" data-tooltip="Guardar"><i class="material-icons">save</i></button>
+                        <a class="btn waves-effect red accent-4 tooltipped modal-close" data-tooltip="Cancelar"><i
+                                class="material-icons">cancel</i></a>
+                        <button type="submit" class="btn waves-effect red accent-4 tooltipped" data-tooltip="Guardar"><i
+                                class="material-icons">save</i></button>
                     </div>
                 </form>
             </div>

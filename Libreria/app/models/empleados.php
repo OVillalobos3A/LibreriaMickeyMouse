@@ -202,7 +202,8 @@ class Empleados extends Validator
     public function readAll()
     {
         $sql = 'SELECT id_empleado, nombre, apellido, correo, dui, telefono, genero, fecha_nac, empleados.estado, imagen
-                FROM empleados';
+                FROM empleados
+                ';
         $params = null;
         return Database::getRows($sql, $params);
     }
@@ -266,6 +267,37 @@ class Empleados extends Validator
         $params = array($this->id);
         return Database::executeRow($sql, $params);
     }
+
+    //Consulta para obtener los datos del reporte de empleados    
+    public function readReportEmpleados()
+    {
+        $sql = "SELECT (nombre || ' ' || apellido) as nombres, correo, telefono, dui, fecha_nac, genero
+        FROM empleados
+        WHERE estado = 'Activo'";
+        $params = null;
+        return Database::getRows($sql, $params);
+    }
+
+     //Método para obtener los datos para el reporte de usuarios por su tipo de usuario
+     public function readUsuariosTipo()
+     {
+         $sql = "SELECT usuario, tipo_usuario, (empleados.nombre || ' ' || empleados.apellido) as empleado, correo, telefono
+                 from usuarios INNER JOIN empleados ON usuarios.id_empleado = empleados.id_empleado
+                 INNER JOIN tipo_usuario ON usuarios.id_tipo_usuario = tipo_usuario.id_tipo_usuario
+                 where tipo_usuario.id_tipo_usuario = ? and usuarios.estado = 'Activo' and tipo_usuario.id_tipo_usuario > 1";
+         $params = array($this->id);
+         return Database::getRows($sql, $params);
+     }
+ 
+     //Método para obtener el tipo de usuario.
+     public function readTipo()
+     {
+         $sql = 'SELECT id_tipo_usuario, tipo_usuario
+         FROM tipo_usuario
+         WHERE id_tipo_usuario != 1';
+         $params = null;
+         return Database::getRows($sql, $params);
+     }
 
 }
 
