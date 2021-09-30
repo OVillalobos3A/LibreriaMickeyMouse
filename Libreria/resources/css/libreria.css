@@ -19,16 +19,15 @@
   background-size: cover;
 }
 .bg404{
-  background-image: url(../multimedia/404.png);
+  background-image: url(../multimedia/login/404.png);
   background-position: center center;
   background-size: cover;
 }
 .ghost {
   position: absolute;
   bottom: 5px;
-  left: calc(50% - 100px);
   /* have the ghost move to the right and to the left of the screen, turning to its central position and repeating the animation twice */
-  animation: hoverGhost calc(var(--animation-duration)/2) ease-in-out 2;
+  animation: hoverGhost calc(var(--animation-duration)/2) ease-in-out infinite;
 }
 body {
   display: flex;
@@ -162,10 +161,10 @@ main {
 }
 
 @keyframes hoverGhost {
-  25% {
-    transform: translateX(-20vw);
+  50% {
+    transform: translate(100%);
   }
-  75% {
-    transform: translateX(20vw);
+  60% {
+    transform: rotateY(180deg);
   }
 }
