@@ -3,13 +3,16 @@ const API_PROFILE =  '../app/api/perfil.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
-    openName(API_PROFILE);  
+    openName(API_PROFILE);
     graficaBarrasInventarioStock();
-    graficaDonutCantidadVentas();   
+    graficaDonutCantidadVentas();
     graficaBarrasTotalVentasEnAnio();    
     graficaLinealMarcasconmasProductos();
     graficaPolarProducosMasVendidos();
-    graficaPieProducosMasVendidosFrecuencia();  
+    graficaPieProducosMasVendidosFrecuencia(); 
+    document.getElementById('parte1').style.display = 'none';
+    document.getElementById('parte3').style.display = 'none';
+    document.getElementById('parte2').style.display = 'none';
 });
 
 // Función para preparar el formulario al momento de modificar un registro.
@@ -118,6 +121,7 @@ function openUpdateProfile(id) {
         console.log(error);
     });
 }
+
 function openUpdateCredentials(id) {
     // Se restauran los elementos del formulario.
     document.getElementById('credential-form').reset();
@@ -142,9 +146,15 @@ function openUpdateCredentials(id) {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
+
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
                     document.getElementById('id_usuario').value = response.dataset.id_usuario;
-                    document.getElementById('alias').value = response.dataset.usuario;
+                    document.getElementById('alias').value = response.dataset.usuario;                    
+                    if (response.dataset.autenticacion) {
+                        document.getElementById('autent').checked = true;
+                    } else {
+                        document.getElementById('autent').checked = false;
+                    }
                     // Se actualizan los campos para que las etiquetas (labels) no queden sobre los datos.
                     M.updateTextFields();
                 } else {
@@ -186,7 +196,7 @@ document.getElementById('credential-form').addEventListener('submit', function (
 
 });
 
-// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+// Función para mostrar en gráfica de barras los 5 productos con mayor stock en el inventario
 function graficaBarrasInventarioStock() {
     fetch(API_PROFILE + 'cantidadProductoStockMax', {
         method: 'get'
@@ -220,7 +230,8 @@ function graficaBarrasInventarioStock() {
     });
 }
 
-// Función para mostrar el porcentaje de productos por categoría en una gráfica de pastel.
+// Función para mostrar en gráfica tipo donut las 5 fechas en las cuales
+//se han realizado más ventas
 function graficaDonutCantidadVentas() {
     fetch(API_PROFILE + 'topVentaCantidad', {
         method: 'get'
@@ -254,8 +265,9 @@ function graficaDonutCantidadVentas() {
     });
 }
 
-
-// Función para preparar el formulario al momento de realizar la gráfica.
+// Función para abrir el modal que contiene las gráficas
+//correspondientes las historial de ventas del usuario
+//que ha iniciado sesión
 function openModalGraphic() {
     let instance = M.Modal.getInstance(document.getElementById('save-modal1'));
     instance.open();
@@ -263,7 +275,8 @@ function openModalGraphic() {
     graficaPolarDineroVenta();
 }
 
-// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+// Función para mostrar en gráfica lineal el dinero que se 
+//recaudó en cada venta en la que el usuario estuvo presente
 function graficaLinealVentasUsuario() {
     fetch(API_PROFILE + 'secondOption', {
         method: 'get'
@@ -286,7 +299,7 @@ function graficaLinealVentasUsuario() {
                     lineGraph('chart4', categorias, cantidad, '$', 'Dinero recaudado');
                 } else {
                     document.getElementById('chart4').remove();
-                    console.log(response.exception);
+                    sweetAlert(3, 'No hay datos disponibles', null);
                 }
             });
         } else {
@@ -297,7 +310,7 @@ function graficaLinealVentasUsuario() {
     });
 }
 
-// Función para mostrar el porcentaje de productos por categoría en una gráfica de pastel.
+// Función para mostrar en gráfica tipo polar la cantidad de ventas que el usuario ha realizado
 function graficaPolarDineroVenta() {
     fetch(API_PROFILE + 'firstOption', {
         method: 'get'
@@ -320,7 +333,6 @@ function graficaPolarDineroVenta() {
                     polarGraph('chart5', categorias, cantidad, 'Cantidad de ventas realizadas');
                 } else {
                     document.getElementById('chart5').remove();
-                    console.log(response.exception);
                 }
             });
         } else {
@@ -332,7 +344,8 @@ function graficaPolarDineroVenta() {
 }
 
 
-// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+// Función para mostrar en gráfica de barras las cantidad de ventas totales de todo el año
+//Se ordenan por mes
 function graficaBarrasTotalVentasEnAnio() {
     fetch(API_PROFILE + 'TotalVentasEnAnio', {
         method: 'get'
@@ -366,7 +379,7 @@ function graficaBarrasTotalVentasEnAnio() {
     });
 }
 
-// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+// Función para mostrar en gráfica lineal las 5 marcas que cuentan con mayor producto
 function graficaLinealMarcasconmasProductos() {
     fetch(API_PROFILE + 'MarcasconmasProductos', {
         method: 'get'
@@ -400,7 +413,7 @@ function graficaLinealMarcasconmasProductos() {
     });
 }
 
-// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+// Función para mostrar en gráfica polar los 5 productos más vendidos
 function graficaPolarProducosMasVendidos() {
     fetch(API_PROFILE + 'ProducosMasVendidos', {
         method: 'get'
@@ -434,7 +447,7 @@ function graficaPolarProducosMasVendidos() {
     });
 }
 
-// Función para mostrar la cantidad de productos por categoría en una gráfica de barras.
+// Función para mostrar en gráfica tipo pie los 5 productos más vendidos con más frecuencia
 function graficaPieProducosMasVendidosFrecuencia() {
     fetch(API_PROFILE + 'ProducosMasVendidosFrecuencia', {
         method: 'get'
@@ -466,6 +479,31 @@ function graficaPieProducosMasVendidosFrecuencia() {
     }).catch(function (error) {
         console.log(error);
     });
+}
+
+// Función para para enseñar grafica 1 y 2
+function mostrarUno() {
+    document.getElementById('parte3').style.display = 'none';
+    document.getElementById('parte1').style.display = 'block';
+    document.getElementById('parte2').style.display = 'none';
+}
+
+function mostrarTres() {
+    document.getElementById('parte2').style.display = 'block';
+    document.getElementById('parte1').style.display = 'none';
+    document.getElementById('parte3').style.display = 'none';
+}
+
+function mostrarDos() {
+    document.getElementById('parte3').style.display = 'block';
+    document.getElementById('parte2').style.display = 'none';
+    document.getElementById('parte1').style.display = 'none';
+}
+
+function mostrarFull() {
+    document.getElementById('parte3').style.display = 'block';
+    document.getElementById('parte2').style.display = 'block';
+    document.getElementById('parte1').style.display = 'block';
 }
 
 

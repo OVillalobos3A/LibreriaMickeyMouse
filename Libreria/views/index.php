@@ -15,19 +15,19 @@ Dashboard_Page::headerTemplate('Log In');
 						<span>Ingresa tus credenciales</span>
 						<br><br>
 						<div class="row">
-							<form method="post" id="session-form" action="#">
+							<form method="post" id="session-form" action="#" autocomplete="off">
 								<div class="col s12">
 									<div class="row">
 										<!--Texbox Email-->
 										<div class="input-field col s12 m12 l12">
 											<i class="material-icons prefix">assignment_ind</i>
-											<input placeholder="Ingresa tu nombre de Usuario" id="user" name="user" type="text" class="validate">
+											<input placeholder="Ingresa tu nombre de Usuario" id="user" name="user" type="text" class="validate" required>
 											<label for="user">Usuario</label>										
 										</div>
 										<!--Texbox Password-->
 										<div class="input-field col s12 m12 l12">
 											<i class="material-icons prefix">lock</i>
-											<input placeholder="Ingresa tu contraseña" id="pass" name="pass" type="password" class="validate">
+											<input placeholder="Ingresa tu contraseña" id="pass" name="pass" type="password" class="validate" required>
 											<label for="pass">Contraseña</label>										
 										</div>
 									</div>
