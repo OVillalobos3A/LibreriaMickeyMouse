@@ -41,10 +41,11 @@ class Validator
     *   
     *   Retorno: arreglo con los campos saneados del formulario.
     */
+    
     public function validateForm($fields)
     {
         foreach ($fields as $index => $value) {
-            $value = trim($value);
+            $value = strip_tags(trim($value));
             $fields[$index] = $value;
         }
         return $fields;
@@ -232,6 +233,17 @@ class Validator
             return true;
         } else {
             $this->passwordError = 'Clave menor a 6 caracteres';
+            return false;
+        }
+    }
+
+    public function validatePass($value)
+    {
+        // Se verifica que la contraseña sea diferente al usuario.
+        if (preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/', $value)) {
+            return true;
+        } else {
+            $this->passwordError = 'Por favor ingrese una contaseña con un mínimo ocho caracteres, al menos una letra, un número y un carácter especial.';
             return false;
         }
     }
