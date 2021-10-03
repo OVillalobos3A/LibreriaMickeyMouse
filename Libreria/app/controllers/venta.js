@@ -248,6 +248,7 @@ function openDeleteDialog(id) {
                                                 content += `
                                                     <tr>
                                                         <td>${row.nombre}</td>
+                                                        <td><img src="../resources/img/productos/${row.imagen}" class="materialboxed" height="100"></td>
                                                         <td>${row.precio}</td>
                                                         <td>${row.cantidad}</td>
                                                         <td>${row.subtotal}</td>
@@ -283,6 +284,7 @@ function openDeleteDialog(id) {
                                                 content += `
                                                     <tr>
                                                         <td>${row.nombre}</td>
+                                                        <td><img src="../resources/img/productos/${row.imagen}" class="materialboxed" height="100"></td>
                                                         <td>${row.precio}</td>
                                                         <td>${row.cantidad}</td>
                                                         <td>${row.subtotal}</td>
