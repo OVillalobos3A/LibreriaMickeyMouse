@@ -20,6 +20,7 @@ class Perfil extends Validator
     private $imagen = null;
     private $ruta = '../../resources/img/empleados/';
     private $anio = null;
+    private $autenticacion = null;
 
     /*
     *   Métodos para asignar valores a los atributos.
@@ -28,6 +29,16 @@ class Perfil extends Validator
     {
         if ($this->validateNaturalNumber($value)) {
             $this->id = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setAutenticacion($value)
+    {
+        if ($this->validateBoolean($value)) {
+            $this->autenticacion = $value;
             return true;
         } else {
             return false;
@@ -156,7 +167,7 @@ class Perfil extends Validator
 
     public function setClave($value)
     {
-        if ($this->validatePassword($value)) {
+        if ($this->validatePass($value)) {
             $this->clave = $value;
             return true;
         } else {
@@ -225,6 +236,11 @@ class Perfil extends Validator
     public function getImagen()
     {
         return $this->imagen;
+    }
+
+    public function getAuten()
+    {
+        return $this->autenticacion;
     }
 
     public function getClave()
@@ -425,7 +441,7 @@ class Perfil extends Validator
 
     public function readEmfileds()
     {
-        $sql = 'SELECT usuarios.id_empleado as emp, nombre, apellido, correo, telefono, imagen, usuarios.id_usuario, usuario
+        $sql = 'SELECT usuarios.id_empleado as emp, nombre, apellido, correo, telefono, imagen, usuarios.id_usuario, usuario, autenticacion
                 FROM usuarios INNER JOIN empleados ON usuarios.id_empleado = empleados.id_empleado
                 WHERE usuarios.id_usuario = ?';
         $params = array($_SESSION['id_usuario']);
@@ -468,20 +484,24 @@ class Perfil extends Validator
         // Se encripta la clave por medio del algoritmo bcrypt que genera un string de 60 caracteres.
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
         $sql = 'UPDATE usuarios 
-                SET usuario = ?, contraseña = ?
+                SET usuario = ?, contraseña = ?, autenticacion = ?
                 WHERE id_usuario = ?';
-        $params = array($this->alias, $hash, $this->id);
+        $params = array($this->alias, $hash, $this->autenticacion, $this->id);
         return Database::executeRow($sql, $params);
     }
 
     public function updateUserCredentials2()
     {
         $sql = 'UPDATE usuarios 
-                SET usuario = ?
+                SET usuario = ?, autenticacion = ?
                 WHERE id_usuario = ?';
-        $params = array($this->alias, $this->id);
+        $params = array($this->alias, $this->autenticacion, $this->id);
         return Database::executeRow($sql, $params);
     }
+
+     /*
+    *   Métodos para gestionar las consultas de las gráficas.
+    */
 
     //Método para obtener el listado de los 5 productos que más se
     //tienen en stock
@@ -501,7 +521,7 @@ class Perfil extends Validator
     {
         $sql = 'SELECT fecha, count(id_factura) as cantidad
                 FROM factura INNER JOIN detalle_compra USING(id_factura)
-                GROUP BY fecha, cantidad ORDER BY cantidad DESC
+                GROUP BY fecha ORDER BY cantidad DESC
                 FETCH FIRST 5 ROWS ONLY';
         $params = null;
         return Database::getRows($sql, $params);
@@ -518,6 +538,8 @@ class Perfil extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Método para mostrar en gráfica lineal el dinero que se 
+    //recaudó en cada venta en la que el usuario estuvo presente
     public function secondOption()
     {
         $sql = 'SELECT DISTINCT fecha, Sum(detalle_compra.precio*detalle_compra.cantidad) as total
@@ -528,9 +550,10 @@ class Perfil extends Validator
         return Database::getRows($sql, $params);
     }
 
+    //Método para mostrar en gráfica lineal las 5 marcas que cuentan con mayor producto
     public function MarcasconmasProductos()
     {
-        $sql = 'SELECT nombre_marca as Marca, count(id_inventario ) Cantidad
+        $sql = 'SELECT nombre_marca as Marca, count(id_inventario) Cantidad
         FROM inventario INNER JOIN marca USING(id_marca)
         GROUP BY Marca ORDER BY Cantidad DESC
         LIMIT 5 OFFSET 0';
@@ -538,6 +561,7 @@ class Perfil extends Validator
         return Database::getRows($sql, $params);
     }
 
+    //Método para mostrar en gráfica polar los 5 productos más vendidos
     public function ProducosMasVendidos()
     {
         $sql = 'SELECT nombre, sum(detalle_compra.cantidad) total
@@ -547,6 +571,8 @@ class Perfil extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Método para mostrar en gráfica de barras las cantidad de ventas totales de todo el año
+    //Se ordenan por mes
     public function TotalVentasEnAnio()
     {   $this->anio = '2021';
         $this->estado = 'Finalizado';
@@ -559,6 +585,7 @@ class Perfil extends Validator
         return Database::getRows($sql, $params);
     }
 
+    // Método para mostrar en gráfica tipo pie los 5 productos más vendidos con más frecuencia
     public function ProducosMasVendidosFrecuencia()
     {
         $sql = 'SELECT nombre, count(detalle_compra.id_inventario) total
@@ -566,6 +593,15 @@ class Perfil extends Validator
                 GROUP BY nombre ORDER BY total desc limit 5';
         $params = null;
         return Database::getRows($sql, $params);
+    }
+
+    public function changeDate()
+    {
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('Y-m-d');
+        $sql = 'UPDATE usuarios SET last_date = ? WHERE id_usuario = ?';
+        $params = array($date, $this->id);
+        return Database::executeRow($sql, $params);
     }
 
 }

@@ -116,34 +116,54 @@ if (isset($_GET['action'])) {
                         if ($usuario->setAlias($_POST['alias'])) {
                             if ($_POST['ncontra'] != '' && $_POST['ncontra1'] != '') {
                                 if ($_POST['ncontra'] == $_POST['ncontra1']) {
-                                    if ($usuario->checkPassword($_POST['contra'])) {
-                                        if ($usuario->setClave($_POST['ncontra'])) {
-                                            if ($usuario->updateUserCredentials()) {
-                                                $result['status'] = 1;
-                                                $result['message'] = 'Credenciales actualizadas correctamente';
+                                    if ($_POST['contra'] != $_POST['ncontra']) {
+                                        if ($_POST['alias'] != $_POST['ncontra']) {
+                                            if ($usuario->setAutenticacion(isset($_POST['autent']) ? 1 : 0)) {
+                                                if ($usuario->checkPassword($_POST['contra'])) {
+                                                    if ($usuario->setClave($_POST['ncontra'])) {
+                                                        if ($usuario->updateUserCredentials()) {
+                                                            if ($usuario->changeDate()) {
+                                                                $result['status'] = 1;
+                                                                $result['message'] = 'Credenciales actualizadas correctamente';
+                                                            } else {
+                                                                $result['exception'] = Database::getException();
+                                                            }
+                                                        } else {
+                                                            $result['exception'] = Database::getException();
+                                                        }
+                                                    } else {
+                                                        $result['exception'] = $usuario->getPasswordError();
+                                                    }
+                                                } else {
+                                                    if (Database::getException()) {
+                                                        $result['exception'] = Database::getException();
+                                                    } else {
+                                                        $result['exception'] = 'Clave incorrecta';
+                                                    }
+                                                }
                                             } else {
-                                                $result['exception'] = Database::getException();
+                                                $result['exception'] = 'Error al actualizar el estado de la autenticación en dos pasos';
                                             }
                                         } else {
-                                            $result['exception'] = $usuario->getPasswordError();
+                                            $result['exception'] = 'Ingrese una contraseña diferente a su nombre de usuario';
                                         }
                                     } else {
-                                        if (Database::getException()) {
-                                            $result['exception'] = Database::getException();
-                                        } else {
-                                            $result['exception'] = 'Clave incorrecta';
-                                        }
+                                        $result['exception'] = 'Ingrese una contraseña diferente a la actual';
                                     }
                                 } else {
                                     $result['exception'] = 'Contraseñas diferentes';
                                 }
                             } else {
                                 if ($usuario->checkPassword($_POST['contra'])) {
-                                    if ($usuario->updateUserCredentials2()) {
-                                        $result['status'] = 1;
-                                        $result['message'] = 'Credenciales actualizadas correctamente';
+                                    if ($usuario->setAutenticacion(isset($_POST['autent']) ? 1 : 0)) {
+                                        if ($usuario->updateUserCredentials2()) {
+                                            $result['status'] = 1;
+                                            $result['message'] = 'Credenciales actualizadas correctamente';
+                                        } else {
+                                            $result['exception'] = Database::getException();
+                                        }
                                     } else {
-                                        $result['exception'] = Database::getException();
+                                        $result['exception'] = 'Error al actualizar el estado de la autenticación en dos pasos';
                                     }
                                 } else {
                                     if (Database::getException()) {
@@ -185,6 +205,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                //Método para mostrar en gráfica tipo polar la cantidad de ventas que el usuario ha realizado
             case 'firstOption':
                 if ($result['dataset'] = $usuario->firstOption()) {
                     $result['status'] = 1;
@@ -196,6 +217,8 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                // Método para mostrar en gráfica lineal el dinero que se 
+                //recaudó en cada venta en la que el usuario estuvo presente
             case 'secondOption':
                 if ($result['dataset'] = $usuario->secondOption()) {
                     $result['status'] = 1;
@@ -207,6 +230,8 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                // Método para mostrar en gráfica de barras las cantidad de ventas totales de todo el año
+                //Se ordenan por mes
             case 'TotalVentasEnAnio':
                 if ($result['dataset'] = $usuario->TotalVentasEnAnio()) {
                     $result['status'] = 1;
@@ -218,6 +243,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                //Método para mostrar en gráfica lineal las 5 marcas que cuentan con mayor producto
             case 'MarcasconmasProductos':
                 if ($result['dataset'] = $usuario->MarcasconmasProductos()) {
                     $result['status'] = 1;
@@ -229,6 +255,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+                //Método para mostrar en gráfica polar los 5 productos más vendidos
             case 'ProducosMasVendidos':
                 if ($result['dataset'] = $usuario->ProducosMasVendidos()) {
                     $result['status'] = 1;
@@ -240,6 +267,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
+            // Método para mostrar en gráfica tipo pie los 5 productos más vendidos con más frecuencia
             case 'ProducosMasVendidosFrecuencia':
                 if ($result['dataset'] = $usuario->ProducosMasVendidosFrecuencia()) {
                     $result['status'] = 1;

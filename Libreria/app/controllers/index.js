@@ -40,15 +40,19 @@ document.getElementById('session-form').addEventListener('submit', function (eve
         // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
         if (request.ok) {
             request.json().then(function (response) {
-                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
-                if (response.status == 1) {
+                if (response.status == 3) {
+                    sweetAlert(3, response.message, 'changepass.php');
+                } else if (response.status == 4){
+                    sweetAlert(3, response.message, 'autenticacion.php');
+                } else if (response.status == 1){
                     sweetAlert(1, response.message, 'graficas.php');
-                } 
-                else if (response.status == 2) {
+                } else if (response.status == 2) {
                     sweetAlert(3, response.message, 'primer_uso.php');
-                } 
-                else {
+                }  else {
                     sweetAlert(2, response.exception, null);
+                    if(response.exception == 'Clave incorrecta'){
+                        document.getElementById('action').disabled = true;
+                    }
                 }
             });
         } else {

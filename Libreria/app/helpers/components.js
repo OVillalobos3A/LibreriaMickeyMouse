@@ -498,3 +498,35 @@ function polarGraph(canvas, legends, values, title) {
         }
     });
 }
+
+function pieGraph(canvas, legends, values, title) {
+    // Se declara un arreglo para guardar códigos de colores en formato hexadecimal.
+    let colors = [];
+    // Se declara e inicializa una variable para sumar los valores a graficar.
+    let total = 0;
+    // Se generan códigos hexadecimales de 6 cifras de acuerdo con el número de datos a mostrar y se van acumulando los valores.
+    for (i = 0; i < values.length; i++) {
+        colors.push('#' + (Math.random().toString(16)).substring(2, 8));
+        total += values[i];
+    }
+    // Se establece el contexto donde se mostrará el gráfico, es decir, se define la etiqueta canvas a utilizar.
+    const context = document.getElementById(canvas).getContext('2d');
+    // Se crea una instancia para generar la gráfica con los datos recibidos.
+    const chart = new Chart(context, {
+        type: 'pie',
+        data: {
+            labels: legends,
+            datasets: [{
+                data: values,
+                backgroundColor: colors
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: title
+            }
+        }
+    });
+}
