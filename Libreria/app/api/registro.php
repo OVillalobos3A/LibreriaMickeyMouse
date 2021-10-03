@@ -6,6 +6,8 @@ require_once('../helpers/validator.php');
 require_once('../models/usuarios.php');
 require_once('../models/registro.php');
 
+require '../../libraries/PHPMailer/PHPMailerAutoload.php';
+
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
     // Se crea una sesión o se reanuda la actual para poder utilizar variables de sesión en el script.
@@ -205,12 +207,60 @@ if (isset($_GET['action'])) {
                             $usuario->checkPrimerUso($_POST['user']);
                             //Se verifica que el primer uso no esté setea
                             if ($usuario->getPrimer_uso() != 1) {
-                            $result['status'] = 1;
-                            $result['message'] = 'Autenticación correcta';
-                            //Se setea el id en la variable "Session"
-                            $_SESSION['id_usuario'] = $usuario->getId();
-                            //Se setea el alias del usuario en la variable "Session"
-                            $_SESSION['alias_usuario'] = $usuario->getAlias();
+                                $usuario->setAlias($_POST['user']);
+                                $_SESSION['pass'] = $_POST['pass'];
+                                $_SESSION['fecha'] = $usuario->getFecha();
+                                $_SESSION['usuaio'] = $usuario->getAlias();
+                                $_SESSION['cant'] = $usuario->getCant();
+                                $usuario->setIntentos(0);
+                                $usuario->updateIntentos();
+                                if ($_SESSION['cant'] >= 90) {
+                                    $result['message'] = 'Han pasado un período largo desde su último cambio de contraseña, es hora de renovar tus credenciales.';
+                                    $result['status'] = 3;
+                                    $_SESSION['id_user'] = $usuario->getId();
+                                } else {
+                                    if ($usuario->getAuten()) {
+                                        $_SESSION['id_user'] = $usuario->getId();
+                                        $_SESSION['correo'] = $usuario->getCorreo();
+                                        $usuario->setId($_SESSION['id_user']);
+                                        $usuario->generarCodigo(5);
+                                        $usuario->updateCode();
+                                        $_SESSION['autn'] = $usuario->getCodigo();
+                                        $mail = new PHPMailer();
+                                        $mail->IsSMTP();
+                                        //Configuracion servidor mail
+                                        $mail->setFrom('hardprimestore@gmail.com', 'HardPrimeStore'); //remitente
+                                        $mail->SMTPAuth = true;
+                                        $mail->SMTPSecure = 'tls'; //seguridad
+                                        $mail->Host = "smtp.gmail.com"; // servidor smtp
+                                        $mail->Port = 587; //puerto
+                                        $mail->Username = 'HardPrimeStore@gmail.com'; //nombre usuario
+                                        $mail->Password = 'Store2021'; //contraseña
+                                        $mail->AddAddress($usuario->getCorreo());
+                                        $mail->Subject = 'Segundo factor de autenticación - HardPrimeStore';
+                                        $mail->Body = 'El código para iniciar sesión es: ' . $usuario->getCodigo() . '.';
+                                        if ($mail->Send()) {
+                                            $result['message'] = 'Se le ha envíado el código para iniciar sesión, por favor revise su correo.';
+                                            $result['status'] = 4;
+                                        } else {
+                                            $result['exception'] = 'Ocurrió un error al enviar el correo.';
+                                        }
+                                    } else {
+                                        $_SESSION['id_usuario'] = $usuario->getId();
+                                        date_default_timezone_set('America/El_Salvador');
+                                        $_SESSION["ultimoAcceso"] = date("Y-n-j H:i:s");
+                                        $result['message'] = 'Autenticación correcta';
+                                        $result['status'] = 1;
+                                        //sesion que captura la fecha y hora del inicio de sesión
+                                        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+                                        //Se establece la zona horaria y se obtiene la fecha y hora actual                                
+                                        date_default_timezone_set('America/El_Salvador');
+                                        $DateAndTime = date('m-d-Y h:i:s a', time());
+                                        $plataforma = $usuario->getPlatform($user_agent);
+                                        //Se registra ingresan los datos en la base de datos
+                                        $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario']);
+                                    }
+                                }
                             }
                             else {
                                 $result['status'] = 2;
@@ -219,21 +269,105 @@ if (isset($_GET['action'])) {
                                 $_SESSION['alias_usuario'] = $usuario->getAlias();
                             }
                         } else {
+                            $usuario->setAlias($_POST['user']);
+                            $usuario->readIntentos();
                             if (Database::getException()) {
                                 $result['exception'] = Database::getException();
                             } else {
-                                $result['exception'] = 'Clave incorrecta';
+                                if ($usuario->getIntentos() == 0) {
+                                    $usuario->setIntentos(1);
+                                    $usuario->updateIntentos();
+                                    $result['exception'] = 'Credenciales incorrectas o usuario inactivo.';
+                                } else if ($usuario->getIntentos() == 1) {
+                                    $usuario->setIntentos(2);
+                                    $usuario->updateIntentos();
+                                    $result['exception'] = 'Credenciales incorrectas o usuario inactivo.';
+                                } else if ($usuario->getIntentos() == 2) {
+                                    $usuario->setIntentos(3);
+                                    $usuario->setEstado('inactivo');
+                                    $usuario->setAlias($_POST['user']);
+                                    $usuario->updateState();
+                                    $usuario->updateIntentos();
+                                    $result['exception'] = 'Se han excedido los intentos permitidos, su cuenta ha sido bloqueada';
+                                } else if ($usuario->getIntentos() > 2) {
+                                    $result['exception'] = 'Se han excedido los intentos permitidos, su cuenta ha sido bloqueada.';
+                                }
                             }
                         }
                     } else {
                         if (Database::getException()) {
                             $result['exception'] = Database::getException();
                         } else {
-                            $result['exception'] = 'Alias incorrecto';
+                            $result['exception'] = 'Credenciales incorrectas o usuario inactivo.';
                         }
                     }
                     break;
-
+                case 'readAutenticacion':
+                    $_POST = $usuario->validateForm($_POST);
+                    if ($usuario->setCodigo($_SESSION['autn'])) {
+                        if ($usuario->setId($_SESSION['id_user'])) {
+                            if ($usuario->checkAutn() == true) {
+                                if ($usuario->getCodigo() == $_POST['codigo']) {
+                                    $result['status'] = 1;
+                                    $result['message'] = 'Autenticación correcta.';
+                                    $_SESSION['id_usuario'] = $usuario->getId();
+                                    $_SESSION["ultimoAcceso"] = date("Y-n-j H:i:s");
+                                    $result['message'] = 'Autenticación correcta';
+                                    $result['status'] = 1;
+                                    //sesion que captura la fecha y hora del inicio de sesión
+                                    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+                                    //Se establece la zona horaria y se obtiene la fecha y hora actual
+                                    date_default_timezone_set('America/El_Salvador');
+                                    $DateAndTime = date('m-d-Y h:i:s a', time());
+                                    $plataforma = $usuario->getPlatform($user_agent);
+                                    //Se registra ingresan los datos en la base de datos
+                                    $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario']);
+                                } else {
+                                    $result['exception'] = 'El código ingresado es incorrecto.';
+                                }
+                            } else {
+                                $result['exception'] = 'El usuario es incorrecto.';
+                            }
+                        } else {
+                            $result['exception'] = 'Error al asignar el usuario para iniciar sesion.';
+                        }
+                    } else {
+                        $result['exception'] = 'Error al asignar el código de confirmación';
+                    }
+                    break;
+                case 'changePasss':
+                    $_POST = $usuario->validateForm($_POST);
+                    if ($usuario->setId($_SESSION['id_user'])) {
+                        if ($_POST['clave'] == $_POST['confirmar']) {
+                            if ($_POST['clave'] != $_SESSION['usuaio']) {
+                                if ($_POST['clave'] != $_SESSION['pass']) {
+                                    if ($usuario->setClave($_POST['clave'])) {
+                                        if ($usuario->changePassw()) {
+                                            if ($usuario->changeDate()) {
+                                                $result['status'] = 1;
+                                                $result['message'] = 'La contraseña se guardó correctamente';
+                                            } else {
+                                                $result['exception'] = Database::getException();
+                                            }
+                                        } else {
+                                            $result['exception'] = Database::getException();
+                                        }
+                                    } else {
+                                        $result['exception'] = $usuario->getPasswordError();
+                                    }
+                                } else {
+                                    $result['exception'] = 'La contraseña no tiene que ser la misma que la anterior.';
+                                }
+                            } else {
+                                $result['exception'] = 'Las contraseña no debe de ser igual al nombre de usuario.';
+                            }
+                        } else {
+                            $result['exception'] = 'Las contraseñas no coinciden';
+                        }
+                    } else {
+                        $result['exception'] = 'Usuario incorrecto';
+                    }
+                    break;
                     //Este case se utiliza para cambiar la contraseña del los usuarios no rooteados
                     case 'changePass':
                         //Se valida el formulario
