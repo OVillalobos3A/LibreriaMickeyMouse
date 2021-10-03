@@ -5,6 +5,7 @@
 class Usuarios extends Validator
 {
     // Declaración de atributos (propiedades).
+    private $cant = null;
     private $id = null;
     private $nombres = null;
     private $apellidos = null;
@@ -16,6 +17,10 @@ class Usuarios extends Validator
     private $estado = null;
     private $dui = null;
     private $primer_uso = null;
+    private $autenticacion = null;
+    private $codigo = null;
+    private $intentos = null;
+    private $fecha = null;
 
     /*
     *   Métodos para asignar valores a los atributos.
@@ -24,6 +29,56 @@ class Usuarios extends Validator
     {
         if ($this->validateNaturalNumber($value)) {
             $this->id = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setFecha($value)
+    {
+        if ($this->validateDate($value)) {
+            $this->fecha = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setCant($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->cant = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setIntentos($value)
+    {
+        if ($this->validateNaturalNumber($value)) {
+            $this->intentos = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setAutenticacion($value)
+    {
+        if ($this->validateBoolean($value)) {
+            $this->autenticacion = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function setCodigo($value)
+    {
+        if ($this->validateAlphanumeric($value, 1, 50)) {
+            $this->codigo = $value;
             return true;
         } else {
             return false;
@@ -82,7 +137,7 @@ class Usuarios extends Validator
 
     public function setClave($value)
     {
-        if ($this->validatePassword($value)) {
+        if ($this->validatePass($value)) {
             $this->clave = $value;
             return true;
         } else {
@@ -136,6 +191,32 @@ class Usuarios extends Validator
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getCant()
+    {
+        return $this->cant;
+    }
+
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+
+    public function getAuten()
+    {
+        return $this->autenticacion;
+    }
+
+    public function getIntentos()
+    {
+        return $this->intentos;
+    }
+
+    public function getCodigo()
+    {
+        return $this->codigo;
     }
 
     public function getNombres()
@@ -193,16 +274,26 @@ class Usuarios extends Validator
     */
     public function checkUser($alias)
     {
-        $sql = 'SELECT id_usuario FROM public.usuarios WHERE usuario = ?';
-        $params = array($alias);
+        $this->estado = "activo";
+        $sql = 'SELECT id_usuario, last_date, autenticacion, empleados.correo as correo FROM usuarios INNER JOIN empleados USING(id_empleado) WHERE usuario = ? and usuarios.estado = ? ';
+        $params = array($alias, $this->estado);
         if ($data = Database::getRow($sql, $params)) {
             $this->id = $data['id_usuario'];
             $this->alias = $alias;
+            $this->fecha = $data['last_date'];
+            date_default_timezone_set('America/El_Salvador');
+            $date = date('Y-m-d');
+            $fecha1 = new DateTime($this->fecha);
+            $fecha2 = new DateTime($date);
+            $rela = $fecha1->diff($fecha2);
+            $this->cant = $rela->days;
+            $this->autenticacion = $data['autenticacion'];
+            $this->correo = $data['correo'];
             return true;
         } else {
             return false;
         }
-    }
+    } 
 
     public function checkPrimerUso($alias)
     {
@@ -314,6 +405,143 @@ class Usuarios extends Validator
                 SET contraseña = ?, primer_uso = ?
                 WHERE usuario = ?';
         $params = array($hash, 2, $this->alias);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function readIntentos()
+    {
+        $sql = 'SELECT intentos FROM usuarios WHERE usuario = ?';
+        $params = array($this->alias);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->intentos = $data['intentos'];
+            return true;
+        } else {
+            return false;
+        }   
+    }
+
+    public function updateIntentos()
+    {
+        $sql = 'UPDATE usuarios 
+                SET intentos = ?
+                WHERE usuario = ?';
+        $params = array($this->intentos, $this->alias);
+        return Database::executeRow($sql, $params);
+    }
+
+    //Se ingresan a la base de datos la informacion del inicio de sesión
+    public function registrarSesion($fecha, $plataforma, $id)
+    {
+        $sql = 'INSERT INTO historial_usuarios(fecha_hora, plataforma, id_usuario)
+                VALUES(?, ?, ?)';
+        $params = array($fecha, $plataforma, $id);
+        return Database::executeRow($sql, $params);
+    }
+
+    //Funcion para obtener el registro de inicios de sesion de un usuario.
+    public function readSesiones()
+    {
+        $sql = 'SELECT plataforma, fecha_hora, usuarios.usuario
+                FROM historial_usuarios INNER JOIN usuarios USING(id_usuario)
+                WHERE id_usuario = ?
+                ORDER BY fecha_hora desc;';
+        $params = array($_SESSION['id_usuario']);
+        return Database::getRows($sql, $params);
+    }
+
+    //Se obtiene el sistema operativo que se esta usando para el inicio de sesión
+    public function getPlatform($user_agent)
+    {
+        $plataformas = array(
+            'Windows 10' => 'Windows NT 10.0+',
+            'Windows 8.1' => 'Windows NT 6.3+',
+            'Windows 8' => 'Windows NT 6.2+',
+            'Windows 7' => 'Windows NT 6.1+',
+            'Windows Vista' => 'Windows NT 6.0+',
+            'Windows XP' => 'Windows NT 5.1+',
+            'Windows 2003' => 'Windows NT 5.2+',
+            'Windows' => 'Windows otros',
+            'iPhone' => 'iPhone',
+            'iPad' => 'iPad',
+            'Mac OS X' => '(Mac OS X+)|(CFNetwork+)',
+            'Mac otros' => 'Macintosh',
+            'Android' => 'Android',
+            'BlackBerry' => 'BlackBerry',
+            'Linux' => 'Linux',
+        );
+        foreach ($plataformas as $plataforma => $pattern) {
+            if (preg_match('/(?i)' . $pattern . '/', $user_agent))
+                return $plataforma;
+        }
+        return 'Otras';
+    }
+
+    public function changePassw()
+    {
+        $hash = password_hash($this->clave, PASSWORD_DEFAULT);
+        $sql = 'UPDATE usuarios SET contraseña = ? WHERE id_usuario = ?';
+        $params = array($hash, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function changeDate()
+    {
+        date_default_timezone_set('America/El_Salvador');
+        $date = date('Y-m-d');
+        $sql = 'UPDATE usuarios SET last_date = ? WHERE id_usuario = ?';
+        $params = array($date, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function checkAutn()
+    {
+        $sql = 'SELECT codigo_autn FROM usuarios                
+                WHERE id_usuario = ?';
+        $params = array($this->id);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->codigo = $data['codigo_autn'];
+            return true;
+        } else {
+            return false;
+        }                
+    }
+
+    public function updateCode()
+    {
+        $sql = 'UPDATE usuarios
+                SET codigo_autn = ?
+                WHERE id_usuario = ?';
+        $params = array($this->codigo, $this->id);
+        return Database::executeRow($sql, $params);
+    }
+
+    function generarCodigo($longitud)
+    {
+        
+        $caracteres = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A" , "B" , "C" , "D", "E" , "F", "E" 
+        , "G", "H" , "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
+
+
+        for ($i = 1; $i <= $longitud; $i++) {
+            $this->codigo .= $caracteres[$this->numero_aleatorio(0, 36)];
+        }
+
+        return $this->codigo;
+    }
+
+    function numero_aleatorio($ninicial, $nfinal)
+    {
+        $numero = rand($ninicial, $nfinal);
+
+        return $numero;
+    }
+
+    public function updateState()
+    {        
+        $sql = 'UPDATE usuarios
+                SET estado = ?
+                WHERE usuario = ?';
+        $params = array($this->estado, $this->alias);
         return Database::executeRow($sql, $params);
     }
 
