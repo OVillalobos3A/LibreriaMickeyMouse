@@ -430,11 +430,11 @@ class Usuarios extends Validator
     }
 
     //Se ingresan a la base de datos la informacion del inicio de sesión
-    public function registrarSesion($fecha, $plataforma, $id)
+    public function registrarSesion($fecha, $plataforma, $id, $region, $zona)
     {
-        $sql = 'INSERT INTO historial_usuarios(fecha_hora, plataforma, id_usuario)
-                VALUES(?, ?, ?)';
-        $params = array($fecha, $plataforma, $id);
+        $sql = 'INSERT INTO historial_usuarios(fecha_hora, plataforma, id_usuario, region, timezone)
+                VALUES(?, ?, ?, ?, ?)';
+        $params = array($fecha, $plataforma, $id, $region, $zona);
         return Database::executeRow($sql, $params);
     }
 

@@ -181,6 +181,38 @@ Dashboard_Page::headerTemplate('libreria');
         </div>
     </div>
 </div>
+
+<div id="sesiones-modal" class="modal">
+        <div class="modal-content">
+        <a href="#" class="btn waves-effect red tooltipped modal-close right-align" data-tooltip="Cerrar"><i class="material-icons">cancel</i></a>
+            <div class="row">
+                <h5 id="modal-title1" class="center-align"><b>Historial de inicios de sesión</b></h5>
+                <br>
+                <hr>
+                <!--Estableciendo el tamaño de cada div correspondiente-->
+
+                <!-- Campo oculto para asignar el id del registro al momento de modificar -->
+
+                <div class="col s12 m12">
+                    <table class="responsive-table striped" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>Fecha y hora</th>
+                                <th>Plataforma</th>
+                                <th>Zona Horaria</th>
+                                <th>Región</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-sesiones">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row center-align">
+            </div>
+
+        </div>
+    </div>
 <!-- Importación del archivo para generar gráficas en tiempo real. Para más información https://www.chartjs.org/ -->
 <script type="text/javascript" src="../resources/js/chart.js"></script>
 <?php

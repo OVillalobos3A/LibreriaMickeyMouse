@@ -146,7 +146,7 @@ class Dashboard_Page {
         }
     } else {
         // Se verifica si la página web actual es diferente a index.php (Iniciar sesión) y a register.php (Crear primer usuario) para direccionar a index.php, de lo contrario se muestra un menú vacío.
-        if ($filename != 'index.php' && $filename != 'register.php' && $filename != 'primer_uso.php' && $filename != 'changepass.php'  && $filename != 'autenticacion.php') {
+        if ($filename != 'index.php' && $filename != 'register.php' && $filename != 'primer_uso.php' && $filename != 'recu_contra.php' && $filename != 'changepass.php'  && $filename != 'autenticacion.php') {
             header('location: index.php');
         } else {
             // Se imprime el código HTML para el encabezado del documento con un menú vacío cuando sea iniciar sesión o registrar el primer usuario.

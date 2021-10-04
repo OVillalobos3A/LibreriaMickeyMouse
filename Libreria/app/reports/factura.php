@@ -63,11 +63,11 @@ if (isset($_GET['id'])) {
             $pdf->SetTextColor(0,0,0);  
             $pdf->Output();
         } else {
-            header('location: ../../../views/dashboard/historial.php');
+            header('location: ../../views/historial.php');
         }
-    } else {
-        header('location: ../../../views/dashboard/historial.php');
+    } else {        
+        header('location: ../../views/historial.php');
     }
 } else {
-    header('location: ../../../views/dashboard/historial.php');
+    header('location: ../../views/historial.php');
 }

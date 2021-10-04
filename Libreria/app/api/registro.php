@@ -1,12 +1,17 @@
 <?php
 
 //Se llaman los archivos necesarios
+
 require_once('../helpers/database.php');
 require_once('../helpers/validator.php');
 require_once('../models/usuarios.php');
 require_once('../models/registro.php');
 
 require '../../libraries/PHPMailer/PHPMailerAutoload.php';
+//composer require ipinfo/ipinfo;
+use ipinfo\ipinfo\IPinfo;
+$access_token = 'f62d9dca0db9cf';
+
 
 // Se comprueba si existe una acción a realizar, de lo contrario se finaliza el script con un mensaje de error.
 if (isset($_GET['action'])) {
@@ -15,6 +20,7 @@ if (isset($_GET['action'])) {
     // Se instancia la clase correspondiente.
     $usuario = new Usuarios;
     $registro = new Registro;
+    
     // Se declara e inicializa un arreglo para guardar el resultado que retorna la API.
     $result = array('status' => 0, 'error' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
@@ -255,10 +261,14 @@ if (isset($_GET['action'])) {
                                         $user_agent = $_SERVER['HTTP_USER_AGENT'];
                                         //Se establece la zona horaria y se obtiene la fecha y hora actual                                
                                         date_default_timezone_set('America/El_Salvador');
-                                        $DateAndTime = date('m-d-Y h:i:s a', time());
-                                        $plataforma = $usuario->getPlatform($user_agent);
+                                        $DateAndTime = date('m-d-Y H:i:s a', time());
+                                        $plataforma = $usuario->getPlatform($user_agent);                                          
+                                        $ip = $_SERVER['REMOTE_ADDR'];
+                                        //Se obtienen detalles del usuario para el inicio de sesion mediante ipinfo
+                                        $details = json_decode(file_get_contents("http://ipinfo.io/"));
+                                                                                                                                                                
                                         //Se registra ingresan los datos en la base de datos
-                                        $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario']);
+                                        $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario'], $details->city, $details->timezone);
                                     }
                                 }
                             }
@@ -311,17 +321,20 @@ if (isset($_GET['action'])) {
                                     $result['status'] = 1;
                                     $result['message'] = 'Autenticación correcta.';
                                     $_SESSION['id_usuario'] = $usuario->getId();
+                                    //Se establece la zona horaria y se obtiene la fecha y hora actual
+                                    date_default_timezone_set('America/El_Salvador');
                                     $_SESSION["ultimoAcceso"] = date("Y-n-j H:i:s");
                                     $result['message'] = 'Autenticación correcta';
                                     $result['status'] = 1;
                                     //sesion que captura la fecha y hora del inicio de sesión
-                                    $user_agent = $_SERVER['HTTP_USER_AGENT'];
-                                    //Se establece la zona horaria y se obtiene la fecha y hora actual
-                                    date_default_timezone_set('America/El_Salvador');
-                                    $DateAndTime = date('m-d-Y h:i:s a', time());
-                                    $plataforma = $usuario->getPlatform($user_agent);
+                                    $user_agent = $_SERVER['HTTP_USER_AGENT'];                                    
+                                    $DateAndTime = date('m-d-Y H:i:s a', time());
+                                    $plataforma = $usuario->getPlatform($user_agent);                                
+                                    $ip = $_SERVER['REMOTE_ADDR'];
+                                    //Se obtienen detalles del usuario para el inicio de sesion mediante ipinfo
+                                    $details = json_decode(file_get_contents("http://ipinfo.io/"));
                                     //Se registra ingresan los datos en la base de datos
-                                    $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario']);
+                                    $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario'], $details->city, $details->timezone);
                                 } else {
                                     $result['exception'] = 'El código ingresado es incorrecto.';
                                 }

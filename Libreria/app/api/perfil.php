@@ -15,7 +15,7 @@ if (isset($_GET['action'])) {
     if (isset($_SESSION['id_usuario'])) {
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
-            //Método para consultar la existencia de un empleado
+                //Método para consultar la existencia de un empleado
             case 'readOne':
                 if ($usuario->setId($_POST['id_empleado'])) {
                     if ($result['dataset'] = $usuario->readOne()) {
@@ -31,8 +31,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 }
                 break;
-            //Método para consultar la información del empleado que ha iniciado sesión
-            //y mostrarla en la página de bienvenida
+                //Método para consultar la información del empleado que ha iniciado sesión
+                //y mostrarla en la página de bienvenida
             case 'openName':
                 if ($result['dataset'] = $usuario->readOne1()) {
                     $result['status'] = 1;
@@ -44,7 +44,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
-            //Método para consultar la información del empleado para mandarla al modal
+                //Método para consultar la información del empleado para mandarla al modal
             case 'readEmfileds':
                 if ($result['dataset'] = $usuario->readEmfileds()) {
                     $result['status'] = 1;
@@ -56,7 +56,23 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
-            //Método para actualizar la información del empleado que se encuentra iniciado sesión
+                //Método para consultar la informacion del historial de sesiones del cliente.
+            case 'readSesiones':
+                if ($usuario->setId($_SESSION['id_usuario'])) {
+                    if ($result['dataset'] = $usuario->readSesiones()) {
+                        $result['status'] = 1;
+                    } else {
+                        if (Database::getException()) {
+                            $result['exception'] = Database::getException();
+                        } else {
+                            $result['exception'] = 'Usuario inexistente';
+                        }
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
+                //Método para actualizar la información del empleado que se encuentra iniciado sesión
             case 'updateProfile':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setId($_POST['id_empleado'])) {
@@ -107,8 +123,8 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Empleado incorrecto';
                 }
                 break;
-            //Método para actualizar las credenciales del empleado 
-            //que ha iniciado sesión
+                //Método para actualizar las credenciales del empleado 
+                //que ha iniciado sesión
             case 'updateUserCredentials':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setId($_POST['id_usuario'])) {
@@ -267,7 +283,7 @@ if (isset($_GET['action'])) {
                     }
                 }
                 break;
-            // Método para mostrar en gráfica tipo pie los 5 productos más vendidos con más frecuencia
+                // Método para mostrar en gráfica tipo pie los 5 productos más vendidos con más frecuencia
             case 'ProducosMasVendidosFrecuencia':
                 if ($result['dataset'] = $usuario->ProducosMasVendidosFrecuencia()) {
                     $result['status'] = 1;

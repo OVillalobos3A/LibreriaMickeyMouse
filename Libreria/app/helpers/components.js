@@ -148,8 +148,10 @@ function readRows2(api) {
                                     <p class="white-text Texto">${row.ider}</p>
                                 </div>
                                 <div class="center-align">
-                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil" onclick="openUpdateProfile(${row.empleado})">account_circle</i>Perfil</a>
-                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales" onclick="openUpdateCredentials(${row.id_usuario})">pin</i>Credenciales</a>
+                                <a class="waves-effect amber accent-4 btn" onclick="openUpdateProfile(${row.empleado})"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil">account_circle</i>Perfil</a>
+                                <a class="waves-effect amber accent-4 btn" onclick="openUpdateCredentials(${row.id_usuario})"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales">pin</i>Credenciales</a>                                    
+                                <a class="waves-effect amber accent-4 btn" onclick="openSesiones()"><i class="material-icons right tooltipped" data-tooltip="Historial de sesiones">access_time</i>Historial de sesiones</a>
+                                <a class="waves-effect amber accent-4 btn" onclick="openModalGraphic()"><i class="material-icons center tooltipped" data-tooltip="Gráfico de ventas">analytics</i></a>
                                 </div>
                                 <div><br></div>
                             </div>

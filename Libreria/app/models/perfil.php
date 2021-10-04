@@ -604,4 +604,15 @@ class Perfil extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    //Funcion para obtener el registro de inicios de sesion de un cliente.
+    public function readSesiones()
+    {
+        $sql = 'SELECT plataforma, fecha_hora, region, timezone
+                FROM historial_usuarios INNER JOIN usuarios USING(id_usuario)
+                WHERE id_usuario = ?
+                ORDER BY fecha_hora desc LIMIT 15;';
+        $params = array($_SESSION['id_usuario']);
+        return Database::getRows($sql, $params);
+    }   
+
 }

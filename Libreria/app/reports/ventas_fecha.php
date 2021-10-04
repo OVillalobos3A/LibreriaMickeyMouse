@@ -1,5 +1,6 @@
 <?php
 if (isset($_GET['fecha1']) && isset($_GET['fecha2'])) {
+    if ($_GET['fecha1'] != null && $_GET['fecha2'] != null) {
  require('../helpers/report.php');
  require('../models/historial.php');
 
@@ -50,6 +51,11 @@ $ventas = new Historial;
 // Se envía el documento al navegador y se llama al método Footer()
 $pdf->Output();
 } else {
- 
+    //Se devuelve a la interfaz del los proveedores
+    header('location: ../../views/historial.php');
+}
+} else {
+    //Se devuelve a la interfaz del los proveedores
+    header('location: ../../views/historial.php');
 }
 ?>

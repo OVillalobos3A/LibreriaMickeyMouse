@@ -1,15 +1,15 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_PROFILE =  '../app/api/perfil.php?action=';
+const API_PROFILE = '../app/api/perfil.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     openName(API_PROFILE);
     graficaBarrasInventarioStock();
     graficaDonutCantidadVentas();
-    graficaBarrasTotalVentasEnAnio();    
+    graficaBarrasTotalVentasEnAnio();
     graficaLinealMarcasconmasProductos();
     graficaPolarProducosMasVendidos();
-    graficaPieProducosMasVendidosFrecuencia(); 
+    graficaPieProducosMasVendidosFrecuencia();
     document.getElementById('parte1').style.display = 'none';
     document.getElementById('parte3').style.display = 'none';
     document.getElementById('parte2').style.display = 'none';
@@ -36,9 +36,10 @@ function openName() {
                                     <p class="white-text Texto">${row.ider}</p>
                                 </div>
                                 <div class="center-align">
-                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil" onclick="openUpdateProfile(${row.empleado})">account_circle</i>Perfil</a>
-                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales" onclick="openUpdateCredentials(${row.id_usuario})">pin</i>Credenciales</a>
-                                    <a class="waves-effect amber accent-4 btn"><i class="material-icons center tooltipped" data-tooltip="Gráfico de ventas" onclick="openModalGraphic()">analytics</i></a>
+                                    <a class="waves-effect amber accent-4 btn" onclick="openUpdateProfile(${row.empleado})"><i class="material-icons right tooltipped" data-tooltip="Modificar perfil">account_circle</i>Perfil</a>
+                                    <a class="waves-effect amber accent-4 btn" onclick="openUpdateCredentials(${row.id_usuario})"><i class="material-icons right tooltipped" data-tooltip="Modificar Credenciales">pin</i>Credenciales</a>                                    
+                                    <a class="waves-effect amber accent-4 btn" onclick="openSesiones()"><i class="material-icons right tooltipped" data-tooltip="Historial de sesiones">access_time</i>Historial de sesiones</a>
+                                    <a class="waves-effect amber accent-4 btn" onclick="openModalGraphic()"><i class="material-icons center tooltipped" data-tooltip="Gráfico de ventas">analytics</i></a>
                                 </div>
                                 <div><br></div>
                             </div>
@@ -77,6 +78,52 @@ function openName() {
     });
 }
 
+
+// Función para obtener los registros de inicio de sesión y colocarlos en la tabla
+function openSesiones() {
+    // Se restauran los elementos del formulario.    
+    // Se abre la caja de dialogo (modal) que contiene el formulario.
+    let instance = M.Modal.getInstance(document.getElementById('sesiones-modal'));
+    instance.open();
+
+    fetch(API_PROFILE + 'readSesiones', {
+        method: 'get'
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    // Se declara e inicializa una variable para concatenar las filas de la tabla en la vista.
+                    let content = '';
+                    response.dataset.map(function (row) {
+
+                        content += `
+                        <tr>
+                        <td>${row.fecha_hora}</td>
+                        <td>${row.plataforma}</td>                                                     
+                        <td>${row.timezone}</td>  
+                        <td>${row.region}</td>                                 
+                        </tr>
+                            `;
+
+                    });
+                    // Se agregan las filas al cuerpo de la tabla mediante su id para mostrar los registros.
+                    document.getElementById('tbody-sesiones').innerHTML = content;
+                    // Se inicializa el componente Tooltip asignado a los enlaces para que funcionen las sugerencias textuales.
+                    M.Tooltip.init(document.querySelectorAll('.tooltipped'));
+                } else {
+                    sweetAlert(2, response.exception, null);
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+}
+
 // Función para preparar el formulario al momento de modificar un registro.
 function openUpdateProfile(id) {
     // Se restauran los elementos del formulario.
@@ -88,7 +135,7 @@ function openUpdateProfile(id) {
     document.getElementById('modal-title').textContent = 'Editar perfil';
     // Se establece el campo de archivo como opcional.
     document.getElementById('archivo').required = false;
-    
+
 
     const data = new FormData();
     data.append('id_empleado', id);
@@ -149,7 +196,7 @@ function openUpdateCredentials(id) {
 
                     // Se inicializan los campos del formulario con los datos del registro seleccionado.
                     document.getElementById('id_usuario').value = response.dataset.id_usuario;
-                    document.getElementById('alias').value = response.dataset.usuario;                    
+                    document.getElementById('alias').value = response.dataset.usuario;
                     if (response.dataset.autenticacion) {
                         document.getElementById('autent').checked = true;
                     } else {

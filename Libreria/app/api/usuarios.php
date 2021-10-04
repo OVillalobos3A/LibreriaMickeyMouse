@@ -13,6 +13,10 @@ if (isset($_GET['action'])) {
     $result = array('status' => 0, 'error' => 0, 'message' => null, 'exception' => null);
     // Se verifica si existe una sesión iniciada como administrador, de lo contrario se finaliza el script con un mensaje de error.
     if (isset($_SESSION['id_usuario'])) {
+        $fechaGuardada = $_SESSION["ultimoAcceso"];
+        date_default_timezone_set('America/El_Salvador');
+        $ahora = date("Y-n-j H:i:s");
+        $tiempo_transcurrido = (strtotime($ahora) - strtotime($fechaGuardada));
         // Se compara la acción a realizar cuando un administrador ha iniciado sesión.
         switch ($_GET['action']) {
             case 'logOut':
@@ -32,6 +36,17 @@ if (isset($_GET['action'])) {
                     } else {
                         $result['exception'] = 'No hay usuarios registrados';
                     }
+                }
+                break;
+            case 'timeOut':
+                //comparamos el tiempo transcurrido
+                if ($tiempo_transcurrido >= 300) {
+                    $result['status'] = 1;
+                    //si pasaron 5 minutos o más
+                    session_destroy(); // destruyo la sesión                    
+                    //si no, actualizo la fecha de la sesión
+                } else {
+                    $_SESSION["ultimoAcceso"] = $ahora;
                 }
                 break;
             case 'search':
@@ -61,39 +76,37 @@ if (isset($_GET['action'])) {
                 if ($usuario->setNombres($_POST['nombre_usuario'])) {
                     if ($usuario->setApellidos($_POST['apellido_usuario'])) {
                         if ($usuario->setCorreo($_POST['correo_usuario'])) {
-                            if ($usuario->setAlias($_POST['alias_usuario'])) {         
-                                 if ($_POST['clave_usuario'] == $_POST['confirmar_clave']) {
-                                     if ($usuario->setClave($_POST['clave_usuario'])) {
-                                        if($usuario->setDui($POST['dui_usuario'])){
-                                            if($usuario->setTipo($_POST['tipo_usuario'])){
-                                                if($usuario->setDireccion($POST['direccion_usuario'])){
-                                                    if($usuario->setEstado(isset($_POST['estado_usuario']) ? 1 : 0)){
-                                                            if ($usuario->createRow()) {
+                            if ($usuario->setAlias($_POST['alias_usuario'])) {
+                                if ($_POST['clave_usuario'] == $_POST['confirmar_clave']) {
+                                    if ($usuario->setClave($_POST['clave_usuario'])) {
+                                        if ($usuario->setDui($POST['dui_usuario'])) {
+                                            if ($usuario->setTipo($_POST['tipo_usuario'])) {
+                                                if ($usuario->setDireccion($POST['direccion_usuario'])) {
+                                                    if ($usuario->setEstado(isset($_POST['estado_usuario']) ? 1 : 0)) {
+                                                        if ($usuario->createRow()) {
                                                             $result['status'] = 1;
                                                             $result['message'] = 'Usuario creado correctamente';
-                                                            } else {
-                                                                $result
-                                                            ['exception'] = Database::getException();
+                                                        } else {
+                                                            $result['exception'] = Database::getException();
                                                         }
                                                     } else {
-                                                    $result['exception'] = 'EStado incorrecto';
-                                                    } 
+                                                        $result['exception'] = 'EStado incorrecto';
+                                                    }
                                                 } else {
                                                     $result['exception'] = 'Direccion incorrecta';
-                                                }    
+                                                }
                                             } else {
                                                 $result['exception'] = 'Tipo de usuario incorrecto';
                                             }
-                                        } else{
+                                        } else {
                                             $result['exception'] = 'dui incorrecto';
                                         }
-
                                     } else {
                                         $result['exception'] = $usuario->getPasswordError();
                                     }
                                 } else {
                                     $result['exception'] = 'Claves diferentes';
-                                } 
+                                }
                             } else {
                                 $result['exception'] = 'Alias incorrecto';
                             }
@@ -129,10 +142,10 @@ if (isset($_GET['action'])) {
                         if ($usuario->setNombres($_POST['nombre_usuario'])) {
                             if ($usuario->setApellidos($_POST['apellido_usuario'])) {
                                 if ($usuario->setCorreo($_POST['email_usuario'])) {
-                                    if($usuario->setDui($_POST['dui'])){
-                                        if($usuario->setDireccion($_POST['direccion_usuario'])){
-                                            if($usuario->setTipo(isset($_POST['tipo_usuario']) ? 1 : 2)){
-                                                if($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)){
+                                    if ($usuario->setDui($_POST['dui'])) {
+                                        if ($usuario->setDireccion($_POST['direccion_usuario'])) {
+                                            if ($usuario->setTipo(isset($_POST['tipo_usuario']) ? 1 : 2)) {
+                                                if ($usuario->setEstado(isset($_POST['estado']) ? 1 : 0)) {
                                                     if ($usuario->updateRow()) {
                                                         $result['status'] = 1;
                                                         $result['message'] = 'Usuario modificado correctamente';
@@ -140,30 +153,30 @@ if (isset($_GET['action'])) {
                                                         $result['exception'] = Database::getException();
                                                     }
                                                 }
-                                                }else{
-                                                    $result['exception'] = 'Estado incorrecto';
-                                                }
-                                            }else{
-                                                $result['exception'] = 'Tipo de usuario incorrecto';
+                                            } else {
+                                                $result['exception'] = 'Estado incorrecto';
                                             }
-                                        }else{
-                                            $result['exception'] = 'Direccion incorrecta';
+                                        } else {
+                                            $result['exception'] = 'Tipo de usuario incorrecto';
                                         }
-                                    }else{
-                                        $result['exception'] = 'DUI incorrecto';
+                                    } else {
+                                        $result['exception'] = 'Direccion incorrecta';
                                     }
-                                }else {
-                                    $result['exception'] = 'Correo incorrecto';
+                                } else {
+                                    $result['exception'] = 'DUI incorrecto';
                                 }
                             } else {
-                                $result['exception'] = 'Apellidos incorrectos';
+                                $result['exception'] = 'Correo incorrecto';
                             }
                         } else {
-                            $result['exception'] = 'Nombres incorrectos';
+                            $result['exception'] = 'Apellidos incorrectos';
                         }
                     } else {
-                        $result['exception'] = 'Usuario inexistente';
+                        $result['exception'] = 'Nombres incorrectos';
                     }
+                } else {
+                    $result['exception'] = 'Usuario inexistente';
+                }
                 break;
             case 'delete':
                 if ($_POST['id_usuario'] != $_SESSION['id_usuario']) {
@@ -211,26 +224,26 @@ if (isset($_GET['action'])) {
                             if ($usuario->setAlias($_POST['alias'])) {
                                 if ($_POST['clave1'] == $_POST['clave2']) {
                                     if ($usuario->setClave($_POST['clave1'])) {
-                                        if($usuario->setDui($_POST['dui_us uario'])){
-                                            if($usuario->setDireccion($_POST['direccion_usuario'])){
-                                                if($usuario->setTipo($_POST['tipo_usuario'])){
-                                                    if($usuario->setEstado(isset($_POST['estado_usuario']) ? 1 : 0)){
+                                        if ($usuario->setDui($_POST['dui_us uario'])) {
+                                            if ($usuario->setDireccion($_POST['direccion_usuario'])) {
+                                                if ($usuario->setTipo($_POST['tipo_usuario'])) {
+                                                    if ($usuario->setEstado(isset($_POST['estado_usuario']) ? 1 : 0)) {
                                                         if ($usuario->createRow()) {
                                                             $result['status'] = 1;
                                                             $result['message'] = 'Usuario registrado correctamente';
                                                         } else {
                                                             $result['exception'] = Database::getException();
                                                         }
-                                                    }else{
+                                                    } else {
                                                         $result['exception'] = 'Estado incorrecto';
                                                     }
-                                                }else{
+                                                } else {
                                                     $result['exception'] = 'Tipo de usuario incorrecto';
                                                 }
-                                            }else{
+                                            } else {
                                                 $result['exception'] = 'Direccion incorrecta';
                                             }
-                                        }else{
+                                        } else {
                                             $result['exception'] = 'DUI incorrecto';
                                         }
                                     } else {
@@ -340,12 +353,15 @@ if (isset($_GET['action'])) {
                                     date_default_timezone_set('America/El_Salvador');
                                     $DateAndTime = date('m-d-Y h:i:s a', time());
                                     $plataforma = $usuario->getPlatform($user_agent);
+                                    $ip = $_SERVER['REMOTE_ADDR'];
+                                    //Se obtienen detalles del usuario para el inicio de sesion mediante ipinfo
+                                    $details = json_decode(file_get_contents("http://ipinfo.io/"));
+
                                     //Se registra ingresan los datos en la base de datos
-                                    $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario']);
+                                    $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario'], $details->city, $details->timezone);
                                 }
                             }
-                        }
-                        else {
+                        } else {
                             $result['status'] = 2;
                             $result['message'] = 'Se debe modificar la contraseña por defecto';
                         }
@@ -401,8 +417,12 @@ if (isset($_GET['action'])) {
                                 date_default_timezone_set('America/El_Salvador');
                                 $DateAndTime = date('m-d-Y h:i:s a', time());
                                 $plataforma = $usuario->getPlatform($user_agent);
+                                $ip = $_SERVER['REMOTE_ADDR'];
+                                //Se obtienen detalles del usuario para el inicio de sesion mediante ipinfo
+                                $details = json_decode(file_get_contents("http://ipinfo.io/"));
+
                                 //Se registra ingresan los datos en la base de datos
-                                $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario']);
+                                $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario'], $details->city, $details->timezone);
                             } else {
                                 $result['exception'] = 'El código ingresado es incorrecto.';
                             }
