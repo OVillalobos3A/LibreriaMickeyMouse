@@ -235,15 +235,15 @@ if (isset($_GET['action'])) {
                                         $mail = new PHPMailer();
                                         $mail->IsSMTP();
                                         //Configuracion servidor mail
-                                        $mail->setFrom('hardprimestore@gmail.com', 'HardPrimeStore'); //remitente
+                                        $mail->setFrom('libreriamickeysv@gmail.com', 'Libreria Mickey Mouse'); //remitente 
                                         $mail->SMTPAuth = true;
                                         $mail->SMTPSecure = 'tls'; //seguridad
                                         $mail->Host = "smtp.gmail.com"; // servidor smtp
                                         $mail->Port = 587; //puerto
-                                        $mail->Username = 'HardPrimeStore@gmail.com'; //nombre usuario
-                                        $mail->Password = 'Store2021'; //contraseña
+                                        $mail->Username = 'libreriamickeysv@gmail.com'; //nombre usuario
+                                        $mail->Password = 'Mickey2021'; //contraseña
                                         $mail->AddAddress($usuario->getCorreo());
-                                        $mail->Subject = 'Segundo factor de autenticación - HardPrimeStore';
+                                        $mail->Subject = 'Código de recuperación - Librería Mickey Mouse';
                                         $mail->Body = 'El código para iniciar sesión es: ' . $usuario->getCodigo() . '.';
                                         if ($mail->Send()) {
                                             $result['message'] = 'Se le ha envíado el código para iniciar sesión, por favor revise su correo.';

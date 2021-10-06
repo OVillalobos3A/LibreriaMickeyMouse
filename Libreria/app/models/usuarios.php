@@ -556,5 +556,53 @@ class Usuarios extends Validator
         return Database::executeRow($sql, $params);
     }
 
+    public function checkUsuario()
+    {
+        $sql = 'SELECT usuario FROM usuarios
+                WHERE usuario = ?';
+        $params = array($this->alias);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->alias = $data['usuario'];
+            return true;
+        } else {
+            return false;
+        }                
+    }
+
+    public function updateRecu()
+    {
+        $sql = 'UPDATE usuarios
+                SET codigo_autn = ?
+                WHERE usuario = ?';
+        $params = array($this->codigo, $this->alias);
+        return Database::executeRow($sql, $params);
+    }
+
+    public function obtenerCorreo()
+    {
+        $sql = 'SELECT correo FROM empleados
+                INNER JOIN usuarios USING(id_empleado)
+                WHERE usuario = ?';
+        $params = array($this->alias);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->correo = $data['correo'];            
+            return true;
+        } else {
+            return false;
+        }                
+    }
+
+    public function checkCode()
+    {
+        $sql = 'SELECT codigo_autn FROM usuarios                
+                WHERE usuario = ?';
+        $params = array($this->alias);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->codigo = $data['codigo_autn'];
+            return true;
+        } else {
+            return false;
+        }                
+    }
    
 }
