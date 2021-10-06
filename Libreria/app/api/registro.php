@@ -257,6 +257,8 @@ if (isset($_GET['action'])) {
                                         $_SESSION["ultimoAcceso"] = date("Y-n-j H:i:s");
                                         $result['message'] = 'Autenticación correcta';
                                         $result['status'] = 1;
+                                        $usuario->readTipoU();
+                                        $_SESSION["tipo"] = $usuario->getTipo();
                                         //sesion que captura la fecha y hora del inicio de sesión
                                         $user_agent = $_SERVER['HTTP_USER_AGENT'];
                                         //Se establece la zona horaria y se obtiene la fecha y hora actual                                
@@ -326,6 +328,8 @@ if (isset($_GET['action'])) {
                                     $_SESSION["ultimoAcceso"] = date("Y-n-j H:i:s");
                                     $result['message'] = 'Autenticación correcta';
                                     $result['status'] = 1;
+                                    $usuario->readTipoU();
+                                    $_SESSION["tipo"] = $usuario->getTipo();
                                     //sesion que captura la fecha y hora del inicio de sesión
                                     $user_agent = $_SERVER['HTTP_USER_AGENT'];                                    
                                     $DateAndTime = date('m-d-Y H:i:s a', time());
