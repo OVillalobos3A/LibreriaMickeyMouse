@@ -273,7 +273,7 @@ if (isset($_GET['action'])) {
                     // Concatenamos el codigo generado dentro del mensaje a enviar
                     $message = "Has solicitado recuperar tu contraseña por medio de correo electrónico, su código de seguridad es: $code";
                     // Colocamos el asunto del correo a enviar
-                    $asunto = "Recuperación de contraseña GamebridgeStore";
+                    $asunto = "Recuperación de contraseña Liberia Mickey Mouse";
                     // Validmos el formato del mensaje que se enviara en el correo
                     if ($email->setMensaje($message)) {
                         // Validamos si el correo ingresado tiene formato correcto
