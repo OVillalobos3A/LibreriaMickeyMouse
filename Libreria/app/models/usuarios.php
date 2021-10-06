@@ -287,7 +287,7 @@ class Usuarios extends Validator
     */
     public function checkUser($alias)
     {
-        $this->estado = "activo";
+        $this->estado = "Activo";
         $sql = 'SELECT id_usuario, last_date, autenticacion, empleados.correo as correo FROM usuarios INNER JOIN empleados USING(id_empleado) WHERE usuario = ? and usuarios.estado = ? ';
         $params = array($alias, $this->estado);
         if ($data = Database::getRow($sql, $params)) {
