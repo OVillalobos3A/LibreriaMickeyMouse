@@ -381,6 +381,20 @@ class Usuarios extends Validator
         $params = array($this->id);
         return Database::getRow($sql, $params);
     }
+    
+    public function readTipoU()
+    {
+        $sql = 'SELECT id_tipo_usuario
+                FROM public.usuarios
+                WHERE id_usuario = ?';
+        $params = array($_SESSION['id_usuario']);
+        if ($data = Database::getRow($sql, $params)) {
+            $this->setTipo($data['id_tipo_usuario']);
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     public function readOneReport()
     {
