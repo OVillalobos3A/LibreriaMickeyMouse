@@ -1,0 +1,72 @@
+indexacion de paginas
+
+inventario 1
+marca 2
+proveedor 3
+empleados 4
+usuarios 5
+venta 6
+historial 7
+entradas 8
+
+indexacion de permisos
+
+Solo leer 1
+Leer, Editar y Agregar 2
+Todas las funciones 3
+
+CREATE TABLE public.paginas
+(
+    id_pagina integer NOT NULL DEFAULT nextval('paginas_id_pagina_seq'::regclass),
+    nombre character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    link character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT paginas_pkey PRIMARY KEY (id_pagina),
+    CONSTRAINT lk UNIQUE (link)
+);
+
+INSERT INTO public.paginas(nombre, link)
+	VALUES ( 'Inventario', 'inventario.php'),
+	( 'Marcas', 'marca.php'),
+	( 'Proveedores', 'proveedor.php'),
+	( 'Empleados', 'empleados.php'),
+	( 'Usuarios', 'usuarios.php'),
+	( 'Venta', 'venta.php'),
+	( 'Historial', 'historial.php'),
+	( 'Entradas', 'entradas.php');
+
+CREATE TABLE public.permisos
+(
+    id_permiso serial NOT NULL,
+    permiso character varying(200) NOT NULL,
+    PRIMARY KEY (id_permiso),
+    CONSTRAINT pr UNIQUE (permiso)
+);
+
+INSERT INTO public.permisos(permiso)
+	VALUES ('Leer'),
+	('Leer, agregar y modificar'),
+	('Todos los permisos');
+
+CREATE TABLE public.accesos
+(
+    id_acceso serial NOT NULL,
+    id_tipo_usuario integer NOT NULL,
+    id_pagina integer NOT NULL,
+    id_permiso integer NOT NULL,
+    PRIMARY KEY (id_acceso),
+    CONSTRAINT fkpg FOREIGN KEY (id_pagina)
+        REFERENCES public.paginas (id_pagina) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT fkus FOREIGN KEY (id_tipo_usuario)
+        REFERENCES public.tipo_usuario (id_tipo_usuario) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT fkpr FOREIGN KEY (id_permiso)
+        REFERENCES public.permisos (id_permiso) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+);
