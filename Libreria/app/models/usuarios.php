@@ -321,16 +321,17 @@ class Usuarios extends Validator
         }
     }
 
+
     public function updatePass()
     {
         // Se encripta la clave por medio del algoritmo bcrypt que genera un string de 60 caracteres.
         $hash = password_hash($this->clave, PASSWORD_DEFAULT);
-        $sql = 'UPDATE public."tbUsuarios" set clave_usuario = ? , estado_usuario = true where correo_usuario = ?';
+        $sql = 'UPDATE usuarios set "contraseña" = ? from empleados where usuarios.id_empleado=empleados.id_empleado and empleados.correo=?';
         // Creamos la sentencia SQL que contiene la consulta que mandaremos a la base        
         $params = array($hash , $this->correo);
         return Database::executeRow($sql, $params);
     }
-
+    
     public function readProfile()
     {
         $sql = 'SELECT id_usuario, usuario, "contraseña", id_empleado, id_tipo_usuario, estado

@@ -50,7 +50,15 @@ class Validator
         }
         return $fields;
     }
-
+    public function validateText($value)
+    {
+        // Se verifica el contenido y la longitud de acuerdo con la base de datos.
+        if ($value) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public function validateGen($value)
     {
         if ($value == "M" || $value == "F") {

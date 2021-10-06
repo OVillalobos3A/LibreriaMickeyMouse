@@ -1,5 +1,5 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
-const API_USUARIOS = '../api/dashboard/usuarios.php?action=';
+const API_USUARIOS = '../app/api/usuarios.php?action=';
 
 // Metodo para cargar todos los datos de la categoria seleccionada al presionar el boton
 function cambiarClave() {  
@@ -16,7 +16,7 @@ function cambiarClave() {
             } else {
                 
                     // Realizamos peticion a la API de clientes con el caso changePass y method post para dar acceso al valor de los campos del form
-                    fetch(API_USUARIOS + 'restorePassword', {
+                    fetch(API_USUARIOS + 'changePassword', {
                         method: 'post',
                         body: new FormData(document.getElementById('session-form'))       
                     }).then(function (request) {

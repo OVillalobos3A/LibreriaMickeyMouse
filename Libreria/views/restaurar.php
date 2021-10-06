@@ -26,8 +26,7 @@ Dashboard_Page::headerTemplate('libreria');
                         </div><br>
                     </form>
                     <div class="form-field center-align">
-                        <button onclick="enviarCorreo()" class="button btn waves-effect yellow darken-3 white-text"><span>Enviar código</span>
-                        <i class="material-icons right">send</i>
+                        <button onclick="enviarCorreo()" class="button"><span>Enviar código</span>
                     </button>
                     </div> 
                 </div>
@@ -38,5 +37,5 @@ Dashboard_Page::headerTemplate('libreria');
 </body>
 <?php
 // Se imprime la plantilla del pie enviando el nombre del controlador para la página web.
-Dashboard_Page::footerTemplate('restaurar.js',null);
+Dashboard_Page::footerTemplate('restaurar.js');
 ?>
