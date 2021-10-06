@@ -1,12 +1,44 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
 const API_USUARIOS = '../app/api/usuarios_crud.php?action=';
+const API_USUARIOS2 = '../app/api/usuarios.php?action=';
 const ENDPOINT_EMPLEADOS = '../app/api/empleados.php?action=readAll';
 const ENDPOINT_TIPO = '../app/api/tipo_usuario.php?action=readAll';
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    readRows(API_USUARIOS);
+    revisar();
 });
+
+function revisar() {
+    const data = new FormData();
+    data.append('link', 'usuarios.php');
+    
+    fetch(API_USUARIOS2 + 'readPagina', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    sweetAlert(2, response.message, 'graficas.php');
+                    M.toast({html: 'Acceso Correcto', classes: 'rounded'});
+                    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
+                    readRows(API_USUARIOS);
+                } else {
+                    M.toast({html: 'Acceso Incorrecto', classes: 'rounded'});
+                    sweetAlert(2, 'No tienes permiso de estar aquí', 'graficas.php');
+                    window.locationf='graficas.php';
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+}
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 function fillTable(dataset) {

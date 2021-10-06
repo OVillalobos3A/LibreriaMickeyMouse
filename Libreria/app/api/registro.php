@@ -257,8 +257,7 @@ if (isset($_GET['action'])) {
                                         $_SESSION["ultimoAcceso"] = date("Y-n-j H:i:s");
                                         $result['message'] = 'Autenticación correcta';
                                         $result['status'] = 1;
-                                        $usuario->readTipoU();
-                                        $_SESSION["tipo"] = $usuario->getTipo();
+                                        
                                         //sesion que captura la fecha y hora del inicio de sesión
                                         $user_agent = $_SERVER['HTTP_USER_AGENT'];
                                         //Se establece la zona horaria y se obtiene la fecha y hora actual                                
@@ -271,6 +270,9 @@ if (isset($_GET['action'])) {
                                                                                                                                                                 
                                         //Se registra ingresan los datos en la base de datos
                                         $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario'], $details->city, $details->timezone);
+                                        if ($usuario->readTipoU()) {
+                                            $_SESSION["tipo"] = $usuario->getTipo();
+                                        }
                                     }
                                 }
                             }
@@ -328,8 +330,6 @@ if (isset($_GET['action'])) {
                                     $_SESSION["ultimoAcceso"] = date("Y-n-j H:i:s");
                                     $result['message'] = 'Autenticación correcta';
                                     $result['status'] = 1;
-                                    $usuario->readTipoU();
-                                    $_SESSION["tipo"] = $usuario->getTipo();
                                     //sesion que captura la fecha y hora del inicio de sesión
                                     $user_agent = $_SERVER['HTTP_USER_AGENT'];                                    
                                     $DateAndTime = date('m-d-Y H:i:s a', time());
@@ -339,6 +339,9 @@ if (isset($_GET['action'])) {
                                     $details = json_decode(file_get_contents("http://ipinfo.io/"));
                                     //Se registra ingresan los datos en la base de datos
                                     $usuario->registrarSesion($DateAndTime, $plataforma, $_SESSION['id_usuario'], $details->city, $details->timezone);
+                                    if ($usuario->readTipoU()) {
+                                        $_SESSION["tipo"] = $usuario->getTipo();
+                                    }
                                 } else {
                                     $result['exception'] = 'El código ingresado es incorrecto.';
                                 }

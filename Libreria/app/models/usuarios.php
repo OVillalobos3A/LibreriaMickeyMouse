@@ -145,6 +145,19 @@ class Usuarios extends Validator
         }
     }
 
+    //Permite validar la Descripción del Producto
+    public function setLink($value)
+    {
+        //Se valida que el campo sea un String(letras, números y símbolos)
+        if ($this->validateString($value, 1, 500)) {
+            //Se guarda el dato
+            $this->link = $value;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public function setTipo($value)
     {
         if ($this->validateNaturalNumber($value)) {
@@ -390,6 +403,7 @@ class Usuarios extends Validator
         $params = array($_SESSION['id_usuario']);
         if ($data = Database::getRow($sql, $params)) {
             $this->setTipo($data['id_tipo_usuario']);
+            $_SESSION['Tipo'] = $data['id_tipo_usuario'];
             return true;
         }else {
             return false;
@@ -407,7 +421,7 @@ class Usuarios extends Validator
             INNER JOIN public.permisos USING(id_permiso)
                 WHERE id_tipo_usuario = ? AND link = ?';
         //Se guarda un array con los parametros de la consulta
-        $params = array($_SESSION["tipo"], $this->link);
+        $params = array($_SESSION['tipo'], $this->link);
         //Se retorna la ejecución del método "getRow"
         return Database::getRow($sql, $params);
     }

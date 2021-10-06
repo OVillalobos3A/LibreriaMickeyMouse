@@ -8,9 +8,6 @@ const ENDPOINT_PROVEEDOR= '../app/api/productos.php?action=readProvs';
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     revisar();
-    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    
-    
 });
 function revisar() {
     const data = new FormData();

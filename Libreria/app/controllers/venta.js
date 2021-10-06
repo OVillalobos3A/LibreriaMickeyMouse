@@ -1,12 +1,43 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
+const API_USUARIOS = '../app/api/usuarios.php?action=';
 const API_FACTURA = '../app/api/factura.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
-  // Se llama a la función que obtiene los productos del carrito de compras para llenar la tabla en la vista.
-  readOrderDetail();
-  readInformation();
+    revisar();
 });
+
+function revisar() {
+    const data = new FormData();
+    data.append('link', 'venta.php');
+    
+    fetch(API_USUARIOS + 'readPagina', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    M.toast({html: 'Acceso Correcto', classes: 'rounded'});
+                    // Se llama a la función que obtiene los productos del carrito de compras para llenar la tabla en la vista.
+                    readOrderDetail();
+                    readInformation();
+                } else {
+                    M.toast({html: 'Acceso Incorrecto', classes: 'rounded'});
+                    sweetAlert(2, 'No tienes permiso de estar aquí', 'graficas.php');
+                    window.locationf='graficas.php';
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+}
 
 // Función para obtener el detalle del pedido (carrito de compras).
 function readOrderDetail() {

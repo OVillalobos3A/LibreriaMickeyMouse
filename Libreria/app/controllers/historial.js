@@ -1,12 +1,42 @@
 // Constante para establecer la ruta y parámetros de comunicación con la API.
+const API_USUARIOS = '../app/api/usuarios.php?action=';
 const API_FACTURA = '../app/api/historial.php?action=';
 
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
-    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    readRows(API_FACTURA);
+    revisar();
 });
 
+function revisar() {
+    const data = new FormData();
+    data.append('link', 'historial.php');
+    
+    fetch(API_USUARIOS + 'readPagina', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    M.toast({html: 'Acceso Correcto', classes: 'rounded'});
+                    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
+                    readRows(API_FACTURA);
+                } else {
+                    M.toast({html: 'Acceso Incorrecto', classes: 'rounded'});
+                    sweetAlert(2, 'No tienes permiso de estar aquí', 'graficas.php');
+                    window.locationf='graficas.php';
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+}
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 function fillTable(dataset) {

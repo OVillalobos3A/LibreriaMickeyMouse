@@ -1,9 +1,9 @@
 // Constantes para establecer las rutas y parámetros de comunicación con la API.
+const API_USUARIOS = '../app/api/usuarios.php?action=';
 const API_PROVEEDOR = '../app/api/proveedor.php?action=';
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
-    readRows(API_PROVEEDOR);
+    revisar();
     // Se declara e inicializa un objeto para obtener la fecha y hora actual.
     let today = new Date();
     // Se declara e inicializa una variable para guardar el día en formato de 2 dígitos.
@@ -16,6 +16,37 @@ document.addEventListener('DOMContentLoaded', function () {
     let date = `${year}-${month}-${day}`;
 
 });
+
+function revisar() {
+    const data = new FormData();
+    data.append('link', 'proveedor.php');
+    
+    fetch(API_USUARIOS + 'readPagina', {
+        method: 'post',
+        body: data
+    }).then(function (request) {
+        // Se verifica si la petición es correcta, de lo contrario se muestra un mensaje indicando el problema.
+        if (request.ok) {
+            request.json().then(function (response) {
+                // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
+                if (response.status) {
+                    M.toast({html: 'Acceso Correcto', classes: 'rounded'});
+                    // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
+                    readRows(API_PROVEEDOR);
+                } else {
+                    M.toast({html: 'Acceso Incorrecto', classes: 'rounded'});
+                    sweetAlert(2, 'No tienes permiso de estar aquí', 'graficas.php');
+                    window.locationf='graficas.php';
+                }
+            });
+        } else {
+            console.log(request.status + ' ' + request.statusText);
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+}
 
 // Función para llenar la tabla con los datos de los registros. Se manda a llamar en la función readRows().
 function fillTable(dataset) {
