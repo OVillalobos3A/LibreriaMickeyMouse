@@ -396,6 +396,38 @@ class Usuarios extends Validator
         }
     }
 
+    //Leer solo un producto
+    public function readExistPage()
+    {
+        //Se guarda la consulta sql
+        $sql = 'SELECT id_acceso, id_tipo_usuario, tipo_usuario,id_pagina, nombre,id_permiso, permiso
+        FROM public.accesos
+            INNER JOIN public.tipo_usuario USING(id_tipo_usuario) 
+            INNER JOIN public.paginas USING(id_pagina) 
+            INNER JOIN public.permisos USING(id_permiso)
+                WHERE id_tipo_usuario = ? AND link = ?';
+        //Se guarda un array con los parametros de la consulta
+        $params = array($_SESSION["tipo"], $this->link);
+        //Se retorna la ejecución del método "getRow"
+        return Database::getRow($sql, $params);
+    }
+
+    //Leer solo un producto
+    public function readExistPermiso()
+    {
+        //Se guarda la consulta sql
+        $sql = 'SELECT id_acceso, id_tipo_usuario, tipo_usuario,id_pagina, nombre,id_permiso, permiso
+        FROM public.accesos
+            INNER JOIN public.tipo_usuario USING(id_tipo_usuario) 
+            INNER JOIN public.paginas USING(id_pagina) 
+            INNER JOIN public.permisos USING(id_permiso)
+                WHERE id_tipo_usuario = ? AND id_permiso = ?';
+        //Se guarda un array con los parametros de la consulta
+        $params = array($_SESSION["tipo"], $this->idpermiso);
+        //Se retorna la ejecución del método "getRow"
+        return Database::getRow($sql, $params);
+    }
+
     public function readOneReport()
     {
         $sql = 'SELECT nombre, apellido, usuario

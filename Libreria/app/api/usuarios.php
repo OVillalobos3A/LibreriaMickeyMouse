@@ -136,6 +136,40 @@ if (isset($_GET['action'])) {
                     $result['exception'] = 'Usuario incorrecto';
                 }
                 break;
+            case 'readPagina':
+                if ($_SESSION["tipo"] = 1) {
+                    $result['status'] = 1;
+                } else {
+                    if ($usuario->setLink($_POST['link'])) {
+                        if ($result['dataset'] = $usuario->readPagina()) {
+                            $result['status'] = 1;
+                        } else {
+                            if (Database::getException()) {
+                                $result['exception'] = Database::getException();
+                            } else {
+                                $result['exception'] = 'No puedes ingresar';
+                            }
+                        }
+                    } else {
+                        $result['exception'] = 'Usuario incorrecto';
+                    }
+                }
+                break;
+            case 'readPermiso':
+                if ($usuario->setIdPermiso($_POST['id_permiso'])) {
+                    if ($result['dataset'] = $usuario->readPermiso()) {
+                        $result['status'] = 1;
+                    } else {
+                        if (Database::getException()) {
+                            $result['exception'] = Database::getException();
+                        } else {
+                            $result['exception'] = 'Usuario inexistente';
+                        }
+                    }
+                } else {
+                    $result['exception'] = 'Usuario incorrecto';
+                }
+                break;
             case 'update':
                 $_POST = $usuario->validateForm($_POST);
                 if ($usuario->setId($_POST['id_usuario'])) {
