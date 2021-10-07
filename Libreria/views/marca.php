@@ -24,7 +24,7 @@ Dashboard_Page::headerTemplate('Marcas');
                     <div class="input-field col s12 m8 l8">
                         <i class="material-icons prefix">search</i>
                         <input type="text" id="search" name="search" class="autocomplete" maxlength="20" required>
-                        <label for="autocomplete-input">Ingresa el Nombre de la Marca que deseas buscar</label>
+                        <label for="search">Ingresa el Nombre de la Marca que deseas buscar</label>
                     </div>
                     <div class="input-field s12 m4 l4">
                         <button class="btn red accent-4" type="submit" name="action">Buscar

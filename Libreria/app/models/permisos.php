@@ -230,6 +230,22 @@ class Permisos extends Validator
     }
 
     //Ver todos los productos
+    public function readAllPaginas()
+    {
+        //Se guarda la consulta sql
+        $sql = 'SELECT id_acceso, tipo_usuario, nombre, permiso
+        FROM public.accesos
+            INNER JOIN public.tipo_usuario USING(id_tipo_usuario) 
+            INNER JOIN public.paginas USING(id_pagina) 
+            INNER JOIN public.permisos USING(id_permiso)
+                WHERE id_pagina =? ';
+        //Se guarda un array con los parametros de la consulta(vacío)
+        $params = array($this->idpagina);
+        //Se retorna la ejecución del método "getRow"
+        return Database::getRows($sql, $params);
+    }
+
+    //Ver todos los productos
     public function readAllReport()
     {
         //Se guarda la consulta sql

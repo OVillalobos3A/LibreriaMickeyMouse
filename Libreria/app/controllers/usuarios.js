@@ -21,7 +21,6 @@ function revisar() {
             request.json().then(function (response) {
                 // Se comprueba si la respuesta es satisfactoria, de lo contrario se muestra un mensaje con la excepción.
                 if (response.status) {
-                    sweetAlert(2, response.message, 'graficas.php');
                     M.toast({html: 'Acceso Correcto', classes: 'rounded'});
                     // Se llama a la función que obtiene los registros para llenar la tabla. Se encuentra en el archivo components.js
                     readRows(API_USUARIOS);

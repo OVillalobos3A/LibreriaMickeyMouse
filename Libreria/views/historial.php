@@ -15,7 +15,7 @@ Dashboard_Page::headerTemplate('Ventas realizadas');
                     <div class="input-field col s12 m8 m8">
                         <i class="material-icons prefix">search</i>
                         <input id="search" type="text" name="search"  maxlength="40" required/>
-                        <label for="autocomplete-input">Ingresa el Número de factura que quieres buscar</label>
+                        <label for="search">Ingresa el Número de factura que quieres buscar</label>
                     </div>
                     <div class="input-field s12 m4 l4">
                         <button class="btn red accent-4" type="submit" name="action">Buscar
