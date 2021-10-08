@@ -22,7 +22,7 @@ Dashboard_Page::headerTemplate('Registro');
 								<!--Texbox Nombre-->
 								<div class="input-field col s12 m6 l6">
 									<i class="material-icons prefix">recent_actors</i>
-									<input placeholder="Ingresa tu Nombre" id="nombre" name="nombre" type="text" class="validate" required>
+									<input placeholder="Ingresa tu Nombre" class="form_input" id="nombre" name="nombre" type="text" class="validate" required>
 									<label for="nombre">Nombres *</label>										
 								</div>
 								<!--Texbox Apellidos-->
@@ -46,7 +46,7 @@ Dashboard_Page::headerTemplate('Registro');
 								<!--Texbox DUI-->
 								<div class="input-field col s12 m6 l6">
 									<i class="material-icons prefix">call_to_action</i>
-									<input placeholder="00000000-0" id="dui" name="dui" type="text" class="validate" required>
+									<input placeholder="00000000-0" class="form_input" id="dui" name="dui" type="text" class="validate" required>
 									<label for="dui">DUI * : (Utiliza el siguiente formato 00000000-0)</label>										
 								</div>
 								<!--Texbox Nacimiento-->

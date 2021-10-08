@@ -3,7 +3,6 @@
         
     
     document.addEventListener('DOMContentLoaded', function() {
-        
         //Navbar
         var sdnv = document.querySelectorAll('.sidenav');
         var instancesSdnv = M.Sidenav.init(sdnv);
@@ -60,7 +59,11 @@
             scln[i].classList.add("scale-in");
         }
 
+
+
     });
+
+
 
     //Animaciones
 

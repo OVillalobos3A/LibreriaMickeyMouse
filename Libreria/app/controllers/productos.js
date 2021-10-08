@@ -8,6 +8,7 @@ const ENDPOINT_PROVEEDOR= '../app/api/productos.php?action=readProvs';
 // Método manejador de eventos que se ejecuta cuando el documento ha cargado.
 document.addEventListener('DOMContentLoaded', function () {
     revisar();
+    filename();
 });
 function revisar() {
     const data = new FormData();
@@ -262,4 +263,20 @@ function openDeleteDialog(id) {
     data.append('id_producto', id);
     // Se llama a la función que elimina un registro. Se encuentra en el archivo components.js
     confirmDelete(API_PRODUCTOS, data);
+}
+
+function filename(){
+    //Declaraciones ejecutadas cuando el resultado de expresión coincide con el valor1
+    var inv = document.getElementById("inv");
+    var adm = document.getElementById("adm");
+    var usr = document.getElementById("usr");
+    var vnt = document.getElementById("vnt");
+    var htr = document.getElementById("htr");
+
+    inv.classList.add("active");
+    adm.classList.remove("active");
+    usr.classList.remove("active");
+    vtn.classList.remove("active");
+    htr.classList.remove("active");
+    
 }

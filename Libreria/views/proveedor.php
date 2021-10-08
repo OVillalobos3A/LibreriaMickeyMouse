@@ -56,6 +56,10 @@ Dashboard_Page::headerTemplate('Proveedor');
                 <tbody id="tbody-rows">
                 </tbody>
             </table>
+            <div class="col s12 center text-center">
+                <span class="left" id="total_reg"></span>
+                <ul class="pagination" id="myPager"></ul>
+            </div>
             
         </div>
     </div>

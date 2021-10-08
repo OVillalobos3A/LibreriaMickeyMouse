@@ -67,7 +67,8 @@ class Dashboard_Page {
                     <div class="navbar-fixed">
                         <!--Navbar-->
                         <nav class="navbar-transition cool-navbar z-depth-0 nv"role="navigation">
-                        <div class="nav-wrapper red accent-4 valing-wrapper">
+                        <!--Anterior: red accent-4-->
+                        <div class="nav-wrapper black valing-wrapper">
                             <a href="graficas.php" class="pad-nav brand-logo white-text Titulos pad-nav"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="56" height="56"
                             viewBox="0 0 172 172"
@@ -75,27 +76,27 @@ class Dashboard_Page {
                             <a href="#" data-target="mobile-demo" class="sidenav-trigger black-text"><i class="material-icons">menu</i></a>
                             <ul class="right hide-on-med-and-down">
 
-                            <li><a href="inventario.php" class="Subtitulos white-text">Inventario<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            <li><a href="inventario.php" id="inv" class="Subtitulos white-text">Inventario<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="30" height="30"
                             viewBox="0 0 172 172"
                             style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path><g fill="#000000"><path d="M123.26667,140.46667l-37.26667,-17.2l-37.26667,17.2v-97.46667c0,-6.30667 5.16,-11.46667 11.46667,-11.46667h51.6c6.30667,0 11.46667,5.16 11.46667,11.46667z"></path></g></g></svg></i></a></li>
                 
-                            <li><a href="#!" class="Subtitulos white-text dropdown-trigger" data-target="DropdownAdmin">Administración<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            <li><a href="#!" id="adm" class="Subtitulos white-text dropdown-trigger" data-target="DropdownAdmin">Administración<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="30" height="30"
                             viewBox="0 0 172 172"
                             style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path><g><path d="M129,53.75h-48.375l-10.75,-10.75h-26.875c-5.9125,0 -10.75,4.8375 -10.75,10.75v21.5h107.5v-10.75c0,-5.9125 -4.8375,-10.75 -10.75,-10.75z" fill="#333333"></path><path d="M129,53.75h-86c-5.9125,0 -10.75,4.8375 -10.75,10.75v53.75c0,5.9125 4.8375,10.75 10.75,10.75h86c5.9125,0 10.75,-4.8375 10.75,-10.75v-53.75c0,-5.9125 -4.8375,-10.75 -10.75,-10.75z" fill="#000000"></path></g></g></svg></i></a></li>
                                 
-                            <li><a href="#!" class="Subtitulos white-text dropdown-trigger" data-target="DropdownEmpleados">Empleados<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            <li><a href="#!" id="usr" class="Subtitulos white-text dropdown-trigger" data-target="DropdownEmpleados">Empleados<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="30" height="30"
                             viewBox="0 0 172 172"
                             style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path><g><path d="M140.18,114.38c0,5.69664 -4.62078,10.32 -10.32,10.32h-87.72c-5.69922,0 -10.32,-4.62336 -10.32,-10.32v-56.76c0,-5.7018 4.62078,-10.32 10.32,-10.32h87.72c5.69922,0 10.32,4.6182 10.32,10.32z" fill="#000000"></path><path d="M73.1,78.26c0,5.69664 -4.62078,10.32 -10.32,10.32c-5.69922,0 -10.32,-4.62336 -10.32,-10.32c0,-5.69922 4.62078,-10.32 10.32,-10.32c5.69922,0 10.32,4.62078 10.32,10.32M80.84,101.48c0,0 -5.00004,-7.74 -18.06,-7.74c-13.06512,0 -18.06,7.74 -18.06,7.74v5.16h36.12zM127.28,70.52h-38.7v5.16h38.7zM127.28,83.42h-38.7v5.16h38.7zM109.22,96.32h-20.64v5.16h20.64z" fill="#ffffff"></path></g></g></svg></i></a></li>
                                 
-                            <li><a href="venta.php" class="Subtitulos white-text">Venta<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            <li><a href="venta.php" id="vnt" class="Subtitulos white-text">Venta<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="30" height="30"
                             viewBox="0 0 172 172"
                             style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path><g><path d="M122.61254,82.29604l-12.63589,-35.37323h-47.9533l-12.6331,35.37323l-10.51456,-3.75699l13.95614,-39.07719c0.79271,-2.22182 2.89729,-3.70396 5.25588,-3.70396h55.82456c2.35859,0 4.46317,1.48214 5.25588,3.70396l13.95614,39.07719z" fill="#000000"></path><path d="M123.40246,139.03333h-74.80491c-2.79123,0 -5.02421,-1.95386 -5.58246,-4.46596l-10.04842,-51.3586h106.06667l-10.32754,51.3586c-0.55825,2.51211 -2.79123,4.46596 -5.30333,4.46596z" fill="#000000"></path><path d="M139.03333,88.79123h-106.06667c-3.07035,0 -5.58246,-2.51211 -5.58246,-5.58246v-5.58246c0,-3.07035 2.51211,-5.58246 5.58246,-5.58246h106.06667c3.07035,0 5.58246,2.51211 5.58246,5.58246v5.58246c0,3.07035 -2.51211,5.58246 -5.58246,5.58246z" fill="#000000"></path><path d="M86,97.16491v0c-1.54076,0 -2.79123,1.25047 -2.79123,2.79123v27.91228c0,1.67474 1.11649,2.79123 2.79123,2.79123c1.67474,0 2.79123,-1.11649 2.79123,-2.79123v-27.91228c0,-1.54076 -1.25047,-2.79123 -2.79123,-2.79123zM97.16491,97.16491v0c-1.54076,0 -2.79123,1.25047 -2.79123,2.79123v27.91228c0,1.67474 1.11649,2.79123 2.79123,2.79123c1.67474,0 2.79123,-1.11649 2.79123,-2.79123v-27.91228c0,-1.54076 -1.25047,-2.79123 -2.79123,-2.79123zM108.32982,97.16491v0c-1.54076,0 -2.79123,1.25047 -2.79123,2.79123v27.91228c0,1.67474 1.11649,2.79123 2.79123,2.79123c1.67474,0 2.79123,-1.11649 2.79123,-2.79123v-27.91228c0,-1.54076 -1.25047,-2.79123 -2.79123,-2.79123zM63.67018,97.16491v0c-1.54076,0 -2.79123,1.25047 -2.79123,2.79123v27.91228c0,1.67474 1.11649,2.79123 2.79123,2.79123c1.67474,0 2.79123,-1.11649 2.79123,-2.79123v-27.91228c0,-1.54076 -1.25047,-2.79123 -2.79123,-2.79123zM74.83509,97.16491v0c-1.54076,0 -2.79123,1.25047 -2.79123,2.79123v27.91228c0,1.67474 1.11649,2.79123 2.79123,2.79123c1.67474,0 2.79123,-1.11649 2.79123,-2.79123v-27.91228c0,-1.54076 -1.25047,-2.79123 -2.79123,-2.79123z" fill="#ffffff"></path><path d="M99.95614,49.71404h-27.91228c-1.54076,0 -2.79123,-1.25047 -2.79123,-2.79123v-11.16491c0,-1.54076 1.25047,-2.79123 2.79123,-2.79123h27.91228c1.54076,0 2.79123,1.25047 2.79123,2.79123v11.16491c0,1.54076 -1.25047,2.79123 -2.79123,2.79123z" fill="#000000"></path></g></g></svg></i></a></li>
                 
-                            <li><a href="#!" class="Subtitulos white-text dropdown-trigger" data-target="DropdownHistorial">Historiales<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            <li><a href="#!" id="htr" class="Subtitulos white-text dropdown-trigger" data-target="DropdownHistorial">Historiales<i class="right valign-wrapper"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="30" height="30"
                             viewBox="0 0 172 172"
                             style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="#ffffff"></path><g><path d="M37.26667,84.56667c0,26.94667 21.78667,48.73333 48.73333,48.73333c26.94667,0 48.73333,-21.78667 48.73333,-48.73333c0,-26.94667 -21.78667,-48.73333 -48.73333,-48.73333c-26.94667,0 -48.73333,21.78667 -48.73333,48.73333" fill="#ffffff"></path><path d="M86,141.9c-31.53333,0 -57.33333,-25.8 -57.33333,-57.33333c0,-31.53333 25.8,-57.33333 57.33333,-57.33333c13.47333,0 26.66,4.87333 36.98,13.76l-7.45333,8.6c-8.02667,-7.16667 -18.63333,-10.89333 -29.52667,-10.89333c-25.22667,0 -45.86667,20.64 -45.86667,45.86667c0,25.22667 20.64,45.86667 45.86667,45.86667z" fill="#cccccc"></path><path d="M86,141.9c-31.53333,0 -57.33333,-25.8 -57.33333,-57.33333c0,-13.47333 4.87333,-26.66 13.76,-36.98l8.6,7.45333c-7.16667,8.02667 -10.89333,18.63333 -10.89333,29.52667c0,25.22667 20.64,45.86667 45.86667,45.86667c25.22667,0 45.86667,-20.64 45.86667,-45.86667c0,-25.22667 -20.64,-45.86667 -45.86667,-45.86667v-11.46667c31.53333,0 57.33333,25.8 57.33333,57.33333c0,31.53333 -25.8,57.33333 -57.33333,57.33333z" fill="#000000"></path><path d="M94.6,50.16667l-22.93333,-17.2l22.93333,-17.2z" fill="#000000"></path><path d="M68.8,58.76667l5.16,-2.58l14.62,27.23333l-5.16,2.58z" fill="#000000"></path><path d="M83.70667,82.27333l4.87333,4.87333l-14.90667,14.62l-4.87333,-4.87333z" fill="#000000"></path><path d="M80.26667,84.56667c0,3.15333 2.58,5.73333 5.73333,5.73333c3.15333,0 5.73333,-2.58 5.73333,-5.73333c0,-3.15333 -2.58,-5.73333 -5.73333,-5.73333c-3.15333,0 -5.73333,2.58 -5.73333,5.73333" fill="#000000"></path><path d="M83.13333,84.56667c0,1.72 1.14667,2.86667 2.86667,2.86667c1.72,0 2.86667,-1.14667 2.86667,-2.86667c0,-1.72 -1.14667,-2.86667 -2.86667,-2.86667c-1.72,0 -2.86667,1.14667 -2.86667,2.86667" fill="#000000"></path></g></g></svg></i></a></li>
@@ -171,7 +172,8 @@ class Dashboard_Page {
                         <div class="navbar-fixed">
                             <!--Navbar-->
                             <nav class="navbar-transition cool-navbar z-depth-0 nv"role="navigation">
-                            <div class="nav-wrapper red accent-4 valing-wrapper">
+                            <!--Anterior: red accent-4-->
+                            <div class="nav-wrapper black valing-wrapper">
                                 <a href="graficas.php" class="pad-nav brand-logo white-text Titulos pad-nav"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                 width="56" height="56"
                                 viewBox="0 0 172 172"
@@ -280,11 +282,13 @@ class Dashboard_Page {
             $scripts = '
                 <!--JavaScript at end of body for optimized loading-->
                 <script type="text/javascript" src="../resources/js/materialize.min.js"></script>
-                <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script>                
+                <script type="text/javascript" src="../resources/js/sweetalert.min.js"></script> 
+                <script type="text/javascript" src="https://cdn.rawgit.com/pinzon1992/materialize_table_pagination/f9a8478f/js/pagination.js"></script>               
                 <script type="text/javascript" src="../app/controllers/account.js"></script>
                 <script type="text/javascript" src="../app/controllers/initialization.js"></script>
                 <script type="text/javascript" src="../app/controllers/' . $controller . '"></script>
                 <script type="text/javascript" src="../app/helpers/components.js"></script>
+                
             ';
             $links = '
                 <h5 class="white-text Titulos">California</h5>
@@ -389,7 +393,7 @@ class Dashboard_Page {
         // Se imprime el código HTML de las cajas de dialogo (modals).
         print('
             <!-- Componente Modal para mostrar el formulario de editar perfil -->
-            <div id="profile-modal" class="modal">
+            <div id="profile-modal" class="modal rad Texto">
                 <div class="modal-content">
                     <h4 class="center-align">Editar perfil</h4>
                     <form method="post" id="profile-form">
@@ -424,7 +428,7 @@ class Dashboard_Page {
             </div>
 
             <!-- Componente Modal para mostrar el formulario de cambiar contraseña -->
-            <div id="password-modal" class="modal">
+            <div id="password-modal" class="modal rad Texto">
                 <div class="modal-content">
                     <h4 class="center-align">Cambiar contraseña</h4>
                     <form method="post" id="password-form">
