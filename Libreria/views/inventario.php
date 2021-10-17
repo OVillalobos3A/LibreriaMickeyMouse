@@ -16,9 +16,7 @@ Dashboard_Page::headerTemplate('libreria');
                             <form method="post" id="search-form">
                                 <div class="input-field col s7 m9 l9">
                                     <i class="material-icons prefix white-text">search</i>
-                                    <input
-                                        placeholder="Ingresa el nombre, la descripción, marca o tipo del Producto que quieras buscar"
-                                        id="search" type="text" name="search" class="validate white-text" required>
+                                    <input id="search" type="text" name="search" class="validate white-text" required>
                                     <label for="search">Buscar Producto</label>
                                 </div>
                                 <div class="input-field col s4 m2 l2">
@@ -67,7 +65,7 @@ Dashboard_Page::headerTemplate('libreria');
                     <div class="row">
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">assignment</i>
-                            <input placeholder="Ingresa el Nombre del Producto" id="nombre" name="nombre" type="text"
+                            <input id="nombre" name="nombre" type="text"
                                 class="validate" required>
                             <label for="nombre">Nombre del producto *</label>
                         </div>
@@ -78,7 +76,7 @@ Dashboard_Page::headerTemplate('libreria');
                         </div>
                         <div class="input-field col s12 m12 l12">
                             <i class="material-icons prefix">description</i>
-                            <textarea placeholder="Añade una Descripción del Producto" id="descripcion"
+                            <textarea id="descripcion"
                                 name="descripcion" class="materialize-textarea" required></textarea>
                             <label for="descripcion">Descripcion *</label>
                         </div>
@@ -97,14 +95,14 @@ Dashboard_Page::headerTemplate('libreria');
                         </div>
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">book</i>
-                            <input placeholder="Ingresa el Autor(En caso sea necesario)" id="autor" name="autor"
+                            <input id="autor" name="autor"
                                 type="text" class="validate">
                             <label for="autor">Autor (opcional)</label>
                         </div>
                         <!--Texbox Cantidad-->
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">sort</i>
-                            <input placeholder="Ingresa la Cantidad Disponible actual del Producto" id="stock"
+                            <input id="stock"
                                 name="stock" type="number" min="1" class="validate" required>
                             <label for="stock" id="label-stock">Cantidad Disponible *</label>
                         </div>
@@ -112,7 +110,7 @@ Dashboard_Page::headerTemplate('libreria');
                             <i class="material-icons prefix">monetization_on</i>
                             <input placeholder="$00.00" id="precio" name="precio" type="number" min="1" max="90"
                                 step="any" class="validate" required>
-                            <label for="precio">Precio $ *</label>
+                            <label for="precio">Precio $ * ($00.00)</label>
                         </div>
                         <div class="input-field col s12 m12 l12">
                             <div class="file-field input-field">

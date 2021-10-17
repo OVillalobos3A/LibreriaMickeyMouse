@@ -2,10 +2,17 @@
 include("../app/helpers/dashboard.php");
 Dashboard_Page::headerTemplate('Log In');
 ?>
-<section class="login-background Texto">
+<section class="Texto">
 	<div class="container">
 		<div class="row">
 			<div class="col s12">
+				<br><br>
+			</div>
+			<div class="col s5 m5 l5 center hide-on-small-only"><br><br><br>
+				<img src="../resources/multimedia/login/ea (1).png" width="200" height="200">
+				<h5 class="Titulos white-text">ENTRONO DE ADMINISTRACIÓN DE LIBRERÍAS</h5><br>
+			</div>
+			<div class="col s2">
 				<br><br>
 			</div>
 			<div class="col s12 m5 l5">
@@ -40,11 +47,6 @@ Dashboard_Page::headerTemplate('Log In');
 						</div>
 					</div>       
 				</div>
-			</div>
-			<div class="col s7 m7 l7 hide-on-small-only"><br><br><br>
-				<h3 class="Titulos center white-text">Librería Mickey Mouse</h3><br>
-				<h3 class="Texto center white-text">"Te damos la Bienvenida"</h3>
-				
 			</div>
 			<div class="col s12">
 				<br><br>
